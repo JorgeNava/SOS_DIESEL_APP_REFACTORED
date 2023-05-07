@@ -1,7 +1,7 @@
 <template>
   <div class="home">
-<!--     <HomeProduct :imageUrl="imageUrls.imagenTractor"/>
-    <NavBar :imageUrls="imageUrls"/> -->
+<!-- <HomeProduct :imageUrl="imageUrls.imagenTractor"/>-->
+    <NavBar :imageUrls="imageUrls"/> 
     <div class="mision">
       <div class="container">
         <div class="image">
@@ -31,8 +31,8 @@
 <script>
 import Footer from "@/components/footer";
 /* import Carousel from "@/components/Carousel/Carousel.vue";
-import HomeProduct from "@/components/HomeProduct/HomeProduct.vue";
-import NavBar from "@/components/NavBar/NavBar.vue"; */
+import HomeProduct from "@/components/HomeProduct/HomeProduct.vue";*/
+import NavBar from "@/components/old-navbar.vue"; 
 
 import IMAGEN_TRACTOR from "@/assets/images/old_repo/tractor.png";
 import LOGOSOS from "@/assets/images/old_repo/logosos.png";
@@ -117,7 +117,7 @@ export default {
       viewMoreUrl: "/productos"
     };
   },
-  components: { /* HomeProduct, NavBar, Carousel, */ Footer }
+  components: { /* HomeProduct,*/  NavBar, /* Carousel, */ Footer }
 };
 </script>
 

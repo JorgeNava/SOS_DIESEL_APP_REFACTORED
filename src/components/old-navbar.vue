@@ -1,25 +1,26 @@
 <template>
-  <div class="containerPhotos">
-    <img :src="imageUrls.logosos" alt="" class="img_logosos">
-    <div class="imgMarcas">
-      <img :src="imageUrls.Kubotalogo" alt="" class="img_Kubotalogo">
-      <img :src="imageUrls.sprinterlogo" alt="" class="img_sprinterlogo">
-      <img :src="imageUrls.yanmarlogo" alt="" class="img_yanmarlogo">
+  <div>
+    <div class="containerPhotos">
+      <img :src="imageUrls.logosos" alt="" class="img_logosos">
+      <div class="imgMarcas">
+        <img :src="imageUrls.Kubotalogo" alt="" class="img_Kubotalogo">
+        <img :src="imageUrls.sprinterlogo" alt="" class="img_sprinterlogo">
+        <img :src="imageUrls.yanmarlogo" alt="" class="img_yanmarlogo">
+      </div>
+      <div class="linkNum">
+        <img :src="imageUrls.delivery" alt="" class="img_delivery">
+        <button style="color:red;" class="buttonDelivery">
+          <a class="link" :href="'tel:' + '(33) 2255 6677'"  style="text-decoration:none"> Linea Directa (33) 2255 6677 </a>
+        </button>
     </div>
-    <div class="linkNum">
-      <img :src="imageUrls.delivery" alt="" class="img_delivery">
-      <button style="color:red;" class="buttonDelivery">
-        <a class="link" :href="'tel:' + '(33) 2255 6677'"  style="text-decoration:none"> Linea Directa (33) 2255 6677 </a>
-      </button>
+    </div>
+  
+    <div class="containerButtons">
+      <router-link to="/productos" class="button-top">Productos</router-link>
+      <router-link to="/quienes-somos" class="button" >Quienes Somos </router-link>
+      <router-link to="/contacto" class="button-bottom">Contacto</router-link>
+    </div>
   </div>
-  </div>
-
-  <div class="containerButtons">
-    <router-link to="/productos" class="button-top">Productos</router-link>
-    <router-link to="/quienes-somos" class="button" >Quienes Somos </router-link>
-    <router-link to="/contacto" class="button-bottom">Contacto</router-link>
-  </div>
-
 </template>
 
 <script>

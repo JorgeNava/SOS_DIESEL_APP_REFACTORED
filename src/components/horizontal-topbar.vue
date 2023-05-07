@@ -162,7 +162,7 @@ export default {
               <img src="@/assets/images/logo-sm-light.png" alt height="22" />
             </span>
             <span class="logo-lg">
-              <img src="@/assets/images/logo-light.png" alt height="20" />
+              <img src="@/assets/images/logo-dark.png" alt height="20" />
             </span>
           </a>
         </div>

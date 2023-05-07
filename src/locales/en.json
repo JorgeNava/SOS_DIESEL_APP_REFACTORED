@@ -119,6 +119,19 @@
       "text": "Chat",
       "badge": "New"
     },
+    "catalog": {
+      "text": "Catalog",
+      "list": {
+        "products": "Products",
+        "productdetail": "Product Detail",
+        "orders": "Orders",
+        "customers": "Customers",
+        "cart": "Cart",
+        "checkout": "Checkout",
+        "shops": "Shops",
+        "addproduct": "Add Product"
+      }
+    },
     "ecommerce": {
       "text": "Ecommerce",
       "list": {
