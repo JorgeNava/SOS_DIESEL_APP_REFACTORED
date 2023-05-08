@@ -16,4 +16,10 @@ export const menuItems = [
 			},
 		],
 	},
+	{
+		id: 4,
+		label: "menuitems.users.text",
+		icon: "ri-user-line",
+		link: "/dashboard/users",
+	},
 ];

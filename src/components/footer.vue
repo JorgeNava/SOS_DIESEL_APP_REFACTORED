@@ -3,7 +3,7 @@
     <div class="container-fluid">
       <div class="row">
         <div class="col-sm-6">
-          2020 © SOS Diesel.
+          2023 © SOS Diesel.
         </div>
         <div class="col-sm-6">
           <div class="text-sm-right d-none d-sm-block">

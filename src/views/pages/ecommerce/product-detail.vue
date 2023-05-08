@@ -374,7 +374,7 @@ export default {
                       </li>
                     </ul>
                   </div>
-                  <p class="float-sm-right font-size-12">11 Feb, 2020</p>
+                  <p class="float-sm-right font-size-12">11 Feb, 2023</p>
                 </div>
                 <div class="media border-bottom py-3">
                   <div class="media-body">
@@ -396,7 +396,7 @@ export default {
                       </li>
                     </ul>
                   </div>
-                  <p class="float-sm-right font-size-12">22 Jan, 2020</p>
+                  <p class="float-sm-right font-size-12">22 Jan, 2023</p>
                 </div>
                 <div class="media py-3">
                   <div class="media-body">
@@ -418,7 +418,7 @@ export default {
                       </li>
                     </ul>
                   </div>
-                  <p class="float-sm-right font-size-12">04 Jan, 2020</p>
+                  <p class="float-sm-right font-size-12">04 Jan, 2023</p>
                 </div>
               </div>
             </div>

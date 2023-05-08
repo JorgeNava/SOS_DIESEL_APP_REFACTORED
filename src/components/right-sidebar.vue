@@ -133,62 +133,6 @@ export default {
               <b-form-radio value="light" class="mb-1">Light</b-form-radio>
             </b-form-radio-group>
           </div>
-
-          <!-- Preloader -->
-          <h6 class="mt-3">Preloader</h6>
-          <hr class="mt-1" />
-
-          <b-form-checkbox
-            v-model="loader"
-            name="check-button"
-            switch
-            @input="changeloader"
-            >Preloader</b-form-checkbox
-          >
-        </div>
-        <!-- Settings -->
-        <hr class="mt-0" />
-        <h6 class="text-center mb-0">Choose Layouts</h6>
-
-        <div class="p-4">
-          <div class="mb-2">
-            <router-link
-              to="//http://SOS Diesel.vuejs-light-h.themesdesign.in/"
-              target="_blank"
-            >
-              <img
-                src="@/assets/images/layouts/layout-4.jpg"
-                class="img-fluid img-thumbnail"
-                alt
-              />
-            </router-link>
-          </div>
-
-          <div class="mb-2">
-            <router-link
-              to="//http://SOS Diesel.vuejs-dark-h.themesdesign.in/"
-              target="_blank"
-            >
-              <img
-                src="@/assets/images/layouts/layout-5.jpg"
-                class="img-fluid img-thumbnail"
-                alt
-              />
-            </router-link>
-          </div>
-
-          <div class="mb-2">
-            <router-link
-              to="//http://SOS Diesel.vuejs-rtl-h.themesdesign.in/"
-              target="_blank"
-            >
-              <img
-                src="@/assets/images/layouts/layout-6.jpg"
-                class="img-fluid img-thumbnail"
-                alt
-              />
-            </router-link>
-          </div>
         </div>
       </div>
       <!-- end slimscroll-menu-->

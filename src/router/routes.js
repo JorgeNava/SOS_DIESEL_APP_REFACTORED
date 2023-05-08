@@ -10,12 +10,20 @@ export default [
 		component: () => import("../views/pages/home/home"),
 	},
 	{
+		path: "/dashboard/users",
+		name: "users",
+		meta: {
+			authRequired: true,
+		},
+		component: () => import("../views/pages/users/index"),
+	},
+	{
 		path: "/dashboard",
 		name: "dashboard",
 		meta: {
 			authRequired: true,
 		},
-		component: () => import("../views/pages/new-dashboard/index"),
+		component: () => import("../views/pages/ecommerce/products"),
 	},
 	{
 		path: "/login",
