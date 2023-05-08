@@ -1,16 +1,19 @@
 <template>
   <div class="home">
-<!-- <HomeProduct :imageUrl="imageUrls.imagenTractor"/>-->
+  <HomeProduct :imageUrl="imageUrls.imagenTractor"/>
     <NavBar :imageUrls="imageUrls"/> 
+    --------------------------------
     <div class="mision">
       <div class="container">
-        <div class="image">
+        <div class="image" style="width: 260vh;">
           <img src="@/assets/images/old_repo/img_panel_testimonials.jpg" alt="" >
         </div>
         <div class="content">
           <h1 class="mision-y-vision--title">SOS DIESEL PARTS</h1>
           <p class="mision-y-vision--subtitle">MISION Y VISIÓN</p>
-          <div class="mision-y-vision--text">
+          <div class="mision-y-vision--text" >
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed ut tellus vitae nibh tristique vestibulum. Sed facilisis ipsum nec metus placerat, eget aliquet lectus blandit.</p>
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed ut tellus vitae nibh tristique vestibulum. Sed facilisis ipsum nec metus placerat, eget aliquet lectus blandit.</p>
             <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed ut tellus vitae nibh tristique vestibulum. Sed facilisis ipsum nec metus placerat, eget aliquet lectus blandit.</p>
             <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed ut tellus vitae nibh tristique vestibulum. Sed facilisis ipsum nec metus placerat, eget aliquet lectus blandit.</p>
             <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed ut tellus vitae nibh tristique vestibulum. Sed facilisis ipsum nec metus placerat, eget aliquet lectus blandit.</p>
@@ -24,14 +27,14 @@
       </div>
       <router-link :to="viewMoreUrl" class="ver-mas">Ver catálogo</router-link>  
     </div>
-    <Footer />
+    <Footer class="footersillo"/>
   </div>
 </template>
 
 <script>
 import Footer from "@/components/footer";
-/* import Carousel from "@/components/Carousel/Carousel.vue";
-import HomeProduct from "@/components/HomeProduct/HomeProduct.vue";*/
+/* import Carousel from "@/components/Carousel/Carousel.vue";*/
+import HomeProduct from "@/components/old-home-product.vue";
 import NavBar from "@/components/old-navbar.vue"; 
 
 import IMAGEN_TRACTOR from "@/assets/images/old_repo/tractor.png";
@@ -117,7 +120,7 @@ export default {
       viewMoreUrl: "/productos"
     };
   },
-  components: { /* HomeProduct,*/  NavBar, /* Carousel, */ Footer }
+  components: { HomeProduct,  NavBar, /* Carousel, */ Footer }
 };
 </script>
 
@@ -128,20 +131,20 @@ export default {
 
   .container {
     display: flex;
-    justify-content: center; /* centrar horizontalmente */
+    justify-content: left; /* centrar horizontalmente */
     align-items: flex-start; /* alinear arriba */
-    padding-top: 6.5vh;
+    padding-top: 3.6vh;
   }
 
   .content {
-    max-width: 50%;
     text-align: left;
   }
 
   .image img{
-    width: 28vw;
-    margin-left: 17vw;
-    margin-right: 4.5vw;
+    width: 100%;
+    margin-left: -15%;
+    margin-top: 11%;
+    width: 718px;
   }
 
   //! TO-DO: CSS REPETIDO
@@ -150,34 +153,35 @@ export default {
   }
 
   h1 {
-    padding-top: 2%;
+    padding-top: 6%;
   
   }
 
   .mision {
     height: 100vh;
+    background-color: white;
   }
 
   .mision-y-vision {
     &--title{
-      margin-top: 2vh;
-      margin-bottom: 4vh;
-      font-size: 2.5rem;
+      margin-top: 5vh;
+      margin-bottom: 2vh;
+      font-size: 3.5rem;
       line-height: 1.2;
       font-family: 'Helvetica-SOS';
-      font-weight: 500;
+      font-weight: 800;
       color: #C1272D;
     }
     &--subtitle{
       font-weight: bold;
-      font-size: 1.6rem;
+      font-size: 2.2rem;
       font-family: 'Helvetica-SOS';
       margin-bottom: 2vh;
     }
     &--text{
-      width: 80%;
       word-wrap: break-word;
-      font-size: 1.2rem;
+      font-size: 1.5rem;
+      width: 65vh;
     }
   }
 
@@ -204,9 +208,15 @@ export default {
     line-height: 1.2;
 
     &:hover {
-    background-color: white;
+    background-color: rgb(255, 255, 255);
     color: #C1272D;
     border: 1px solid #C1272D;
   }
   }
+
+  .footersillo {
+  width: 100%;
+  height: 11%;
+  background-color: #C1272D;
+}
 </style>

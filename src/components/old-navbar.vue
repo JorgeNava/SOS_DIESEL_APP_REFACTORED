@@ -83,17 +83,19 @@ export default {
 
   .img_delivery{
     position: relative; 
-    bottom: 30vh; 
-    right: 70vh; 
+    bottom: 36vh; 
+    right: 9vh; 
     width: 15%; 
     height: auto;  
-    padding-left: 7%; 
+    padding-left: 6%; 
   }
  
 
   .button {
+    font-family:'Helvetica-SOS';
     font-weight: bold;
     font-size: 1.8vw;
+    text-align: center;
     position: absolute;
     top: 28%;
     left: 5%;
@@ -102,7 +104,7 @@ export default {
     //margin-left: 1vw;
     //margin-right: 30vw;
     display: inline-block;
-    background-color: white;
+    background-color: transparent;
     color: rgb(215, 37, 37);
     border-radius: 5px;
     text-decoration: none;
@@ -111,14 +113,16 @@ export default {
 
   .button-top {
     //! TO-DO: CLASES CSS COMUNES
+    font-family:'Helvetica-SOS';
     width: 17%;
     font-weight: bold;
     font-size: 1.8vw;
     position: absolute;
+    text-align: center;
     top: 22%;
     left: 5%;
     display: inline-block;
-    background-color: white;
+    background-color: transparent;
     color: rgb(215, 37, 37);
     border-radius: 5px;
     text-decoration: none;
@@ -126,15 +130,17 @@ export default {
   }
 
   .button-bottom {
+    font-family:'Helvetica-SOS';
     width: 17%;
     font-weight: bold;
+    text-align: center;
     font-size: 1.8vw;
     position: absolute;
     top: 25%;
     left: 5%;
     display: inline-block;
     margin-top: 5vw;
-    background-color: white;
+    background-color: transparent;
     color: rgb(215, 37, 37);
     border-radius: 5px;
     text-decoration: none;
@@ -142,11 +148,12 @@ export default {
   }
 
   .buttonDelivery {
+    font-family:'Helvetica-SOS';
     display: inline-block;
-    width: 11vw;
+    width: 14vw;
     position: relative;
-    right: 93vh;
-    bottom: 25vh;
+    right: 34vh;
+    bottom: 24vh;
     font-weight: bold;
     border: none;
     background-color: transparent;
@@ -159,9 +166,9 @@ export default {
 
   .linkNum{
     position: relative;
+    display: flex;
     width: 90%;
-    left: 10%;
-    top: 0vh;
+    left: 9%;
   }
   
   /* Estilo para cuando el mouse pasa sobre el botón */
@@ -206,103 +213,5 @@ export default {
     width: 100%;
     bottom: 100vh;
     right: 7vh;
-  }
-
-  @media (max-width: 767px) {
-  .container {
-    width: 100%;
-    padding: 0 10px;
-  }
-}
-
-  /* Media query para pantallas de hasta 1024px de ancho (tablets y celulares en posición horizontal) */
-  @media only screen and (max-width: 992px) {
-    .container {
-      width: 90%;
-      padding: 0 10px;
-    }
-    .img_logosos{
-    position: absolute; 
-    top: 0; 
-    left: 4%; 
-    width: 20%; 
-    height: auto; 
-    padding-top: 35%; 
-    padding-left: 1%; 
-  }
-
-  .img_Kubotalogo{
-    height: auto;
-    max-width: 13%;
-    padding-top: 40%;
-    padding-right: 2%;
-  }
-  
-  .img_sprinterlogo{
-    height: auto;
-    max-width: 14%;
-    padding-top: 58%;
-    padding-right: 2%;
-  }
-  
-  .img_yanmarlogo{
-    height: auto;
-     max-width: 13%;
-    padding-top: 47%;
-    padding-right: 2%;
-  }
-
-  .img_delivery{
-    height: auto;
-    position: relative;
-    width: 25%;
-    right: 19vh;
-    top: 4vh;
-  }
- 
-
-  .button {
-    margin-top: 13.5em;
-  }
-
-  .button-top {
-    margin-top: 13em;
-  }
-
-  .button-bottom {
-    margin-top: 16em;
-  }
-
-  .buttonDelivery {
-    height: auto;
-    font-size: 100%;
-    top: 6vh;
-    right: 25vh;
-    width: 28%;
-  }
-
-  .imgMarcas {
-    position: absolute;
-    width: 85%;
-    bottom: 92vh;
-    right: 2vh;
-  }
-
-  .linkNum {
-    position: relative;
-    height: auto;
-    font-size: larger;
-    width: 54%;
-    left: 15vh;
-  }
-
-  }
-
-  /* Media queries for screens larger than 992px */
-  @media (min-width: 992px) {
-    .container {
-      width: 80%;
-      padding: 0 10px;
-    }
   }
 </style>
