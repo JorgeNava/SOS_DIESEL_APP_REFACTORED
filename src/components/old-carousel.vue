@@ -1,67 +1,113 @@
 <template>
-  <v-carousel cycle hide-delimiters show-arrows="hover" >
-    <v-carousel-item class="w-100" v-for="(slide, i) in slides" :key="i" color="gray">
-      <v-sheet class="carousel--sheet w-100 h-100">
-        <v-card class="d-flex justify-center text-left h-75 carousel--card w-100">
-          <div class="w-25 h-100">
-            <v-card-item>
-              <v-card-subtitle>{{ slide.marca }}</v-card-subtitle>
-              <v-card-title>{{slide.code}}</v-card-title>
-            </v-card-item>
-            <v-card-text class="d-flex flex-column justify-space-between h-50">
-              <p>{{ slide.description }}</p>
-              <p class="mt-10">{{ slide.price }}</p>
-            </v-card-text>
+  <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel">
+    <ol class="carousel-indicators">
+      <li data-bs-target="#carouselExampleIndicators" :data-bs-slide-to="i" :class="{'active': i === currentSlide}" v-for="(item, i) in items" :key="i"></li>
+    </ol>
+    <div class="carousel-inner">
+      <div v-for="(item, i) in items" :key="i" :class="{'carousel-item': true, 'active': i === currentSlide}">
+        <div class="d-flex align-items-center justify-content-center h-100">
+          <div class="card text-center" style="max-width: 600px;">
+            <img :src="item.imageUrl" class="card-img-top" alt="...">
+            <div class="card-body">
+              <h5 class="card-title">{{ item.title }}</h5>
+              <p class="card-text">{{ item.description }}</p>
+              <p class="card-text">{{ item.price }}</p>
+            </div>
           </div>
-          <div class="product--image--container">
-            <img :src="slide.imageUrl" :alt="slide.description"/>
-          </div>
-        </v-card>
-      </v-sheet>
-    </v-carousel-item>
-  </v-carousel>
+        </div>
+      </div>
+    </div>
+    <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-bs-slide="prev" @click="prevSlide">
+      <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+      <span class="visually-hidden">Previous</span>
+    </a>
+    <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-bs-slide="next" @click="nextSlide">
+      <span class="carousel-control-next-icon" aria-hidden="true"></span>
+      <span class="visually-hidden">Next</span>
+    </a>
+  </div>
 </template>
 
 <script>
 export default {
-  name: 'CarouselComponent',
+  name: 'carouselHome',
   data() {
     return {
-      slides: [
-        {imageUrl: require('@/assets/images/old_repo/img1.png'), description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed ut tellus vitae nibh tristique vestibulum. Sed facilisis ipsum nec metus placerat, eget aliquet lectus blandit.', price: '$10', marca: 'ejemploMarca', code: 'Numero de parte: #001'},
-        {imageUrl: require('@/assets/images/old_repo/img2.png'), description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed ut tellus vitae nibh tristique vestibulum. Sed facilisis ipsum nec metus placerat, eget aliquet lectus blandit.', price: '$20', marca: 'ejemploMarca', code: 'Numero de parte: #002'},
-        {imageUrl: require('@/assets/images/old_repo/img3.png'), description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed ut tellus vitae nibh tristique vestibulum. Sed facilisis ipsum nec metus placerat, eget aliquet lectus blandit.', price: '$30', marca: 'ejemploMarca', code: 'Numero de parte: #003'},
-        {imageUrl: require('@/assets/images/old_repo/img4.png'), description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed ut tellus vitae nibh tristique vestibulum. Sed facilisis ipsum nec metus placerat, eget aliquet lectus blandit.', price: '$40', marca: 'ejemploMarca', code: 'Numero de parte: #004'},
-        {imageUrl: require('@/assets/images/old_repo/img5.png'), description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed ut tellus vitae nibh tristique vestibulum. Sed facilisis ipsum nec metus placerat, eget aliquet lectus blandit.', price: '$50', marca: 'ejemploMarca', code: 'Numero de parte: #005'},
+      currentSlide: 0,
+      items: [
+        {
+          imageUrl: require('@/assets/images/old_repo/img5.png'), 
+          title: 'Slide 1', 
+          description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.', 
+          price: '$10'
+        },
+        {imageUrl: require('@/assets/images/old_repo/img30.png'), title: 'Slide 2', description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. .', price: '$20'},
+        {imageUrl: require('@/assets/images/old_repo/img20.png'), title: 'Slide 3', description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. .', price: '$30'},
+        {imageUrl: require('@/assets/images/old_repo/img4.png'), title: 'Slide 4', description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. .', price: '$40'},
+        {
+          imageUrl: require('@/assets/images/old_repo/img22.png'), 
+          title: 'Slide 5', 
+          description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. ', 
+          price: '$50'
+        },
       ],
     }
-  }
+  },
+  methods: {
+    nextSlide() {
+      this.currentSlide = (this.currentSlide + 1) % this.items.length;
+      console.log(this.currentSlide);
+    },
+    prevSlide() {
+      this.currentSlide = (this.currentSlide - 1 + this.items.length) % this.items.length;
+      console.log(this.currentSlide);
+    },
+  },
 }
 </script>
 
-<style lang="scss" scoped>
-.carousel--sheet{
-  display: flex;
-  align-items: center;
-}
-
-.carousel--card{
-  border-top: 1px solid gray;
-  border-bottom: 1px solid gray;
-  padding: 1%;
-}
-.product--image--container{
-  padding-left: 2vw;
-  display: flex;
-  align-items: center;
-
-  img {
-    width: 100%;
-    height: 100%;
-    object-fit: contain;
-    max-width: 100%;
-    max-height: 100%;
+<style scoped>
+  #carouselExampleIndicators {
+    max-width: 600px;
+    margin: 0 auto;
+    margin-top: 10%;
   }
-}
+  .carousel-inner {
+    transition: all 0.5s ease-in-out;
+  }
+  .carousel-item {
+    height: 600px;
+    position: relative; /* Reemplazar display: flex; */
+    background-size: cover;
+    background-position: center;
+  }
 
-</style>
+  .card {
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0px 3px 10px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    transition: all 0.3s ease-in-out;
+    max-width: 90%;
+  }
+
+  .card:hover {
+    transform: scale(1.05);
+  }
+
+  .card-img-top {
+    object-fit: cover; /* ajustar imagen para que se ajuste al ancho y alto del elemento padre */
+    width: 100%;
+    height: 100%; /* agregar altura para que ocupe todo el espacio disponible */
+  }
+
+  .card-title {
+    font-size: 1.2rem;
+    margin: 1rem 0;
+  }
+
+  .card-text {
+    margin-bottom: 1rem;
+  }
+
+</style>;

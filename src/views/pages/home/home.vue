@@ -23,7 +23,7 @@
     </div>
     <div class="fotosRandom">
       <div class="carousel--container">
-        <!-- <Carousel :slides="carouselImages" /> -->
+        <Carousel :slides="carouselImages" />
       </div>
       <router-link :to="viewMoreUrl" class="ver-mas">Ver catálogo</router-link>  
     </div>
@@ -33,10 +33,9 @@
 
 <script>
 import Footer from "@/components/footer";
-/* import Carousel from "@/components/Carousel/Carousel.vue";*/
+import Carousel from "@/components/old-carousel.vue";
 import HomeProduct from "@/components/old-home-product.vue";
 import NavBar from "@/components/old-navbar.vue"; 
-
 import IMAGEN_TRACTOR from "@/assets/images/old_repo/tractor.png";
 import LOGOSOS from "@/assets/images/old_repo/logosos.png";
 import KUBOTALOGO from "@/assets/images/old_repo/kubotalogo.png";
@@ -120,7 +119,7 @@ export default {
       viewMoreUrl: "/productos"
     };
   },
-  components: { HomeProduct,  NavBar, /* Carousel, */ Footer }
+  components: { HomeProduct,  NavBar, Carousel, Footer }
 };
 </script>
 
@@ -192,7 +191,7 @@ export default {
     margin-bottom: 10vh;
   }
   .carousel--container{
-    height: fit-content;
+    background-image: linear-gradient(180deg, rgba(102,102,102,1) 0%, rgba(255,255,255,0) 100%);
     width: 100%;
   }
 
