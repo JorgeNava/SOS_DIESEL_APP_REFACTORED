@@ -15,15 +15,23 @@ export default [
 		meta: {
 			authRequired: true,
 		},
-		component: () => import("../views/pages/users/index"),
+		component: () => import("../views/pages/new-dashboard/users/index"),
 	},
 	{
-		path: "/dashboard",
-		name: "dashboard",
+		path: "/dashboard/products",
+		name: "dashboard products",
 		meta: {
 			authRequired: true,
 		},
-		component: () => import("../views/pages/ecommerce/products"),
+		component: () => import("../views/pages/new-dashboard/catalog/products"),
+	},
+	{
+		path: "/dashboard/product-detail",
+		name: "dashboard product detail",
+		meta: {
+			authRequired: true,
+		},
+		component: () => import("../views/pages/new-dashboard/catalog/product-detail"),
 	},
 	{
 		path: "/login",
@@ -34,7 +42,7 @@ export default [
 				// If the user is already logged in
 				if (store.getters["auth/loggedIn"]) {
 					// Redirect to the home page instead
-					next({ name: "home" });
+					next({ name: "dashboard products" });
 				} else {
 					// Continue to the login page
 					next();
@@ -51,7 +59,7 @@ export default [
 				// If the user is already logged in
 				if (store.getters["auth/loggedIn"]) {
 					// Redirect to the home page instead
-					next({ name: "home" });
+					next({ name: "dashboard products" });
 				} else {
 					// Continue to the login page
 					next();
@@ -68,7 +76,7 @@ export default [
 				// If the user is already logged in
 				if (store.getters["auth/loggedIn"]) {
 					// Redirect to the home page instead
-					next({ name: "home" });
+					next({ name: "dashboard products" });
 				} else {
 					// Continue to the login page
 					next();
@@ -82,16 +90,13 @@ export default [
 		meta: {
 			authRequired: true,
 			beforeResolve(routeTo, routeFrom, next) {
-				if (process.env.VUE_APP_DEFAULT_AUTH === "firebase") {
-					store.dispatch("auth/logOut");
-				} else {
-					store.dispatch("authfack/logout");
+				store.dispatch("auth/logOut");
+				const authRequiredOnPreviousRoute = routeFrom.matched.some((route) => {
+					return route.meta.authRequired || false;
 				}
-				const authRequiredOnPreviousRoute = routeFrom.matched.some((route) =>
-					route.push("/login")
 				);
-				// Navigate back to previous page, or home as a fallback
-				next(authRequiredOnPreviousRoute ? { name: "home" } : { ...routeFrom });
+				// Navigate back to previous page, or login as a fallback
+				next(authRequiredOnPreviousRoute ? { name: "login" } : { ...routeFrom });
 			},
 		},
 	},

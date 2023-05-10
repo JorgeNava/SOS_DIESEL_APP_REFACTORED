@@ -7,17 +7,17 @@ export const menuItems = [
 			{
 				id: 2,
 				label: "menuitems.catalog.list.products",
-				link: "/ecommerce/products",
+				link: "/dashboard/products",
 			},
 			{
 				id: 3,
 				label: "menuitems.catalog.list.productdetail",
-				link: "/ecommerce/product-detail",
+				link: "/dashboard/product-detail",
 			},
 		],
 	},
 	{
-		id: 4,
+		id: 2,
 		label: "menuitems.users.text",
 		icon: "ri-user-line",
 		link: "/dashboard/users",

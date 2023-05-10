@@ -184,10 +184,11 @@ export default {
             {{ $t('navbar.dropdown.kevin.list.profile') }}
           </a>
           <div class="dropdown-divider"></div>
-          <a class="dropdown-item text-danger" href="/logout">
+          
+          <router-link tag="a" class="dropdown-item text-danger" to="/logout">
             <i class="ri-shut-down-line align-middle mr-1 text-danger"></i>
             {{ $t('navbar.dropdown.kevin.list.logout') }}
-          </a>
+          </router-link>
         </b-dropdown>
 
         <div class="dropdown d-inline-block">
