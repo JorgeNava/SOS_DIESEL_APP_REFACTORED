@@ -18,6 +18,9 @@ export const getters = {
     loggedIn(state) {
         return !!state.currentUser
     },
+    loggedInUser(state) {
+        return state.currentUser
+    },
 }
 
 export const actions = {
@@ -41,10 +44,18 @@ export const actions = {
         .then(token => {
             return api.post('/users/get-one-by-email', { email: email })
             .then(user => { 
-                commit('SET_CURRENT_USER', user);
+                const USER = user?.fields;
+                commit('SET_CURRENT_USER', USER);
+                sessionStorage.setItem("authUser", JSON.stringify(USER));
+                // TO-DO: UPDATE getFirebaseBackend class, pass to a class/service
+/*                 setLoggeedInUser = (user) => {
+                    console.log('[NAVA] setLoggeedInUser user:', user);
+                    sessionStorage.setItem("authUser", JSON.stringify(user));
+                } */
                 return user;
             }).catch(err => {
                 dispatch('notification/error', err?.response?.data?.error, { root: true });
+                console.error(err)
                 throw err;
             });
         })
@@ -88,7 +99,10 @@ export const actions = {
     // eslint-disable-next-line no-unused-vars
     validate({ commit, state }) {
         if (!state.currentUser) return Promise.resolve(null)
-        const user = getFirebaseBackend().getAuthenticatedUser();
+        // TO-DO: FIX getAuthenticatedUser
+        //const user = getFirebaseBackend().getAuthenticatedUser();
+        const X = JSON.parse(sessionStorage.getItem('authUser'));
+        const user = X;
         commit('SET_CURRENT_USER', user)
         return user;
     },

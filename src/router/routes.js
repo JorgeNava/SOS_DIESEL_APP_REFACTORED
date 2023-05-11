@@ -14,6 +14,7 @@ export default [
 		name: "users",
 		meta: {
 			authRequired: true,
+			adminRequired: true,
 		},
 		component: () => import("../views/pages/new-dashboard/users/index"),
 	},

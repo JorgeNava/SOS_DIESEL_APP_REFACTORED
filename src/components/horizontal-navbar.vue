@@ -1,4 +1,5 @@
 <script>
+import store from '@/state/store'
 import { layoutMethods } from "@/state/helpers";
 import { menuItems } from "./horizontal-menu";
 
@@ -83,7 +84,20 @@ export default {
       document.body.setAttribute("data-layout-size", "boxed");
       document.body.removeAttribute("data-topbar", "light");
       document.body.setAttribute("data-topbar", "dark");
+    },
+    isItemAvailable(item) {
+      if (item.adminRequired && store.getters['auth/loggedIn']) {
+        if (store.getters['auth/loggedInUser'].Role !== "Admin") {
+          return false;
+        }
+      }
+      return true;
     }
+  },
+  computed: {
+    filteredMenuItems() {
+      return this.menuItems.filter(item => this.isItemAvailable(item));
+    },
   }
 };
 </script>
@@ -94,7 +108,7 @@ export default {
       <nav class="navbar navbar-light navbar-expand-lg topnav-menu">
         <div class="collapse navbar-collapse" id="topnav-menu-content">
           <ul class="navbar-nav">
-            <li class="nav-item dropdown" v-for="(item, index) of menuItems" :key="index">
+            <li class="nav-item dropdown" v-for="(item, index) of filteredMenuItems" :key="index">
               <router-link
                 tag="a"
                 v-if="!item.subItems"
