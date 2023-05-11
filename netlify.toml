@@ -1,0 +1,11 @@
+[[redirects]]
+  from = "/"
+  to = "/"
+
+[[redirects]]
+  from = "/login"
+  to = "/login"
+
+[[redirects]]
+  from = "/dashboard"
+  to = "/dashboard"

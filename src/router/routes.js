@@ -6,6 +6,7 @@ export default [
 		name: "home",
 		meta: {
 			authRequired: false,
+			adminRequired: false,
 		},
 		component: () => import("../views/pages/home/home"),
 	},
@@ -23,6 +24,7 @@ export default [
 		name: "dashboard",
 		meta: {
 			authRequired: true,
+			adminRequired: false,
 		},
 		component: () => import("../views/pages/new-dashboard/catalog/products"),
 	},
@@ -31,6 +33,7 @@ export default [
 		name: "dashboard products",
 		meta: {
 			authRequired: true,
+			adminRequired: false,
 		},
 		component: () => import("../views/pages/new-dashboard/catalog/products"),
 	},
@@ -39,6 +42,7 @@ export default [
 		name: "dashboard product detail",
 		meta: {
 			authRequired: true,
+			adminRequired: false,
 		},
 		component: () => import("../views/pages/new-dashboard/catalog/product-detail"),
 	},
