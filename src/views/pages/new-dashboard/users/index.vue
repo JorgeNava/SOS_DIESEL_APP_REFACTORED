@@ -106,7 +106,6 @@ export default {
       });
     },
     modalActionTriggered(alertParams) {
-      console.log('[NAVA] alertParams:', alertParams);
       this.makeToast(alertParams);
       api.get('/users/get-all')
         .then(response => { 
@@ -133,7 +132,9 @@ export default {
             <div class="d-flex justify-content-between">
               <h4 class="card-title">Data Table</h4>
               <div>
-                <button @click="openModal('createUser', {})">Create  user</button>
+                <b-button variant="outline-success" class="d-flex justify-center" @click="openModal('createUser', {})">
+                  <i class="ri-user-add-fill mr-2"></i>Create User
+                </b-button>
               </div>
             </div>
             <div class="row mt-4">

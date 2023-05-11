@@ -18,6 +18,14 @@ export default [
 		component: () => import("../views/pages/new-dashboard/users/index"),
 	},
 	{
+		path: "/dashboard",
+		name: "dashboard",
+		meta: {
+			authRequired: true,
+		},
+		component: () => import("../views/pages/new-dashboard/catalog/products"),
+	},
+	{
 		path: "/dashboard/products",
 		name: "dashboard products",
 		meta: {
