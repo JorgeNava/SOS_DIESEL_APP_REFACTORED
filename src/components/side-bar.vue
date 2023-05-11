@@ -1,4 +1,5 @@
 <script>
+import store from '@/state/store'
 import simplebar from "simplebar-vue";
 import { layoutComputed } from "@/state/helpers";
 
@@ -31,6 +32,9 @@ export default {
   },
   computed: {
     ...layoutComputed,
+    filteredMenuItems() {
+      return this.menuItems.filter(item => this.isItemAvailable(item));
+    },
   },
   mounted: function () {
     // eslint-disable-next-line no-unused-vars
@@ -100,6 +104,14 @@ export default {
             currentPosition + 200;
       }, 300);
     },
+    isItemAvailable(item) {
+      if (item.adminRequired && store.getters['auth/loggedIn']) {
+        if (store.getters['auth/loggedInUser'].Role !== "Admin") {
+          return false;
+        }
+      }
+      return true;
+    }
   },
   watch: {
     $route: {
@@ -178,7 +190,7 @@ export default {
       <div id="sidebar-menu">
         <!-- Left Menu Start -->
         <ul class="metismenu list-unstyled" id="side-menu">
-          <template v-for="item in menuItems">
+          <template v-for="item in filteredMenuItems">
             <li class="menu-title" v-if="item.isTitle" :key="item.id">
               {{ $t(item.label) }}
             </li>

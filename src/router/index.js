@@ -31,21 +31,30 @@ const router = new VueRouter({
 
 // Before each route evaluates...
 router.beforeEach((routeTo, routeFrom, next) => {
-  if (process.env.VUE_APP_DEFAULT_AUTH === "firebase") {
-    // Check if auth is required on this route
-    // (including nested routes).
-    const authRequired = routeTo.matched.some((route) => route.meta.authRequired)
+  // Check if auth is required on this route
+  // (including nested routes).
+  const authRequired = routeTo.matched.some((route) => route.meta.authRequired)
+  const adminRequired = routeTo.matched.some((route) => route.meta.adminRequired)
 
     // If auth isn't required for the route, just continue.
-    if (!authRequired) return next()
-
-    // If auth is required and the user is logged in...
+    //if (!authRequired) return next()
+  if (authRequired || adminRequired) {
+       // If auth is required and the user is logged in...
     if (store.getters['auth/loggedIn']) {
       // Validate the local user token...
+      // TO-DO: FIX getAuthenticatedUser
       return store.dispatch('auth/validate').then((validUser) => {
         // Then continue if the token still represents a valid user,
         // otherwise redirect to login.
-        validUser ? next() : redirectToLogin()
+        if (validUser && !adminRequired) {
+          next()
+        } else if (validUser && adminRequired && validUser.Role === 'Admin') {
+          next()
+        } else if (validUser && adminRequired && validUser.Role !== 'Admin') {
+          next({ name: 'dashboard' })
+        } else {
+          redirectToLogin()
+        }
       })
     }
 
