@@ -25,7 +25,7 @@
       <div class="carousel--container">
         <Carousel :slides="carouselImages" />
       </div>
-      <router-link :to="viewMoreUrl" class="ver-mas">Ver catálogo</router-link>  
+      <router-link to="/ecommerce/Products" class="ver-mas">Ver catálogo</router-link>  
     </div>
     <Footer class="footersillo"/>
   </div>
