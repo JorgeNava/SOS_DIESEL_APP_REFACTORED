@@ -3,7 +3,7 @@
   <HomeProduct :imageUrl="imageUrls.imagenTractor"/>
     <NavBar :imageUrls="imageUrls"/> 
     --------------------------------
-    <div class="mision">
+    <div class="mision" id="mision">
       <div class="container">
         <div class="image" style="width: 260vh;">
           <img src="@/assets/images/old_repo/img_panel_testimonials.jpg" alt="" >

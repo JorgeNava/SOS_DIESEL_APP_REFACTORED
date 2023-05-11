@@ -14,10 +14,9 @@
         </button>
     </div>
     </div>
-  
     <div class="containerButtons">
-      <router-link to="/productos" class="button-top">Productos</router-link>
-      <router-link to="/quienes-somos" class="button" >Quienes Somos </router-link>
+      <router-link to="/ecommerce/Products" class="button-top">Productos</router-link>
+      <a href="#mision" class="button" @click.prevent="scrollToMissionSection">Quienes Somos</a>
       <router-link to="/contacto" class="button-bottom">Contacto</router-link>
     </div>
   </div>
@@ -29,6 +28,12 @@ export default {
   props: {
     msg: String,
     imageUrls: Object
+  },
+  methods: {
+    scrollToMissionSection() {
+      const missionSection = document.querySelector('#mision');
+      missionSection.scrollIntoView({ behavior: 'smooth' });
+    }
   },
   created(){
     console.log("this.imageUrls",this.imageUrls)
