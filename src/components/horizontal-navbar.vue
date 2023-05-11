@@ -146,25 +146,6 @@ export default {
                 </template>
               </div>
             </li>
-            <li class="nav-item dropdown">
-              <a
-                class="nav-link dropdown-toggle arrow-none"
-                id="topnav-layout"
-                role="button"
-                data-toggle="dropdown"
-                aria-haspopup="true"
-                aria-expanded="false"
-                @click="onMenuClick"
-              >
-                <i class="ri-layout-3-line mr-2"></i>{{ $t('menuitems.layouts.text') }}
-                <div class="arrow-down"></div>
-              </a>
-              <div class="dropdown-menu dropdown-menu-right" aria-labelledby="topnav-layout">
-                <a @click="change_layout('vertical')" class="dropdown-item">{{ $t('menuitems.layouts.list.vertical') }}</a>
-                <a @click="topbarLight()" class="dropdown-item">{{ $t('menuitems.layouts.list.lighttopbar') }}</a>
-                <a @click="boxedWidth()" class="dropdown-item">{{ $t('menuitems.layouts.list.boxed') }}</a>
-              </div>
-            </li>
           </ul>
         </div>
       </nav>

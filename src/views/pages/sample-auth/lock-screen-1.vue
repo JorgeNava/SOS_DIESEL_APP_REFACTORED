@@ -66,7 +66,7 @@ export default {};
                           <a href="auth-login.html" class="font-weight-medium text-primary">Log in</a>
                         </p>
                         <p>
-                          © 2020 SOS Diesel. Crafted with
+                          © 2023 SOS Diesel. Crafted with
                           <i class="mdi mdi-heart text-danger"></i> by Themesdesign
                         </p>
                       </div>
