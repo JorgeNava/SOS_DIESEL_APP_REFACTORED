@@ -14,7 +14,7 @@ export const menuItems = [
 			{
 				id: 3,
 				label: "menuitems.catalog.list.productdetail",
-				link: "/dashboard/product-detail",
+				link: "/dashboard/product-details",
 				adminRequired: false
 			},
 		],

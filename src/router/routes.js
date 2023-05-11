@@ -11,15 +11,6 @@ export default [
 		component: () => import("../views/pages/home/home"),
 	},
 	{
-		path: "/dashboard/users",
-		name: "users",
-		meta: {
-			authRequired: true,
-			adminRequired: true,
-		},
-		component: () => import("../views/pages/new-dashboard/users/index"),
-	},
-	{
 		path: "/dashboard",
 		name: "dashboard",
 		meta: {
@@ -27,6 +18,15 @@ export default [
 			adminRequired: false,
 		},
 		component: () => import("../views/pages/new-dashboard/catalog/products"),
+	},
+	{
+		path: "/dashboard/users",
+		name: "users",
+		meta: {
+			authRequired: true,
+			adminRequired: true,
+		},
+		component: () => import("../views/pages/new-dashboard/users/index"),
 	},
 	{
 		path: "/dashboard/products",
@@ -38,7 +38,7 @@ export default [
 		component: () => import("../views/pages/new-dashboard/catalog/products"),
 	},
 	{
-		path: "/dashboard/product-detail",
+		path: "/dashboard/product-details",
 		name: "dashboard product detail",
 		meta: {
 			authRequired: true,
@@ -136,7 +136,7 @@ export default [
 		component: () => import("../views/pages/ecommerce/products"),
 	},
 	{
-		path: "/ecommerce/product-detail",
+		path: "/ecommerce/product-details",
 		name: "product detail",
 		meta: { authRequired: true },
 		component: () => import("../views/pages/ecommerce/product-detail"),

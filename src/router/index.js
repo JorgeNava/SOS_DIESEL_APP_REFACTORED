@@ -38,6 +38,8 @@ router.beforeEach((routeTo, routeFrom, next) => {
 
     // If auth isn't required for the route, just continue.
     //if (!authRequired) return next()
+  console.log('[NAVA] authRequired:', authRequired);
+  console.log('[NAVA] adminRequired:', adminRequired);
   if (authRequired || adminRequired) {
        // If auth is required and the user is logged in...
     if (store.getters['auth/loggedIn']) {
@@ -69,7 +71,11 @@ router.beforeEach((routeTo, routeFrom, next) => {
       next({ name: 'login', query: { redirectFrom: routeTo.fullPath } })
     }
   } else {
-    const publicPages = ['/login', '/register', '/forgot-password'];
+    const publicPages = [
+      '/',
+      '/ecommerce/products',
+      '/ecommerce/product-details',
+      '/login', '/register', '/forgot-password'];
     const authpage = !publicPages.includes(routeTo.path);
     const loggeduser = localStorage.getItem('user');
 
