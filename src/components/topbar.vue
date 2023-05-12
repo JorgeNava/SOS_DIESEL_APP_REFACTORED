@@ -1,9 +1,11 @@
 <script>
+import store from '@/state/store';
 import i18n from "../i18n";
 
 export default {
   data() {
     return {
+      username: '',
       languages: [
         {
           flag: require("@/assets/images/flags/us.jpg"),
@@ -58,6 +60,9 @@ export default {
       i18n.locale = locale;
       this.current_language = i18n.locale;
     }
+  },
+  mounted() {
+    this.username = store.getters['auth/loggedInUser']?.Username;
   }
 };
 </script>
@@ -175,7 +180,7 @@ export default {
               src="@/assets/images/users/avatar-2.jpg"
               alt="Header Avatar"
             />
-            <span class="d-none d-xl-inline-block ml-1">{{ $t('navbar.dropdown.kevin.text')}}</span>
+            <span class="d-none d-xl-inline-block ml-1">{{ username }}</span>
             <i class="mdi mdi-chevron-down d-none d-xl-inline-block"></i>
           </template>
           <!-- item-->

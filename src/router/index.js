@@ -38,8 +38,6 @@ router.beforeEach((routeTo, routeFrom, next) => {
 
     // If auth isn't required for the route, just continue.
     //if (!authRequired) return next()
-  console.log('[NAVA] authRequired:', authRequired);
-  console.log('[NAVA] adminRequired:', adminRequired);
   if (authRequired || adminRequired) {
        // If auth is required and the user is logged in...
     if (store.getters['auth/loggedIn']) {
