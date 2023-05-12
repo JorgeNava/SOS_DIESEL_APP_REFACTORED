@@ -1,23 +1,20 @@
 <template>
   <div>
-    <div class="containerPhotos">
-      <img :src="imageUrls.logosos" alt="" class="img_logosos">
-      <div class="imgMarcas">
-        <img :src="imageUrls.Kubotalogo" alt="" class="img_Kubotalogo">
-        <img :src="imageUrls.sprinterlogo" alt="" class="img_sprinterlogo">
-        <img :src="imageUrls.yanmarlogo" alt="" class="img_yanmarlogo">
+    <div class="row">
+      <div class="col-15">
+        <div class="containerButtons flex-column">
+          <img :src="imageUrls.logosos" alt="" class="img_logosos">
+          <router-link to="/ecommerce/Products" class="button-top">Productos</router-link>
+          <a href="#mision" class="button" @click.prevent="scrollToMissionSection">Quienes Somos</a>
+          <router-link to="/contacto" class="button-bottom">Contacto</router-link>
+        </div>
       </div>
       <div class="linkNum">
-        <img :src="imageUrls.delivery" alt="" class="img_delivery">
-        <button style="color:red;" class="buttonDelivery">
-          <a class="link" :href="'tel:' + '(33) 2255 6677'"  style="text-decoration:none"> Linea Directa (33) 2255 6677 </a>
-        </button>
-    </div>
-    </div>
-    <div class="containerButtons">
-      <router-link to="/ecommerce/Products" class="button-top">Productos</router-link>
-      <a href="#mision" class="button" @click.prevent="scrollToMissionSection">Quienes Somos</a>
-      <router-link to="/contacto" class="button-bottom">Contacto</router-link>
+      <img :src="imageUrls.delivery" alt="" class="img_delivery">
+      <button style="color:red;" class="buttonDelivery">
+        <a class="link" :href="'tel:' + '(33) 2255 6677'"  style="text-decoration:none"> Linea Directa (33) 2255 6677 </a>
+      </button>
+      </div>
     </div>
   </div>
 </template>
@@ -49,46 +46,16 @@ export default {
 <style lang="scss" scoped>
   .img_logosos{
     position: absolute; 
-    top: 0; 
-    left: 0; 
     width: 17%; 
     height: auto; 
-    padding-top: 4%;
+    margin-top: 4%;
     //! TO-DO: DIFERENCIA SOBRE EL USO DE MARGIN Y PADDING
     margin-left: 5%; 
   }
 
-  .img_Kubotalogo{
-    position: absolute;
-    right: -35px;
-    top: 0;
-    height: auto;
-    max-width: 12%;
-    padding-top: 16%;
-    padding-right: 2%;
-  }
-
-  .img_sprinterlogo{
-    position: absolute;
-    right: -35px;
-    top: 0;
-    max-width: 12%;
-    padding-top: 33%;
-    padding-right: 2%;
-  }
-
-  .img_yanmarlogo{
-    position: absolute;
-    right: -35px;
-    top: 0;
-    max-width: 12%;
-    padding-top: 22%;
-    padding-right: 2%;
-  }
-
   .img_delivery{
     position: relative; 
-    bottom: 36vh; 
+    top: 67vh; 
     right: 9vh; 
     width: 15%; 
     height: auto;  
@@ -102,7 +69,7 @@ export default {
     font-size: 1.8vw;
     text-align: center;
     position: absolute;
-    top: 28%;
+    top: 28vh;
     left: 5%;
     width: 17%;
     //TO-DO: MUCHAS COSAS PASANDO EN EL CSS
@@ -124,7 +91,7 @@ export default {
     font-size: 1.8vw;
     position: absolute;
     text-align: center;
-    top: 22%;
+    top: 22vh;
     left: 5%;
     display: inline-block;
     background-color: transparent;
@@ -141,7 +108,7 @@ export default {
     text-align: center;
     font-size: 1.8vw;
     position: absolute;
-    top: 25%;
+    top: 25vh;
     left: 5%;
     display: inline-block;
     margin-top: 5vw;
@@ -158,7 +125,7 @@ export default {
     width: 14vw;
     position: relative;
     right: 34vh;
-    bottom: 24vh;
+    top: 80vh;
     font-weight: bold;
     border: none;
     background-color: transparent;
@@ -211,12 +178,5 @@ export default {
 
   .link { 
     color: rgb(215, 37, 37); 
-  }
-
-  .imgMarcas {
-    position: relative;
-    width: 100%;
-    bottom: 100vh;
-    right: 7vh;
   }
 </style>

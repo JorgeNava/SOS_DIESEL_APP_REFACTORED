@@ -1,13 +1,13 @@
 <template>
-  <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel">
+  <div id="carouselExampleIndicators" class="carousel slide " data-bs-ride="carousel">
     <ol class="carousel-indicators">
       <li data-bs-target="#carouselExampleIndicators" :data-bs-slide-to="i" :class="{'active': i === currentSlide}" v-for="(item, i) in items" :key="i"></li>
     </ol>
     <div class="carousel-inner">
       <div v-for="(item, i) in items" :key="i" :class="{'carousel-item': true, 'active': i === currentSlide}">
         <div class="d-flex align-items-center justify-content-center h-100">
-          <div class="card text-center" style="max-width: 600px;">
-            <img :src="item.imageUrl" class="card-img-top" alt="...">
+          <div class="card text-center" style="max-width: 600px; ">
+            <img :src="item.imageUrl" class="card-img-top" style="max-width: 600px; max-height: 600px;" alt="...">
             <div class="card-body">
               <h5 class="card-title">{{ item.title }}</h5>
               <p class="card-text">{{ item.description }}</p>
@@ -99,6 +99,7 @@ export default {
     object-fit: cover; /* ajustar imagen para que se ajuste al ancho y alto del elemento padre */
     width: 100%;
     height: 100%; /* agregar altura para que ocupe todo el espacio disponible */
+    max-width: 600px;
   }
 
   .card-title {
@@ -107,7 +108,8 @@ export default {
   }
 
   .card-text {
-    margin-bottom: 1rem;
+    max-width: 100%;
+    max-height: 100%;
   }
 
 </style>;

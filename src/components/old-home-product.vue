@@ -1,8 +1,10 @@
 <template>
-  <div class="container-img">
-     <img :src="imageUrl" alt="tractor image" class="img_tractor">  
-   </div>
- </template>
+  <div class="row">
+      <div class="container-img d-flex justify-content-center align-self-center">
+        <img :src="imageUrl" alt="tractor image" class="img_tractor">  
+      </div>
+  </div>
+</template>
  
  <script>
  export default {
@@ -15,22 +17,7 @@
  </script>
  
  <style scoped>
-   .container-img {
-     display: flex;
-     justify-content: center;
-     align-items: center;
-     height: 100%;
-   }
-   
-   .img_tractor {
-     display: absolute;
-     max-width: 40%;
-     height: auto;
-     object-fit: contain;
-     margin-top: 5%;
-     margin-left: 10%;
-   }
- 
+
    /* Media query para pantallas de hasta 768px de ancho (celulares en posición vertical)
    @media only screen and (max-width: 768px) {
      .img_tractor {

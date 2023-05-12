@@ -1,8 +1,14 @@
 <template>
   <div class="home">
-  <HomeProduct :imageUrl="imageUrls.imagenTractor"/>
-    <NavBar :imageUrls="imageUrls"/> 
-    --------------------------------
+    <div class="HomeProduct">
+      <NavBar :imageUrls="imageUrls"/> 
+      <HomeProduct :imageUrl="imageUrls.imagenTractor"/> 
+      <div class="imgMarcas ">
+        <img :src="imageUrls.Kubotalogo" alt="" class="img_Kubotalogo">
+        <img :src="imageUrls.sprinterlogo" alt="" class="img_sprinterlogo">
+        <img :src="imageUrls.yanmarlogo" alt="" class="img_yanmarlogo">
+      </div>
+    </div>
     <div class="mision" id="mision">
       <div class="container">
         <div class="image" style="width: 260vh;">
@@ -124,7 +130,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-  .home {
+  .HomeProduct {
     height: 100vh;
   }
 
@@ -215,7 +221,35 @@ export default {
 
   .footersillo {
   width: 100%;
-  height: 11%;
+  height: 10vh;
   background-color: #C1272D;
 }
+
+  .img_Kubotalogo{
+    position: absolute;
+    right: -35px;
+    top: 0;
+    height: auto;
+    max-width: 12%;
+    margin-top: 14%;
+    margin-right: 5%;
+  }
+
+  .img_sprinterlogo{
+    position: absolute;
+    right: 35px;
+    top: 0;
+    max-width: 12%;
+    margin-top: 28%;
+    margin-right: 2%;
+  }
+
+  .img_yanmarlogo{
+    position: absolute;
+    right: -35px;
+    top: 1vh;
+    max-width: 12%;
+    margin-top: 17%;
+    margin-right: 5%;
+  }
 </style>

@@ -36,12 +36,12 @@ export default {
   <div class="container">
     <div class="row">
       <div class="col-md-8">
-        <h1 class="text-left mt-1">Productos</h1>
+        <h1 class="Productos text-left mt-1 font-weight-bold">Productos</h1>
       </div>
       <div class="col-md-4">
-        <div class="search-box mt-3 w-60 ml-auto">
+        <div class="search-box mt-3 ">
           <div class="position-relative">
-            <input type="text" class="form-control rounded-pill rounded-end" placeholder="buscar" />
+            <input type="text" class="form-control rounded-pill rounded-end border-danger" placeholder="buscar" />
             <i class="mdi mdi-magnify search-icon"></i>
           </div>
         </div>
@@ -54,15 +54,14 @@ export default {
   
 
   <div class="row">
-    <div class="filtros col-xl-1 col-lg-3 custom-width">
+    <div class="filtros col-xl-2 col-lg-3 custom-width">
         <div class="mt-5 border-top">
           <h5 class="font-size-22 mb-4 mt-3 ml-4" style="font-family: 'Helvetica-SOS';">Filtros:</h5>
           <div>
-            <h5 class="font-size-20 mb-1 ml-2" style="font-family: 'Helvetica-SOS'; color: rgba(206, 17, 17, 0.889);">precio</h5>
-            <vue-slide-bar v-model="sliderPrice" :min="0" :max="10000" />
+            <h5 class="font-size-20 mb-1 ml-2" style="font-family: 'Helvetica-SOS'; color: rgba(206, 17, 17, 0.889);">Precio</h5>
             <div class="custom-control custom-square mt-2 ml-2">
               <input type="radio" id="productsizeRadio3" name="productdiscountRadio3" class="custom-control-input"/>
-              <label class="custom-control-label mt-4" for="productdiscountRadio1" style="font-family: 'Helvetica-SOS';">menos de 2000</label>
+              <label class="custom-control-label mt-4" for="productdiscountRadio1" style="font-family: 'Helvetica-SOS';">Menos de 2000</label>
             </div>
             <div class="custom-control custom-square mt-2 ml-2">
               <input type="radio" id="productsizeRadio2" name="productdiscountRadio2" class="custom-control-input"/>
@@ -71,14 +70,15 @@ export default {
             </div>
             <div class="custom-control custom-square mt-2 ml-2">
               <input type="radio" id="productsizeRadio3" name="productdiscountRadio3" class="custom-control-input"/>
-              <label class="custom-control-label" for="productdiscountRadio3" style="font-family: 'Helvetica-SOS';">mas de 5000</label>
+              <label class="custom-control-label" for="productdiscountRadio3" style="font-family: 'Helvetica-SOS';">Mas de 5000</label>
             </div>
           </div>
+          <vue-slide-bar v-model="sliderPrice" :min="0" :max="10000" />
         </div>
 
         <div>
           <h5 class="font-size-20 mt-3 ml-2" style="font-family: 'Helvetica-SOS'; color: rgba(206, 17, 17, 0.889);">
-              marca
+              Marca
           </h5>
             <div class="mt-4">
               <div class="custom-control custom-square mt-2 ml-2">
@@ -99,7 +99,7 @@ export default {
 
         <div>
           <h5 class="font-size-20 mt-3 ml-2" style="font-family: 'Helvetica-SOS'; color: rgba(206, 17, 17, 0.889);">
-              existencia
+              Existencia
           </h5>
             <div class="mt-4">
               <div class="custom-control custom-square mt-2 ml-2">
@@ -114,7 +114,7 @@ export default {
         </div>
       </div>
 
-      <div class="fotos col-lg-9">
+      <div class="fotos col-lg-8 ml-5">
         <div>
           <div>
             <div class="row no-gutters mt-5">
@@ -354,19 +354,58 @@ h1 {
   left: 0px;
   margin-left: -40vh;
 }
-
+.filtros{
+  padding-left: 5%;
+  font-family: 'Helvetica-SOS';
+}
 .search-box {
   float: right;
-  margin-top: 10px;
+  padding-top: 5vh;
   position: relative;
-  right: -42vh;
+  right: -35vh;
+  color: black !important;
 }
+
+.form-control::placeholder {
+    font-weight:bolder;
+    font-size: 1.8rem;
+    text-align: center;
+  }
+
+  .search-box input {
+    border-width: 2px;
+    width: 90%;
+    padding: 15px 3px 8px;
+    font-family: 'Helvetica-SOS';
+    color: black !important;
+  }
+
+  .search-box .border-danger {
+    border-color: red;
+  }
 
 .image-container {
   position: absolute;
-  top: 20vh;
-  right: -35vh;
+  top: 45vh;
+  right: -41vh;
   
+}
+
+.Productos{
+  padding-left: 15%;
+  padding-top: 4vh;
+  font-family: 'Helvetica-SOS';
+  letter-spacing: 3px;
+}
+
+.product-box{
+  font-weight: bold;
+  font-family: 'Helvetica-SOS';
+}
+
+.product-box .text-center .text-dark{
+  font-weight: bold;
+  font-family: 'Arial-Black';
 }
 
 
