@@ -1,4 +1,6 @@
 import { getFirebaseBackend } from '../../helpers/firebase/authUtils'
+const { getApiClient } = require('@/helpers/sos-diesel-api-client');
+const api = getApiClient();
 
 export const state = {
     currentUser: sessionStorage.getItem('authUser'),
@@ -16,6 +18,9 @@ export const getters = {
     loggedIn(state) {
         return !!state.currentUser
     },
+    loggedInUser(state) {
+        return state.currentUser
+    },
 }
 
 export const actions = {
@@ -26,29 +31,45 @@ export const actions = {
         dispatch('validate')
     },
 
+
     // Logs in the current user.
     logIn({ commit, dispatch, getters }, { email, password } = {}) {
         if (getters.loggedIn) return dispatch('validate')
 
-        return getFirebaseBackend().loginUser(email, password).then((response) => {
-            const user = response
-            commit('SET_CURRENT_USER', user)
-            return user
-        });
+        return api.authenticate(
+            email,
+            password,
+        )
+        // eslint-disable-next-line no-unused-vars
+        .then(token => {
+            return api.post('/users/get-one-by-email', { email: email })
+            .then(user => { 
+                const USER = user?.fields;
+                commit('SET_CURRENT_USER', USER);
+                sessionStorage.setItem("authUser", JSON.stringify(USER));
+                // TO-DO: UPDATE getFirebaseBackend class, pass to a class/service
+/*                 setLoggeedInUser = (user) => {
+                    console.log('[NAVA] setLoggeedInUser user:', user);
+                    sessionStorage.setItem("authUser", JSON.stringify(user));
+                } */
+                return user;
+            }).catch(err => {
+                dispatch('notification/error', err?.response?.data?.error, { root: true });
+                console.error(err)
+                throw err;
+            });
+        })
+        .catch(err => {
+            dispatch('notification/error', err?.response?.data?.error, { root: true });
+            throw err;
+        })
     },
 
     // Logs out the current user.
     logOut({ commit }) {
         // eslint-disable-next-line no-unused-vars
         commit('SET_CURRENT_USER', null)
-        return new Promise((resolve, reject) => {
-            // eslint-disable-next-line no-unused-vars
-            getFirebaseBackend().logout().then((response) => {
-                resolve(true);
-            }).catch((error) => {
-                reject(this._handleError(error));
-            })
-        });
+
     },
 
     // register the user
@@ -78,7 +99,10 @@ export const actions = {
     // eslint-disable-next-line no-unused-vars
     validate({ commit, state }) {
         if (!state.currentUser) return Promise.resolve(null)
-        const user = getFirebaseBackend().getAuthenticatedUser();
+        // TO-DO: FIX getAuthenticatedUser
+        //const user = getFirebaseBackend().getAuthenticatedUser();
+        const X = JSON.parse(sessionStorage.getItem('authUser'));
+        const user = X;
         commit('SET_CURRENT_USER', user)
         return user;
     },

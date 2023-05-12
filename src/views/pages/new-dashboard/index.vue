@@ -2,8 +2,6 @@
 import Layout from "../../layouts/main";
 import PageHeader from "@/components/page-header";
 
-import Stat from "./widget";
-
 /**
  * Dashboard component
  */
@@ -11,7 +9,6 @@ export default {
   components: {
     Layout,
     PageHeader,
-    Stat,
   },
   data() {
     return {
@@ -35,7 +32,6 @@ export default {
     <PageHeader :title="title" :items="items" />
     <div class="row">
       <div class="col-xl-8">
-        <Stat />
       </div>
       <div class="col-xl-4">
       </div>

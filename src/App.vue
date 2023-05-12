@@ -6,6 +6,8 @@
 
 <script>
 import appConfig from "@/app.config";
+const { getApiClient } = require('@/helpers/sos-diesel-api-client');
+getApiClient(process.env.VUE_APP_SOS_DIESEL_API_BASE_URL);
 
 export default {
   name: "app",
