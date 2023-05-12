@@ -1,4 +1,5 @@
 <script>
+import store from '@/state/store';
 import i18n from "../i18n";
 import { layoutComputed } from "@/state/helpers";
 
@@ -19,6 +20,7 @@ export default {
   components: { },
   data() {
     return {
+      username: '',
       languages: [
         {
           flag: require("@/assets/images/flags/us.jpg"),
@@ -78,6 +80,7 @@ export default {
     this.value = this.languages.find((x) => x.language === i18n.locale);
     this.text = this.value.title;
     this.flag = this.value.flag;
+    this.username = store.getters['auth/loggedInUser']?.Username;
   },
   watch: {
     type: {
@@ -225,7 +228,7 @@ export default {
               alt="Header Avatar"
             />
             <span class="d-none d-xl-inline-block ml-1">{{
-              $t("navbar.dropdown.kevin.text")
+              username
             }}</span>
             <i class="mdi mdi-chevron-down d-none d-xl-inline-block"></i>
           </template>
