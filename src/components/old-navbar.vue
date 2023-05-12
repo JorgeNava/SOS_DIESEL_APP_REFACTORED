@@ -124,7 +124,7 @@ export default {
     display: inline-block;
     width: 14vw;
     position: relative;
-    right: 34vh;
+    right: 37vh;
     top: 80vh;
     font-weight: bold;
     border: none;

@@ -27,7 +27,7 @@
         </div>
       </div>
     </div>
-    <div class="fotosRandom">
+    <div class="fotosRandom" style="z-index: 0;">
       <div class="carousel--container">
         <Carousel :slides="carouselImages" />
       </div>
@@ -146,16 +146,13 @@ export default {
   }
 
   .image img{
-    width: 100%;
+    width: 90%;
     margin-left: -15%;
     margin-top: 11%;
-    width: 718px;
+    
   }
 
   //! TO-DO: CSS REPETIDO
-  .mision {
-    height: 100vh;
-  }
 
   h1 {
     padding-top: 6%;
@@ -171,7 +168,7 @@ export default {
     &--title{
       margin-top: 5vh;
       margin-bottom: 2vh;
-      font-size: 3.5rem;
+      font-size: 3.2rem;
       line-height: 1.2;
       font-family: 'Helvetica-SOS';
       font-weight: 800;
@@ -179,13 +176,13 @@ export default {
     }
     &--subtitle{
       font-weight: bold;
-      font-size: 2.2rem;
+      font-size: 2rem;
       font-family: 'Helvetica-SOS';
       margin-bottom: 2vh;
     }
     &--text{
       word-wrap: break-word;
-      font-size: 1.5rem;
+      font-size: 1rem;
       width: 65vh;
     }
   }
@@ -194,7 +191,7 @@ export default {
     display: flex;
     flex-direction: column;
     align-items: center;
-    margin-bottom: 10vh;
+    margin-bottom: 5vh;
   }
   .carousel--container{
     background-image: linear-gradient(180deg, rgba(102,102,102,1) 0%, rgba(255,255,255,0) 100%);
@@ -237,7 +234,7 @@ export default {
 
   .img_sprinterlogo{
     position: absolute;
-    right: 35px;
+    right: 24px;
     top: 0;
     max-width: 12%;
     margin-top: 28%;
