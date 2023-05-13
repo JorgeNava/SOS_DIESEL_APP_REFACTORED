@@ -42,7 +42,6 @@ export default {
         <div class="search-box mt-3 ">
           <div class="position-relative">
             <input type="text" class="form-control rounded-pill rounded-end border-danger" placeholder="buscar" />
-            <i class="mdi mdi-magnify search-icon"></i>
           </div>
         </div>
       </div>
@@ -405,7 +404,7 @@ h1 {
 
 .product-box .text-center .text-dark{
   font-weight: bold;
-  font-family: 'Arial-Black';
+  font-family: 'Helvetica-SOS';
 }
 
 

@@ -1,22 +1,15 @@
 <template>
-  <div class="home">
+  <div class="home ">
     <div class="HomeProduct">
-      <NavBar :imageUrls="imageUrls"/> 
-      <HomeProduct :imageUrl="imageUrls.imagenTractor"/> 
-      <div class="imgMarcas ">
-        <img :src="imageUrls.Kubotalogo" alt="" class="img_Kubotalogo">
-        <img :src="imageUrls.sprinterlogo" alt="" class="img_sprinterlogo">
-        <img :src="imageUrls.yanmarlogo" alt="" class="img_yanmarlogo">
-      </div>
+      <HomeProduct :imageUrl="imageUrls.imagenTractor" :imageUrls="imageUrls" /> 
     </div>
-    <div class="mision" id="mision">
-      <div class="container">
-        <div class="image" style="width: 260vh;">
+    <div class="mision mt-5 " id="mision">
+        <div class="image w-50 d-flex justify-content-end  pr-4 ">
           <img src="@/assets/images/old_repo/img_panel_testimonials.jpg" alt="" >
         </div>
-        <div class="content">
-          <h1 class="mision-y-vision--title">SOS DIESEL PARTS</h1>
-          <p class="mision-y-vision--subtitle">MISION Y VISIÓN</p>
+        <div class="content w-50 d-flex flex-column justify-content-start p-3">
+          <h1 class="mision-y-vision--title m-0 ">SOS DIESEL PARTS</h1>
+          <p class="mision-y-vision--subtitle mb-3 ">MISION Y VISIÓN</p>
           <div class="mision-y-vision--text" >
             <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed ut tellus vitae nibh tristique vestibulum. Sed facilisis ipsum nec metus placerat, eget aliquet lectus blandit.</p>
             <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed ut tellus vitae nibh tristique vestibulum. Sed facilisis ipsum nec metus placerat, eget aliquet lectus blandit.</p>
@@ -25,13 +18,11 @@
             <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed ut tellus vitae nibh tristique vestibulum. Sed facilisis ipsum nec metus placerat, eget aliquet lectus blandit.</p>
           </div>
         </div>
-      </div>
     </div>
-    <div class="fotosRandom" style="z-index: 0;">
+    <div class="fotosRandom d-flex align-items-center justify-content-center">
       <div class="carousel--container">
-        <Carousel :slides="carouselImages" />
-      </div>
-      <router-link to="/ecommerce/Products" class="ver-mas">Ver catálogo</router-link>  
+        <Carousel :slides="carouselImages" /> 
+      </div> 
     </div>
     <Footer class="footersillo"/>
   </div>
@@ -41,7 +32,6 @@
 import Footer from "@/components/footer";
 import Carousel from "@/components/old-carousel.vue";
 import HomeProduct from "@/components/old-home-product.vue";
-import NavBar from "@/components/old-navbar.vue"; 
 import IMAGEN_TRACTOR from "@/assets/images/old_repo/tractor.png";
 import LOGOSOS from "@/assets/images/old_repo/logosos.png";
 import KUBOTALOGO from "@/assets/images/old_repo/kubotalogo.png";
@@ -125,31 +115,32 @@ export default {
       viewMoreUrl: "/productos"
     };
   },
-  components: { HomeProduct,  NavBar, Carousel, Footer }
+  components: { HomeProduct, Carousel, Footer }
 };
 </script>
 
 <style lang="scss" scoped>
-  .HomeProduct {
-    height: 100vh;
-  }
+.home{
+  background-color: white;
+}
 
-  .container {
+  .mision{
     display: flex;
-    justify-content: left; /* centrar horizontalmente */
-    align-items: flex-start; /* alinear arriba */
-    padding-top: 3.6vh;
+    width: 75%;
+    min-height: 85vh;
+    padding: 1% 5%;
+    height: fit-content;
+    margin: auto;
+    background-color: white;
   }
 
-  .content {
-    text-align: left;
-  }
-
-  .image img{
-    width: 90%;
-    margin-left: -15%;
-    margin-top: 11%;
-    
+  .image {
+    width: 50%;
+    margin: 0;
+    img{
+      width: 90%;
+      height: 98%;
+    }
   }
 
   //! TO-DO: CSS REPETIDO
@@ -159,94 +150,30 @@ export default {
   
   }
 
-  .mision {
-    height: 100vh;
-    background-color: white;
-  }
-
   .mision-y-vision {
     &--title{
-      margin-top: 5vh;
-      margin-bottom: 2vh;
-      font-size: 3.2rem;
-      line-height: 1.2;
+      font-size: 1.8rem;
       font-family: 'Helvetica-SOS';
-      font-weight: 800;
       color: #C1272D;
     }
     &--subtitle{
-      font-weight: bold;
-      font-size: 2rem;
+      font-size: 1.5rem;
       font-family: 'Helvetica-SOS';
-      margin-bottom: 2vh;
     }
     &--text{
       word-wrap: break-word;
-      font-size: 1rem;
-      width: 65vh;
+      font-size: .9rem;
     }
   }
 
-  .fotosRandom {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    margin-bottom: 5vh;
-  }
+ 
   .carousel--container{
-    background-image: linear-gradient(180deg, rgba(102,102,102,1) 0%, rgba(255,255,255,0) 100%);
-    width: 100%;
-  }
-
-  .ver-mas {
-    width: fit-content;
-    padding: 10px 20px;
-    background-color: #C1272D;
-    color: white;
-    text-decoration: none;
-    border-radius: 5px;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
-    font-size: 1.2rem;
-    line-height: 1.2;
-
-    &:hover {
-    background-color: rgb(255, 255, 255);
-    color: #C1272D;
-    border: 1px solid #C1272D;
-  }
+    background: linear-gradient(to bottom, white, gray);
+    width: 100vw;
   }
 
   .footersillo {
-  width: 100%;
-  height: 10vh;
-  background-color: #C1272D;
+    width: 100%;
+    background-color: #C1272D;
 }
-
-  .img_Kubotalogo{
-    position: absolute;
-    right: -35px;
-    top: 0;
-    height: auto;
-    max-width: 12%;
-    margin-top: 14%;
-    margin-right: 5%;
-  }
-
-  .img_sprinterlogo{
-    position: absolute;
-    right: 24px;
-    top: 0;
-    max-width: 12%;
-    margin-top: 28%;
-    margin-right: 2%;
-  }
-
-  .img_yanmarlogo{
-    position: absolute;
-    right: -35px;
-    top: 1vh;
-    max-width: 12%;
-    margin-top: 17%;
-    margin-right: 5%;
-  }
 </style>
