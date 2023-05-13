@@ -1,16 +1,15 @@
 <template>
-  <div class="home">
-  <HomeProduct :imageUrl="imageUrls.imagenTractor"/>
-    <NavBar :imageUrls="imageUrls"/> 
-    --------------------------------
-    <div class="mision">
-      <div class="container">
-        <div class="image" style="width: 260vh;">
+  <div class="home ">
+    <div class="HomeProduct">
+      <HomeProduct :imageUrl="imageUrls.imagenTractor" :imageUrls="imageUrls" /> 
+    </div>
+    <div class="mision mt-5 " id="mision">
+        <div class="image w-50 d-flex justify-content-end  pr-4 ">
           <img src="@/assets/images/old_repo/img_panel_testimonials.jpg" alt="" >
         </div>
-        <div class="content">
-          <h1 class="mision-y-vision--title">SOS DIESEL PARTS</h1>
-          <p class="mision-y-vision--subtitle">MISION Y VISIÓN</p>
+        <div class="content w-50 d-flex flex-column justify-content-start p-3">
+          <h1 class="mision-y-vision--title m-0 ">SOS DIESEL PARTS</h1>
+          <p class="mision-y-vision--subtitle mb-3 ">MISION Y VISIÓN</p>
           <div class="mision-y-vision--text" >
             <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed ut tellus vitae nibh tristique vestibulum. Sed facilisis ipsum nec metus placerat, eget aliquet lectus blandit.</p>
             <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed ut tellus vitae nibh tristique vestibulum. Sed facilisis ipsum nec metus placerat, eget aliquet lectus blandit.</p>
@@ -19,13 +18,11 @@
             <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed ut tellus vitae nibh tristique vestibulum. Sed facilisis ipsum nec metus placerat, eget aliquet lectus blandit.</p>
           </div>
         </div>
-      </div>
     </div>
-    <div class="fotosRandom">
+    <div class="fotosRandom d-flex align-items-center justify-content-center">
       <div class="carousel--container">
-        <!-- <Carousel :slides="carouselImages" /> -->
-      </div>
-      <router-link :to="viewMoreUrl" class="ver-mas">Ver catálogo</router-link>  
+        <Carousel :slides="carouselImages" /> 
+      </div> 
     </div>
     <Footer class="footersillo"/>
   </div>
@@ -33,10 +30,8 @@
 
 <script>
 import Footer from "@/components/footer";
-/* import Carousel from "@/components/Carousel/Carousel.vue";*/
+import Carousel from "@/components/old-carousel.vue";
 import HomeProduct from "@/components/old-home-product.vue";
-import NavBar from "@/components/old-navbar.vue"; 
-
 import IMAGEN_TRACTOR from "@/assets/images/old_repo/tractor.png";
 import LOGOSOS from "@/assets/images/old_repo/logosos.png";
 import KUBOTALOGO from "@/assets/images/old_repo/kubotalogo.png";
@@ -120,103 +115,65 @@ export default {
       viewMoreUrl: "/productos"
     };
   },
-  components: { HomeProduct,  NavBar, /* Carousel, */ Footer }
+  components: { HomeProduct, Carousel, Footer }
 };
 </script>
 
 <style lang="scss" scoped>
-  .home {
-    height: 100vh;
-  }
+.home{
+  background-color: white;
+}
 
-  .container {
+  .mision{
     display: flex;
-    justify-content: left; /* centrar horizontalmente */
-    align-items: flex-start; /* alinear arriba */
-    padding-top: 3.6vh;
+    width: 75%;
+    min-height: 85vh;
+    padding: 1% 5%;
+    height: fit-content;
+    margin: auto;
+    background-color: white;
   }
 
-  .content {
-    text-align: left;
-  }
-
-  .image img{
-    width: 100%;
-    margin-left: -15%;
-    margin-top: 11%;
-    width: 718px;
+  .image {
+    width: 50%;
+    margin: 0;
+    img{
+      width: 90%;
+      height: 98%;
+    }
   }
 
   //! TO-DO: CSS REPETIDO
-  .mision {
-    height: 100vh;
-  }
 
   h1 {
     padding-top: 6%;
   
   }
 
-  .mision {
-    height: 100vh;
-    background-color: white;
-  }
-
   .mision-y-vision {
     &--title{
-      margin-top: 5vh;
-      margin-bottom: 2vh;
-      font-size: 3.5rem;
-      line-height: 1.2;
+      font-size: 1.8rem;
       font-family: 'Helvetica-SOS';
-      font-weight: 800;
       color: #C1272D;
     }
     &--subtitle{
-      font-weight: bold;
-      font-size: 2.2rem;
+      font-size: 1.5rem;
       font-family: 'Helvetica-SOS';
-      margin-bottom: 2vh;
     }
     &--text{
       word-wrap: break-word;
-      font-size: 1.5rem;
-      width: 65vh;
+      font-size: .9rem;
     }
   }
 
-  .fotosRandom {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    margin-bottom: 10vh;
-  }
+ 
   .carousel--container{
-    height: fit-content;
-    width: 100%;
-  }
-
-  .ver-mas {
-    width: fit-content;
-    padding: 10px 20px;
-    background-color: #C1272D;
-    color: white;
-    text-decoration: none;
-    border-radius: 5px;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
-    font-size: 1.2rem;
-    line-height: 1.2;
-
-    &:hover {
-    background-color: rgb(255, 255, 255);
-    color: #C1272D;
-    border: 1px solid #C1272D;
-  }
+    background: linear-gradient(to bottom, white, gray);
+    width: 100vw;
   }
 
   .footersillo {
-  width: 100%;
-  height: 11%;
-  background-color: #C1272D;
+    width: 100%;
+    background-color: #C1272D;
 }
 </style>

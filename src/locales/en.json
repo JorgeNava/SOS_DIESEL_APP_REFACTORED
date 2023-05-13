@@ -5,7 +5,11 @@
     },
     "dropdown": {
       "megamenu": {
-        "text": "Mega Menu",
+        "text": "Menu",
+        "catalog": {
+          "products": "products",
+          "product": "product"
+        },
         "uicontent": {
           "title": "UI Components",
           "list": {
@@ -90,6 +94,22 @@
     }
   },
   "menuitems": {
+    "catalog": {
+      "text": "Catalog",
+      "list": {
+        "products": "Products",
+        "productdetail": "Product Detail",
+        "orders": "Orders",
+        "customers": "Customers",
+        "cart": "Cart",
+        "checkout": "Checkout",
+        "shops": "Shops",
+        "addproduct": "Add Product"
+      }
+    },
+    "users": {
+      "text": "Users"
+    },
     "menu": {
       "text": "Menu"
     },
@@ -118,19 +138,6 @@
     "chat": {
       "text": "Chat",
       "badge": "New"
-    },
-    "catalog": {
-      "text": "Catalog",
-      "list": {
-        "products": "Products",
-        "productdetail": "Product Detail",
-        "orders": "Orders",
-        "customers": "Customers",
-        "cart": "Cart",
-        "checkout": "Checkout",
-        "shops": "Shops",
-        "addproduct": "Add Product"
-      }
     },
     "ecommerce": {
       "text": "Ecommerce",

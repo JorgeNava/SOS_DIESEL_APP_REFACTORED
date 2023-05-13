@@ -1,14 +1,14 @@
 <template>
   <footer class="footersillo">
-    <div class="container-fluid">
+    <div class="container-fluid d-flex ">
       <div class="row">
-        <div class="col-md-3">
+        <div class="col-md-3 mb-2 d-flex justify-content-center align-self-center">
           <img src="@/assets/images/logo-light.png" alt="2020" class="mr-2">
         </div>
-        <div class="col-md-6 text-center">
+        <div class="col-md-6 text-center d-flex justify-content-center align-items-center">
           <div class="medio">Río Nilo 1067 B Col, Quinta Velarde, 44430 Guadalajara, Jal.</div>
         </div>
-        <div class="col-md-3 text-right">
+        <div class="col-md-3 text-right d-flex justify-content-center align-items-start">
           <div class="derecha">(33) 3635 7004</div>
         </div>
       </div>
@@ -19,7 +19,7 @@
 <style scoped>
   .mr-2 {
     height: 70%;
-    margin-top: 6%;
+    margin-top: 4%;
     margin-left: 60%;
     width: 25%;
   }
@@ -28,14 +28,14 @@
     color: white;
     font-family: 'Helvetica-SOS';
     font-size: 1.2rem;
-    margin-top: 5%;
+    margin-top: 2%;
   }
 
   .derecha{
     color: white;
     font-family: 'Helvetica-SOS';
-    font-size: 1.7rem;
-    margin-top: 5%;
+    font-size: 1.2rem;
+    margin-top: 4%;
     margin-right: 45%;
   }
 </style>

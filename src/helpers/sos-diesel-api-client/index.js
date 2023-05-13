@@ -55,14 +55,10 @@ class ApiClient {
   }
 
   async authenticate(email, password) {
-    try {
-      const response = await this.post('/users/login', { email, password });
-      const { token } = response;
-      LocalStorageService.setToken(token);
-      return token;
-    } catch (error) {
-      return error;
-    }
+    const response = await this.post('/users/login', { email, password });
+    const { token } = response;
+    LocalStorageService.setToken(token);
+    return token;
   }
 
   getUrl(endpoint) {
