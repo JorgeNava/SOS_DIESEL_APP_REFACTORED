@@ -1,17 +1,41 @@
 <template>
-  <footer class="footer">
-    <div class="container-fluid">
+  <footer class="footersillo">
+    <div class="container-fluid d-flex ">
       <div class="row">
-        <div class="col-sm-6">
-          2023 © SOS Diesel.
+        <div class="col-md-3 mb-2 d-flex justify-content-center align-self-center">
+          <img src="@/assets/images/logo-light.png" alt="2020" class="mr-2">
         </div>
-        <div class="col-sm-6">
-          <div class="text-sm-right d-none d-sm-block">
-            Crafted with
-            <i class="mdi mdi-heart text-danger"></i> by Themesdesign
-          </div>
+        <div class="col-md-6 text-center d-flex justify-content-center align-items-center">
+          <div class="medio">Río Nilo 1067 B Col, Quinta Velarde, 44430 Guadalajara, Jal.</div>
+        </div>
+        <div class="col-md-3 text-right d-flex justify-content-center align-items-start">
+          <div class="derecha">(33) 3635 7004</div>
         </div>
       </div>
     </div>
   </footer>
 </template>
+
+<style scoped>
+  .mr-2 {
+    height: 70%;
+    margin-top: 4%;
+    margin-left: 60%;
+    width: 25%;
+  }
+
+  .medio {
+    color: white;
+    font-family: 'Helvetica-SOS';
+    font-size: 1.2rem;
+    margin-top: 2%;
+  }
+
+  .derecha{
+    color: white;
+    font-family: 'Helvetica-SOS';
+    font-size: 1.2rem;
+    margin-top: 4%;
+    margin-right: 45%;
+  }
+</style>

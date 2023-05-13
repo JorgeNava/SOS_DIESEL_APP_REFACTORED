@@ -132,7 +132,7 @@ export default [
 	{
 		path: "/ecommerce/products",
 		name: "products",
-		meta: { authRequired: true },
+		meta: { authRequired: false },
 		component: () => import("../views/pages/ecommerce/products"),
 	},
 	{
