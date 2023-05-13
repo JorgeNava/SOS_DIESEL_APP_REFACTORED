@@ -32,18 +32,14 @@ export default {
 </script>
 
 <template>
-<div class="pagina"> 
-  <div class="container">
-    <div class="row">
-      <div class="col-md-8">
-        <h1 class="Productos text-left mt-1 font-weight-bold">Productos</h1>
+<div class="pagina  "> 
+  <div class="container m-0 pt-5">
+    <div class=" a row  d-flex align-items-center ">
+      <div class="juas col d-flex align-items-start ">
+        <h1 class="Productos ">Productos</h1>
       </div>
-      <div class="col-md-4">
-        <div class="search-box mt-3 ">
-          <div class="position-relative">
-            <input type="text" class="form-control rounded-pill rounded-end border-danger" placeholder="buscar" />
-          </div>
-        </div>
+      <div class="col search-box d-flex justify-content-end">
+        <input type="text" class="form-control rounded-pill rounded-end border-danger" placeholder="buscar" />
       </div>
       <div class="image-container col-md-4">
         <img src="@/assets/images/envio.png">
@@ -53,9 +49,9 @@ export default {
   
 
   <div class="row">
-    <div class="filtros col-xl-2 col-lg-3 custom-width">
+    <div class="filtros col-xl-2 col-lg-2 custom-width">
         <div class="mt-5 border-top">
-          <h5 class="font-size-22 mb-4 mt-3 ml-4" style="font-family: 'Helvetica-SOS';">Filtros:</h5>
+          <h5 class="font-size-22 mb-4 mt-3 ml-2" style="font-family: 'Helvetica-SOS';">Filtros:</h5>
           <div>
             <h5 class="font-size-20 mb-1 ml-2" style="font-family: 'Helvetica-SOS'; color: rgba(206, 17, 17, 0.889);">Precio</h5>
             <div class="custom-control custom-square mt-2 ml-2">
@@ -121,7 +117,7 @@ export default {
                 <div class="product-box">
                   <div class="product-img">
                     <!--<div class="product-ribbon badge badge-warning">Trending</div>-->
-                    <div class="product-like">
+                    <div class="">
                       <a href="#">
                         
                       </a>
@@ -148,7 +144,7 @@ export default {
                 <div class="product-box">
                   <div class="product-img">
                     <!--<div class="product-ribbon badge badge-primary">- 25 %</div>-->
-                    <div class="product-like">
+                    <div class="">
                       <a href="#">
                         
                       </a>
@@ -177,7 +173,7 @@ export default {
               <div class="col-xl-4 col-sm-6">
                 <div class="product-box">
                   <div class="product-img">
-                    <div class="product-like">
+                    <div class="">
                       <a href="#">
 
                       </a>
@@ -206,7 +202,7 @@ export default {
               <div class="col-xl-4 col-sm-6">
                 <div class="product-box">
                   <div class="product-img">
-                    <div class="product-like">
+                    <div class="">
                       <a href="#">
                       </a>
                     </div>
@@ -235,7 +231,7 @@ export default {
               <div class="col-xl-4 col-sm-6">
                 <div class="product-box">
                   <div class="product-img">
-                    <div class="product-like">
+                    <div class="">
                       <a href="#">
                        <!-- <i class="mdi mdi-heart text-danger"></i>-->
                       </a>
@@ -261,7 +257,7 @@ export default {
                 <div class="product-box">
                   <div class="product-img">
                     <!--<div class="product-ribbon badge badge-primary">- 22 %</div>-->
-                    <div class="product-like">
+                    <div class="">
                       <a href="#">
                         <!--<i class="mdi mdi-heart-outline"></i>-->
                       </a>
@@ -342,27 +338,23 @@ export default {
 
 <style scoped>
 
+.container{
+  max-width: 92%;
+}
+
+
 .pagina{
   background-color: white
 }
 
 h1 {
-  font-size: 60px; /* tamaño de la letra */
+  font-size: 70px; /* tamaño de la letra */
   font-weight: bold; /* negrita */
   margin: 0; /* eliminamos el margen por defecto del h1 */
-  left: 0px;
-  margin-left: -40vh;
 }
 .filtros{
-  padding-left: 5%;
+  padding-left: 4%;
   font-family: 'Helvetica-SOS';
-}
-.search-box {
-  float: right;
-  padding-top: 5vh;
-  position: relative;
-  right: -35vh;
-  color: black !important;
 }
 
 .form-control::placeholder {
@@ -371,30 +363,41 @@ h1 {
     text-align: center;
   }
 
-  .search-box input {
-    border-width: 2px;
-    width: 90%;
-    padding: 15px 3px 8px;
-    font-family: 'Helvetica-SOS';
-    color: black !important;
-  }
+.search-box input {
+  border-width: 6px;
+  width: 20vw;
+  margin: 0 0;
+  height: 4vh;
+  padding: 15px 3px 8px;
+  font-family: 'Helvetica-SOS';
+}
 
-  .search-box .border-danger {
-    border-color: red;
-  }
+.search-box .border-danger {
+  border-color: red;
+}
 
 .image-container {
+
   position: absolute;
-  top: 45vh;
-  right: -41vh;
-  
+  height: 70vh;
+  width:9vw;
+  top: 25vh;
+  left: 85%;
+}
+
+.image-container img{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  align-self: center;
+  width: 14vw;
+  height: 70vh;
 }
 
 .Productos{
-  padding-left: 15%;
-  padding-top: 4vh;
   font-family: 'Helvetica-SOS';
   letter-spacing: 3px;
+  margin-left: 6%;
 }
 
 .product-box{
