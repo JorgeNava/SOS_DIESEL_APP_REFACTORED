@@ -3,16 +3,16 @@ import { required, email } from "vuelidate/lib/validators";
 
 import {
   authMethods,
-  authFackMethods,
   notificationMethods
 } from "@/state/helpers";
 
 export default {
   data() {
     return {
-      email: "admin@themesdesign.in",
-      password: "123456",
-      submitted: false
+      email: "",
+      password: "",
+      submitted: false,
+      showErrorNotification: false
     };
   },
   computed: {
@@ -29,48 +29,39 @@ export default {
   },
   methods: {
     ...authMethods,
-    ...authFackMethods,
     ...notificationMethods,
-    // Try to log the user in with the username
-    // and password they provided.
     tryToLogIn() {
       this.submitted = true;
-      // stop here if form is invalid
       this.$v.$touch();
 
       if (this.$v.$invalid) {
         return;
       } else {
-        if (process.env.VUE_APP_DEFAULT_AUTH === "firebase") {
-          this.tryingToLogIn = true;
-          // Reset the authError if it existed.
-          this.authError = null;
-          return (
-            this.logIn({
-              email: this.email,
-              password: this.password
-            })
-              // eslint-disable-next-line no-unused-vars
-              .then(token => {
-                this.tryingToLogIn = false;
-                this.isAuthError = false;
-                // Redirect to the originally requested page, or to the home page
-                this.$router.push(
-                  this.$route.query.redirectFrom || { name: "home" }
-                );
-              })
-              .catch(error => {
-                this.tryingToLogIn = false;
-                this.authError = error ? error : "";
-                this.isAuthError = true;
-              })
-          );
-        } else {
-          const { email, password } = this;
-          if (email && password) {
-            this.login({ email, password });
-          }
-        }
+        this.tryingToLogIn = true;
+        this.authError = null;
+        this.showErrorNotification = false;
+
+        return (
+          this.logIn({
+            email: this.email,
+            password: this.password
+          })
+          // eslint-disable-next-line no-unused-vars
+          .then(token => {
+            this.tryingToLogIn = false;
+            this.isAuthError = false;
+            // Redirect to the originally requested page, or to the home page
+            this.$router.push(
+              this.$route.query.redirectFrom || { name: "dashboard products" }
+            );
+          })
+          .catch(error => {
+            this.tryingToLogIn = false;
+            this.authError = error ? error?.response?.data?.error : "";
+            this.isAuthError = true;
+            this.showErrorNotification = true;
+          })
+        );
       }
     }
   }
@@ -96,7 +87,7 @@ export default {
                       <div class="text-center">
                         <div>
                           <a href="/" class="logo">
-                            <img src="@/assets/images/logo-dark.png" height="20" alt="logo" />
+                            <img src="@/assets/images/logo-dark.png" height="80" alt="logo" />
                           </a>
                         </div>
 
@@ -107,7 +98,7 @@ export default {
                       <b-alert
                         variant="danger"
                         class="mt-3"
-                        v-if="notification.message"
+                        v-if="showErrorNotification"
                         show
                         dismissible
                       >{{notification.message}}</b-alert>
@@ -148,18 +139,6 @@ export default {
                             >Password is required.</div>
                           </div>
 
-                          <div class="custom-control custom-checkbox">
-                            <input
-                              type="checkbox"
-                              class="custom-control-input"
-                              id="customControlInline"
-                            />
-                            <label
-                              class="custom-control-label"
-                              for="customControlInline"
-                            >Remember me</label>
-                          </div>
-
                           <div class="mt-4 text-center">
                             <button
                               class="btn btn-primary w-md waves-effect waves-light"
@@ -168,7 +147,7 @@ export default {
                           </div>
 
                           <div class="mt-4 text-center">
-                            <router-link tag="a" to="/forgot-password" class="text-muted">
+                            <router-link tag="a" to="/pages/coming-soon" class="text-muted">
                               <i class="mdi mdi-lock mr-1"></i> Forgot your password?
                             </router-link>
                           </div>
@@ -180,12 +159,12 @@ export default {
                           Don't have an account ?
                           <router-link
                             tag="a"
-                            to="/register"
+                            to="/pages/coming-soon"
                             class="font-weight-medium text-primary"
                           >Register</router-link>
                         </p>
                         <p>
-                          © 2020 SOS Diesel. Crafted with
+                          © 2023 SOS Diesel. Crafted with
                           <i class="mdi mdi-heart text-danger"></i> by Themesdesign
                         </p>
                       </div>

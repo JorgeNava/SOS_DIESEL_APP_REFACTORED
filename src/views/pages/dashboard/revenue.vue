@@ -7,7 +7,7 @@ export default {
     return {
       series: [
         {
-          name: "2020",
+          name: "2023",
           type: "column",
           data: [23, 42, 35, 27, 43, 22, 17, 31, 22, 22, 12, 16]
         },

@@ -1,4 +1,5 @@
 <script>
+import store from '@/state/store'
 import { layoutMethods } from "@/state/helpers";
 import { menuItems } from "./horizontal-menu";
 
@@ -83,7 +84,20 @@ export default {
       document.body.setAttribute("data-layout-size", "boxed");
       document.body.removeAttribute("data-topbar", "light");
       document.body.setAttribute("data-topbar", "dark");
+    },
+    isItemAvailable(item) {
+      if (item.adminRequired && store.getters['auth/loggedIn']) {
+        if (store.getters['auth/loggedInUser'].Role !== "Admin") {
+          return false;
+        }
+      }
+      return true;
     }
+  },
+  computed: {
+    filteredMenuItems() {
+      return this.menuItems.filter(item => this.isItemAvailable(item));
+    },
   }
 };
 </script>
@@ -94,7 +108,7 @@ export default {
       <nav class="navbar navbar-light navbar-expand-lg topnav-menu">
         <div class="collapse navbar-collapse" id="topnav-menu-content">
           <ul class="navbar-nav">
-            <li class="nav-item dropdown" v-for="(item, index) of menuItems" :key="index">
+            <li class="nav-item dropdown" v-for="(item, index) of filteredMenuItems" :key="index">
               <router-link
                 tag="a"
                 v-if="!item.subItems"
@@ -144,25 +158,6 @@ export default {
                     </div>
                   </div>
                 </template>
-              </div>
-            </li>
-            <li class="nav-item dropdown">
-              <a
-                class="nav-link dropdown-toggle arrow-none"
-                id="topnav-layout"
-                role="button"
-                data-toggle="dropdown"
-                aria-haspopup="true"
-                aria-expanded="false"
-                @click="onMenuClick"
-              >
-                <i class="ri-layout-3-line mr-2"></i>{{ $t('menuitems.layouts.text') }}
-                <div class="arrow-down"></div>
-              </a>
-              <div class="dropdown-menu dropdown-menu-right" aria-labelledby="topnav-layout">
-                <a @click="change_layout('vertical')" class="dropdown-item">{{ $t('menuitems.layouts.list.vertical') }}</a>
-                <a @click="topbarLight()" class="dropdown-item">{{ $t('menuitems.layouts.list.lighttopbar') }}</a>
-                <a @click="boxedWidth()" class="dropdown-item">{{ $t('menuitems.layouts.list.boxed') }}</a>
               </div>
             </li>
           </ul>

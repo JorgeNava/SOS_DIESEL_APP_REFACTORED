@@ -10,7 +10,7 @@ export default {
       hours: "",
       seconds: "",
       starttime: "Nov 5, 2018 15:37:25",
-      endtime: "Dec 31, 2020 16:37:25"
+      endtime: "Dec 31, 2023 16:37:25"
     };
   },
   created() {
@@ -86,7 +86,7 @@ export default {
                       </div>
 
                       <div class="p-2 mt-5">
-                        <div data-countdown="2020/12/31" class="counter-number">
+                        <div data-countdown="2023/12/31" class="counter-number">
                           <div class="coming-box">
                             {{ days }}
                             <span>Days</span>

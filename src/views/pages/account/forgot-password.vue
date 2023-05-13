@@ -128,7 +128,7 @@ export default {
                           >Log in</router-link>
                         </p>
                         <p>
-                          © 2020 SOS Diesel. Crafted with
+                          © 2023 SOS Diesel. Crafted with
                           <i class="mdi mdi-heart text-danger"></i> by Themesdesign
                         </p>
                       </div>
