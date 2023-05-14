@@ -11,6 +11,24 @@ export default [
 		component: () => import("../views/pages/home/home"),
 	},
 	{
+		path: "/contacto",
+		name: "contact",
+		meta: {
+			authRequired: false,
+			adminRequired: false,
+		},
+		component: () => import("../views/pages/utility/coming-soon"),
+	},
+	{
+		path: "/detalles-del-producto",
+		name: "product details",
+		meta: {
+			authRequired: false,
+			adminRequired: false,
+		},
+		component: () => import("../views/pages/utility/coming-soon"),
+	},
+	{
 		path: "/dashboard",
 		name: "dashboard",
 		meta: {
