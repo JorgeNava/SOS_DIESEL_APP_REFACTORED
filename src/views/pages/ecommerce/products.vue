@@ -13,9 +13,105 @@ export default {
   components: {
     VueSlideBar,
   },
+  methods: {
+    getRowsNumber() {
+        let rowNumber = Math.ceil(this.products.length / this.limitColumsPerRow);
+        const numbersArray = [];
+        for (let i = 0; i < rowNumber; i++) {
+          numbersArray.push(i);
+        }
+        console.log(numbersArray, rowNumber)
+        return numbersArray;
+        },
+        getRowStart(actualRow) {
+          return actualRow * this.limitColumsPerRow;
+        },
+        getRowEnd(actualRow){
+          return actualRow * this.limitColumsPerRow + 3;
+        },
+        getImageSource(path) {
+          console.log(path)
+          return path
+        }
+      },
+      updateFilter() {
+        this.$emit('filter-update', {
+          precios: this.precios,
+          marcas: this.marcas,
+          existencias: this.existencias
+        })
+      },
+      filtrarProductos() {
+        let min = 0;
+        let max = Number.MAX_SAFE_INTEGER;
+
+        if (this.precio.bajo) {
+          max = 2000;
+        } else if (this.precio.medio) {
+          min = 2000;
+          max = 5000;
+        } else if (this.precio.alto) {
+          min = 5000;
+        }
+
+        return this.products.filter(producto => producto.precio >= min && producto.precio <= max);
+      },
   data() {
     return {
+      precios: {
+      bajo: false,
+      medio: false,
+      alto: false
+      },
+      marcas: {
+        kubota: false,
+        johndeere: false,
+        ford: false
+      },
+      existencias: {
+        con: false,
+        sin: false
+      },
       title: "Products",
+      limitColumsPerRow: 3,
+      limitRowsPerPage: 3,
+      products: [
+        {
+          img:  require("@/assets/images/product/img-1.png"),
+          codigo: "xxx",
+          marca: "xxx",
+          descripcion: "xxx",
+          precio: 0
+        },
+        {
+          img:  require("@/assets/images/product/img-2.png"),
+          codigo: "xxx",
+          marca: "xxx",
+          descripcion: "xxx",
+          precio: 0
+        },
+        {
+          img:  require("@/assets/images/product/img-3.png"),
+          codigo: "xxx",
+          marca: "xxx",
+          descripcion: "xxx",
+          precio: 0
+        },
+        {
+          img:  require("@/assets/images/product/img-4.png"),
+          codigo: "xxx",
+          marca: "xxx",
+          descripcion: "xxx",
+          precio: 0
+        },
+        {
+          img:  require("@/assets/images/product/img-5.png"),
+          codigo: "xxx",
+          marca: "xxx",
+          descripcion: "xxx",
+          precio: 1
+        },
+      ],
       items: [
         {
           text: "Ecommerce"
@@ -27,7 +123,7 @@ export default {
       ],
       sliderPrice: 800
     };
-  }
+  },
 };
 </script>
 
@@ -54,39 +150,37 @@ export default {
           <h5 class="font-size-22 mb-4 mt-3 ml-2" style="font-family: 'Helvetica-SOS';">Filtros:</h5>
           <div>
             <h5 class="font-size-20 mb-1 ml-2" style="font-family: 'Helvetica-SOS'; color: rgba(206, 17, 17, 0.889);">Precio</h5>
-            <div class="custom-control custom-square mt-2 ml-2">
-              <input type="radio" id="productsizeRadio3" name="productdiscountRadio3" class="custom-control-input"/>
-              <label class="custom-control-label mt-4" for="productdiscountRadio1" style="font-family: 'Helvetica-SOS';">Menos de 2000</label>
+            <div class="custom-control custom-checkbox">
+              <input type="checkbox" class="custom-control-input" id="bajo" v-model="marcas.bajo" @change="updateFilter">
+              <label class="custom-control-label" for="bajo">Menos de 2000</label>
             </div>
-            <div class="custom-control custom-square mt-2 ml-2">
-              <input type="radio" id="productsizeRadio2" name="productdiscountRadio2" class="custom-control-input"/>
-
-              <label class="custom-control-label" for="productdiscountRadio2" style="font-family: 'Helvetica-SOS';">2000 - 5000</label>
+            <div class="custom-control custom-checkbox">
+              <input type="checkbox" class="custom-control-input" id="medio" v-model="precios.medio" @change="updateFilter">
+              <label class="custom-control-label" for="medio">2000 - 5000</label>
             </div>
-            <div class="custom-control custom-square mt-2 ml-2">
-              <input type="radio" id="productsizeRadio3" name="productdiscountRadio3" class="custom-control-input"/>
-              <label class="custom-control-label" for="productdiscountRadio3" style="font-family: 'Helvetica-SOS';">Mas de 5000</label>
+            <div class="custom-control custom-checkbox">
+              <input type="checkbox" class="custom-control-input" id="alto" v-model="precios.alto" @change="updateFilter">
+              <label class="custom-control-label" for="alto">Más de 5000</label>
             </div>
+            <vue-slide-bar v-model="sliderPrice" :min="0" :max="10000" />
           </div>
-          <vue-slide-bar v-model="sliderPrice" :min="0" :max="10000" />
         </div>
-
         <div>
           <h5 class="font-size-20 mt-3 ml-2" style="font-family: 'Helvetica-SOS'; color: rgba(206, 17, 17, 0.889);">
               Marca
           </h5>
             <div class="mt-4">
-              <div class="custom-control custom-square mt-2 ml-2">
-                <input type="radio" id="productmarcaRadio1" name="productmarcaRadio1" class="custom-control-input"/>
-                <label class="custom-control-label" for="productmarcaRadio1" style="font-family: 'Helvetica-SOS';">Kubota</label>
+              <div class="custom-control custom-checkbox">
+                <input type="checkbox" class="custom-control-input" id="kubota" v-model="marcas.kubota" @change="updateFilter">
+                <label class="custom-control-label" for="kubota">Kubota</label>
               </div>
-              <div class="custom-control custom-square mt-2 ml-2">
-                <input type="radio" id="productmarcaRadio2" name="productmarcaRadio2" class="custom-control-input"/>
-                <label class="custom-control-label" for="productmarcaRadio2" style="font-family: 'Helvetica-SOS';">Jhon Deere</label>
+              <div class="custom-control custom-checkbox">
+                <input type="checkbox" class="custom-control-input" id="johndeere" v-model="marcas.johndeere" @change="updateFilter">
+                <label class="custom-control-label" for="johndeere">Jhon Deere</label>
               </div>
-              <div class="custom-control custom-square mt-2 ml-2">
-                <input type="radio" id="productmarcaRadio3" name="productmarcaRadio3" class="custom-control-input"/>
-                <label class="custom-control-label" for="productmarcaRadio3" style="font-family: 'Helvetica-SOS';">Ford</label>
+              <div class="custom-control custom-checkbox">
+                <input type="checkbox" class="custom-control-input" id="ford" v-model="marcas.ford" @change="updateFilter">
+                <label class="custom-control-label" for="ford">Ford</label>
               </div>
             </div>
         </div>
@@ -97,13 +191,13 @@ export default {
               Existencia
           </h5>
             <div class="mt-4">
-              <div class="custom-control custom-square mt-2 ml-2">
-                <input type="radio" id="productsizeRadio1" name="productsizeRadio1" class="custom-control-input"/>
-                <label class="custom-control-label" for="productsizeRadio1" style="font-family: 'Helvetica-SOS';">Con existencia</label>
+              <div class="custom-control custom-checkbox">
+                <input type="checkbox" class="custom-control-input" id="con" v-model="existencias.con" @change="updateFilter">
+                <label class="custom-control-label" for="con">Con existencia</label>
               </div>
-              <div class="custom-control custom-square mt-2 ml-2">
-                <input type="radio" id="productsizeRadio2" name="productsizeRadio2" class="custom-control-input"/>
-                <label class="custom-control-label" for="productsizeRadio2" style="font-family: 'Helvetica-SOS';">Sin existencia</label>
+              <div class="custom-control custom-checkbox">
+                <input type="checkbox" class="custom-control-input" id="sin" v-model="existencias.sin" @change="updateFilter">
+                <label class="custom-control-label" for="sin">Sin existencia</label>
               </div>
             </div>
         </div>
@@ -112,8 +206,15 @@ export default {
       <div class="fotos col-lg-8 ml-5">
         <div>
           <div>
-            <div class="row no-gutters mt-5">
-              <div class="col-xl-4 col-sm-6">
+            <div v-for="(item,index) in getRowsNumber()" :key="index" class="row no-gutters mt-5">
+              <div v-for="(product,index) in products.slice(getRowStart(item),getRowEnd(item))" :key="index"  class="col-xl-4 col-sm-6">
+                <div v-for="producto, index in filtrarProductos()" :key="index">
+                  <img :src="producto.img" alt="producto">
+                  <p>Código: {{ producto.codigo }}</p>
+                  <p>Marca: {{ producto.marca }}</p>
+                  <p>Descripción: {{ producto.descripcion }}</p>
+                  <p>Precio: {{ producto.precio }}</p>
+                </div>
                 <div class="product-box">
                   <div class="product-img">
                     <!--<div class="product-ribbon badge badge-warning">Trending</div>-->
@@ -123,163 +224,19 @@ export default {
                       </a>
                     </div>
                     <img
-                      src="@/assets/images/product/img-1.png"
-                      alt
+                      :src="getImageSource(product.img)"
+                      :alt="product.codigo"
                       class="img-fluid mx-auto d-block"
                     />
                   </div>
 
                   <div class="text-center">
-                    <p class="font-size-16 mb-1" style="color: rgba(206, 17, 17, 0.889);">Blue color, T-shirt</p>
+                    <p class="font-size-16 mb-1" style="color: rgba(206, 17, 17, 0.889);">{{product.title}}</p>
                     <h5 class="font-size-18">
-                      <a href="#" class="text-dark">Full sleeve T-shirt</a>
+                      <a href="#" class="text-dark">{{product.descripcion}}</a>
                     </h5>
 
-                    <h5 class="mt-3 mb-0" style="color: rgba(206, 17, 17, 0.889);">$240</h5>
-                  </div>
-                </div>
-              </div>
-
-              <div class="col-xl-4 col-sm-6">
-                <div class="product-box">
-                  <div class="product-img">
-                    <!--<div class="product-ribbon badge badge-primary">- 25 %</div>-->
-                    <div class="">
-                      <a href="#">
-                        
-                      </a>
-                    </div>
-                    <img
-                      src="@/assets/images/product/img-2.png"
-                      alt
-                      class="img-fluid mx-auto d-block"
-                    />
-                  </div>
-
-                  <div class="text-center">
-                    <p class="font-size-16 mb-1" style="color: rgba(206, 17, 17, 0.889);">Half sleeve, T-shirt</p>
-                    <h5 class="font-size-18">
-                      <a href="#" class="text-dark">Half sleeve T-shirt</a>
-                    </h5>
-
-                    <h5 class="mt-3 mb-0" style="color: rgba(206, 17, 17, 0.889);">
-                      <span class="text-muted mr-2">
-                        <del style="color: rgba(206, 17, 17, 0.889);">$240</del>
-                      </span>$225
-                    </h5>
-                  </div>
-                </div>
-              </div>
-              <div class="col-xl-4 col-sm-6">
-                <div class="product-box">
-                  <div class="product-img">
-                    <div class="">
-                      <a href="#">
-
-                      </a>
-                    </div>
-                    <img
-                      src="@/assets/images/product/img-3.png"
-                      alt
-                      class="img-fluid mx-auto d-block"
-                    />
-                  </div>
-
-                  <div class="text-center">
-                    <p class="font-size-16 mb-1" style="color: rgba(206, 17, 17, 0.889);">Green color, Hoodie</p>
-                    <h5 class="font-size-18">
-                      <a href="#" class="text-dark">Hoodie (Green)</a>
-                    </h5>
-
-                    <h5 class="mt-3 mb-0" style="color: rgba(206, 17, 17, 0.889);">
-                      <span class="text-muted mr-2" style="color: rgba(206, 17, 17, 0.889);">
-                        <del style="color: rgba(206, 17, 17, 0.889);">$290</del>
-                      </span>$275
-                    </h5>
-                  </div>
-                </div>
-              </div>
-              <div class="col-xl-4 col-sm-6">
-                <div class="product-box">
-                  <div class="product-img">
-                    <div class="">
-                      <a href="#">
-                      </a>
-                    </div>
-                    <img
-                      src="@/assets/images/product/img-4.png"
-                      alt
-                      class="img-fluid mx-auto d-block"
-                    />
-                  </div>
-
-                  <div class="text-center">
-                    <p class="font-size-16 mb-1" style="color: rgba(206, 17, 17, 0.889);">Gray color, Hoodie</p>
-                    <h5 class="font-size-18">
-                      <a href="#" class="text-dark">Hoodie (Green)</a>
-                    </h5>
-
-                    <h5 class="mt-3 mb-0" style="color: rgba(206, 17, 17, 0.889);">
-                      <span class="text-muted mr-2" style="color: rgba(206, 17, 17, 0.889);">
-                        <del style="color: rgba(206, 17, 17, 0.889);">$290</del>
-                      </span>$275
-                    </h5>
-                  </div>
-                </div>
-              </div>
-
-              <div class="col-xl-4 col-sm-6">
-                <div class="product-box">
-                  <div class="product-img">
-                    <div class="">
-                      <a href="#">
-                       <!-- <i class="mdi mdi-heart text-danger"></i>-->
-                      </a>
-                    </div>
-                    <img
-                      src="@/assets/images/product/img-5.png"
-                      alt
-                      class="img-fluid mx-auto d-block"
-                    />
-                  </div>
-
-                  <div class="text-center">
-                    <p class="font-size-16 mb-1" style="color: rgba(206, 17, 17, 0.889);">Blue color, T-shirt</p>
-                    <h5 class="font-size-18">
-                      <a href="#" class="text-dark">Full sleeve T-shirt</a>
-                    </h5>
-
-                    <h5 class="mt-3 mb-0" style="color: rgba(206, 17, 17, 0.889);">$242</h5>
-                  </div>
-                </div>
-              </div>
-              <div class="col-xl-4 col-sm-6">
-                <div class="product-box">
-                  <div class="product-img">
-                    <!--<div class="product-ribbon badge badge-primary">- 22 %</div>-->
-                    <div class="">
-                      <a href="#">
-                        <!--<i class="mdi mdi-heart-outline"></i>-->
-                      </a>
-                    </div>
-                    <img
-                      src="@/assets/images/product/img-6.png"
-                      alt
-                      class="img-fluid mx-auto d-block"
-                    />
-                  </div>
-
-                  <div class="text-center">
-                    <p class="font-size-16 mb-1" style="color: rgba(206, 17, 17, 0.889);">Black color, T-shirt</p>
-                    <h5 class="font-size-18">
-                      <a href="#" class="text-dark" >Half sleeve T-shirt</a>
-                    </h5>
-
-                    <h5 class="mt-3 mb-0" style="color: rgba(206, 17, 17, 0.889);" >
-                      <span class="text-muted mr-2" style="color: rgba(206, 17, 17, 0.889);">
-                        <del style="color: rgba(206, 17, 17, 0.889);">$240</del>
-                      </span>$225
-                    </h5>
+                    <h5 class="mt-3 mb-0" style="color: rgba(206, 17, 17, 0.889);">{{product.precio}}</h5>
                   </div>
                 </div>
               </div>
@@ -337,6 +294,40 @@ export default {
 
 
 <style scoped>
+
+.custom-control-input:checked~.custom-control-label::before {
+  background-color: #17a2b8 !important;
+  border-color: #17a2b8 !important;
+}
+
+.custom-control-input:focus:not(:checked)~.custom-control-label::before {
+  border-color: #17a2b8 !important;
+}
+
+.custom-checkbox .custom-control-input:checked~.custom-control-label::after {
+  background-color: #17a2b8 !important;
+  border-color: #17a2b8 !important;
+}
+
+.custom-checkbox .custom-control-input:focus:not(:checked)~.custom-control-label::after {
+  border-color: #17a2b8 !important;
+}
+
+.custom-checkbox .custom-control-input:disabled:checked~.custom-control-label::before {
+  background-color: rgba(23, 162, 184, 0.5) !important;
+}
+
+.custom-checkbox .custom-control-input:disabled:indeterminate~.custom-control-label::before {
+  background-color: rgba(23, 162, 184, 0.5) !important;
+}
+
+.custom-checkbox .custom-control-input:disabled:checked~.custom-control-label::after {
+  background-color: #f0f0f0 !important;
+}
+
+.custom-checkbox .custom-control-input:disabled:indeterminate~.custom-control-label::after {
+  background-color: #f0f0f0 !important;
+}
 
 .container{
   max-width: 92%;
