@@ -1,5 +1,6 @@
 import { getFirebaseBackend } from '../../helpers/firebase/authUtils'
 const { getApiClient } = require('@/helpers/sos-diesel-api-client');
+import LocalStorageService from '@/helpers/local-storage-service';
 const api = getApiClient();
 
 export const state = {
@@ -46,7 +47,8 @@ export const actions = {
             .then(user => { 
                 const USER = user?.fields;
                 commit('SET_CURRENT_USER', USER);
-                sessionStorage.setItem("authUser", JSON.stringify(USER));
+                sessionStorage.setItem("authUser", JSON.stringify(USER)); 
+                LocalStorageService.setItem('user', USER)
                 // TO-DO: UPDATE getFirebaseBackend class, pass to a class/service
 /*                 setLoggeedInUser = (user) => {
                     console.log('[NAVA] setLoggeedInUser user:', user);
@@ -69,7 +71,8 @@ export const actions = {
     logOut({ commit }) {
         // eslint-disable-next-line no-unused-vars
         commit('SET_CURRENT_USER', null)
-
+        sessionStorage.setItem('authUser', null);
+        LocalStorageService.clearSession();
     },
 
     // register the user
@@ -101,8 +104,7 @@ export const actions = {
         if (!state.currentUser) return Promise.resolve(null)
         // TO-DO: FIX getAuthenticatedUser
         //const user = getFirebaseBackend().getAuthenticatedUser();
-        const X = JSON.parse(sessionStorage.getItem('authUser'));
-        const user = X;
+        const user = JSON.parse(sessionStorage.getItem('authUser'));
         commit('SET_CURRENT_USER', user)
         return user;
     },

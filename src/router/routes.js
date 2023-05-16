@@ -1,4 +1,5 @@
 import store from "@/state/store";
+import router from './index.js'
 
 export default [
 	{
@@ -82,6 +83,22 @@ export default [
 		},
 	},
 	{
+		path: "/logout",
+		name: "logout",
+		meta: {
+			authRequired: true,
+			adminRequired: false,
+			beforeResolve(routeTo, routeFrom) {
+				store.dispatch("auth/logOut");
+				const authRequiredOnPreviousRoute = routeFrom.matched.some((route) => {
+					return route.meta.authRequired || false;
+				}
+				);
+				router.replace(authRequiredOnPreviousRoute ? { name: "login" } : { ...routeFrom });
+			},
+		},
+	},
+	{
 		path: "/register",
 		name: "register",
 		component: () => import("../views/pages/account/register"),
@@ -112,22 +129,6 @@ export default [
 					// Continue to the login page
 					next();
 				}
-			},
-		},
-	},
-	{
-		path: "/logout",
-		name: "logout",
-		meta: {
-			authRequired: true,
-			beforeResolve(routeTo, routeFrom, next) {
-				store.dispatch("auth/logOut");
-				const authRequiredOnPreviousRoute = routeFrom.matched.some((route) => {
-					return route.meta.authRequired || false;
-				}
-				);
-				// Navigate back to previous page, or login as a fallback
-				next(authRequiredOnPreviousRoute ? { name: "login" } : { ...routeFrom });
 			},
 		},
 	},

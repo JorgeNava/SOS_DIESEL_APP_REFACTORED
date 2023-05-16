@@ -41,6 +41,10 @@ class LocalStorageService {
     this.removeItem('token')
   }
 
+  static setUser(user) {
+    return this.setItem('user', user);
+  }
+
   static getUser() {
     return this.getItem('user');
   }
