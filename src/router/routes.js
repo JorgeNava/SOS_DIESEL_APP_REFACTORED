@@ -66,6 +66,15 @@ export default [
 		component: () => import("../views/pages/new-dashboard/catalog/product-detail"),
 	},
 	{
+		path: "/dashboard/profile",
+		name: "dashboard user profile",
+		meta: {
+			authRequired: true,
+			adminRequired: false,
+		},
+		component: () => import("../views/pages/new-dashboard/users/profile"),
+	},
+	{
 		path: "/login",
 		name: "login",
 		component: () => import("../views/pages/account/login"),

@@ -4,23 +4,23 @@ import LocalStorageService from '@/helpers/local-storage-service';
 const api = getApiClient();
 
 export const state = {
-    currentUser: sessionStorage.getItem('authUser'),
+    user: sessionStorage.getItem('authUser'),
 }
 
 export const mutations = {
     SET_CURRENT_USER(state, newValue) {
-        state.currentUser = newValue
-        saveState('auth.currentUser', newValue)
+        state.user = newValue
+        saveState('user', newValue)
     },
 }
 
 export const getters = {
     // Whether the user is currently logged in.
     loggedIn(state) {
-        return !!state.currentUser
+        return !!state.user
     },
     loggedInUser(state) {
-        return state.currentUser
+        return state.user
     },
 }
 
@@ -97,11 +97,16 @@ export const actions = {
         });
     },
 
+    setUser({ commit }, user ) {
+        commit('SET_CURRENT_USER', user);
+        return user;
+    },
+
     // Validates the current user's token and refreshes it
     // with new data from the API.
     // eslint-disable-next-line no-unused-vars
     validate({ commit, state }) {
-        if (!state.currentUser) return Promise.resolve(null)
+        if (!state.user) return Promise.resolve(null)
         // TO-DO: FIX getAuthenticatedUser
         //const user = getFirebaseBackend().getAuthenticatedUser();
         const user = JSON.parse(sessionStorage.getItem('authUser'));
