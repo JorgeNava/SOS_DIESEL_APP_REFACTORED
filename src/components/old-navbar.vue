@@ -2,7 +2,7 @@
   <div class="d-flex justify-center flex-column">
     <img :src="imageUrls.logosos" alt="" class="img_logosos">
     <div>
-      <router-link to="/ecommerce/Products" class="button-top">Productos</router-link>
+      <router-link to="/ecommerce/products" class="button-top">Productos</router-link>
       <a href="#mision" class="button" @click.prevent="scrollToMissionSection">Quienes Somos</a>
       <router-link to="/contacto" class="button-bottom">Contacto</router-link>
     </div>

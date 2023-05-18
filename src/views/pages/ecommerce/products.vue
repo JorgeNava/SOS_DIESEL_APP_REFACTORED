@@ -1,5 +1,5 @@
 <script>
-import VueSlideBar from "vue-slide-bar";
+/*import VueSlideBar from "vue-slide-bar";*/
 import appConfig from "@/app.config";
 
 /**
@@ -10,54 +10,82 @@ export default {
     title: "Product",
     meta: [{ name: "description", content: appConfig.description }]
   },
-  components: {
+  /*components: {
     VueSlideBar,
-  },
+  },*/
+  mounted() {
+    this.filterProductsByMarca();
+  },  
   methods: {
     getRowsNumber() {
-        let rowNumber = Math.ceil(this.products.length / this.limitColumsPerRow);
-        const numbersArray = [];
-        for (let i = 0; i < rowNumber; i++) {
-          numbersArray.push(i);
-        }
-        console.log(numbersArray, rowNumber)
-        return numbersArray;
-        },
-        getRowStart(actualRow) {
-          return actualRow * this.limitColumsPerRow;
-        },
-        getRowEnd(actualRow){
-          return actualRow * this.limitColumsPerRow + 3;
-        },
-        getImageSource(path) {
-          console.log(path)
-          return path
-        }
-      },
-      updateFilter() {
-        this.$emit('filter-update', {
-          precios: this.precios,
-          marcas: this.marcas,
-          existencias: this.existencias
-        })
-      },
-      filtrarProductos() {
-        let min = 0;
-        let max = Number.MAX_SAFE_INTEGER;
+      let rowNumber = Math.ceil(this.products.length / this.limitColumsPerRow);
+      const numbersArray = [];
+      for (let i = 0; i < rowNumber; i++) {
+        numbersArray.push(i);
+      }
+      console.log(numbersArray, rowNumber)
+      return numbersArray;
+    },
+    getRowStart(actualRow) {
+      return actualRow * this.limitColumsPerRow;
+    },
+    getRowEnd(actualRow) {
+      return actualRow * this.limitColumsPerRow + 3;
+    },
+    getImageSource(path) {
+      console.log(path);
+      return path;
+    },
+    handleSearchInput() {
+      // Si el campo de búsqueda está vacío, no se realizará el filtrado
+      if (this.searchText.trim() === '') {
+        this.shouldFilter = false;
+      } else {
+        this.shouldFilter = true;
+        this.filterProductsByMarca();
+      }
+    },
+    filterProductsByMarca() {
+    if (this.searchMarca) {
+      this.filteredProducts = this.products.filter((product) =>
+        product.marca.toLowerCase().includes(this.searchMarca.toLowerCase())
+      );
+    } else {
+      this.filteredProducts = this.products;
+    }
 
-        if (this.precio.bajo) {
-          max = 2000;
-        } else if (this.precio.medio) {
-          min = 2000;
-          max = 5000;
-        } else if (this.precio.alto) {
-          min = 5000;
-        }
-
-        return this.products.filter(producto => producto.precio >= min && producto.precio <= max);
-      },
+    this.filteredProducts = this.filteredProducts.filter((product) => {
+      if (this.precios.bajo && product.precio >= 2000) {
+        return false;
+      }
+      if (this.precios.medio && (product.precio < 2000 || product.precio >= 5000)) {
+        return false;
+      }
+      if (this.precios.alto && product.precio <= 5000) {
+        return false;
+      }
+      if (
+      (this.marcas.kubota && product.marca.toLowerCase() !== 'kubota') ||
+      (this.marcas.johndeere && product.marca.toLowerCase() !== 'jhon deere') ||
+      (this.marcas.ford && product.marca.toLowerCase() !== 'ford')) 
+      {
+      return false;
+      }
+      if (
+      (this.existencias.con && product.existencia.toLowerCase() !== 'con') ||
+      (this.existencias.sin && product.existencia.toLowerCase() !== 'sin')) 
+      {
+        return false;
+      }
+      
+      return true;
+    });
+  },
+},
   data() {
     return {
+      searchMarca: "",
+      shouldFilter: false,
       precios: {
       bajo: false,
       medio: false,
@@ -86,7 +114,7 @@ export default {
         {
           img:  require("@/assets/images/product/img-2.png"),
           codigo: "xxx",
-          marca: "xxx",
+          marca: "Jhon Deere",
           descripcion: "xxx",
           precio: 0
         },
@@ -95,19 +123,19 @@ export default {
           codigo: "xxx",
           marca: "xxx",
           descripcion: "xxx",
-          precio: 0
+          precio: 3000
         },
         {
           img:  require("@/assets/images/product/img-4.png"),
           codigo: "xxx",
-          marca: "xxx",
+          marca: "kubota",
           descripcion: "xxx",
-          precio: 0
+          precio: 6000
         },
         {
           img:  require("@/assets/images/product/img-5.png"),
           codigo: "xxx",
-          marca: "xxx",
+          marca: "ford",
           descripcion: "xxx",
           precio: 1
         },
@@ -121,7 +149,8 @@ export default {
           active: true
         }
       ],
-      sliderPrice: 800
+      sliderPrice: 800,
+      filteredProducts: []
     };
   },
 };
@@ -135,7 +164,8 @@ export default {
         <h1 class="Productos ">Productos</h1>
       </div>
       <div class="col search-box d-flex justify-content-end">
-        <input type="text" class="form-control rounded-pill rounded-end border-danger" placeholder="buscar" />
+        <input type="text" class="form-control rounded-pill rounded-end border-danger" placeholder="buscar" v-model="searchMarca"
+        @change="filterProductsByMarca" />
       </div>
       <div class="image-container col-md-4">
         <img src="@/assets/images/envio.png">
@@ -151,18 +181,18 @@ export default {
           <div>
             <h5 class="font-size-20 mb-1 ml-2" style="font-family: 'Helvetica-SOS'; color: rgba(206, 17, 17, 0.889);">Precio</h5>
             <div class="custom-control custom-checkbox">
-              <input type="checkbox" class="custom-control-input" id="bajo" v-model="marcas.bajo" @change="updateFilter">
+              <input type="checkbox" class="custom-control-input" id="bajo" v-model="precios.bajo" @change="filterProductsByMarca">
               <label class="custom-control-label" for="bajo">Menos de 2000</label>
             </div>
             <div class="custom-control custom-checkbox">
-              <input type="checkbox" class="custom-control-input" id="medio" v-model="precios.medio" @change="updateFilter">
+              <input type="checkbox" class="custom-control-input" id="medio" v-model="precios.medio" @change="filterProductsByMarca">
               <label class="custom-control-label" for="medio">2000 - 5000</label>
             </div>
             <div class="custom-control custom-checkbox">
-              <input type="checkbox" class="custom-control-input" id="alto" v-model="precios.alto" @change="updateFilter">
+              <input type="checkbox" class="custom-control-input" id="alto" v-model="precios.alto" @change="filterProductsByMarca">
               <label class="custom-control-label" for="alto">Más de 5000</label>
             </div>
-            <vue-slide-bar v-model="sliderPrice" :min="0" :max="10000" />
+            <!--<vue-slide-bar v-model="sliderPrice" :min="0" :max="10000" />-->
           </div>
         </div>
         <div>
@@ -171,15 +201,15 @@ export default {
           </h5>
             <div class="mt-4">
               <div class="custom-control custom-checkbox">
-                <input type="checkbox" class="custom-control-input" id="kubota" v-model="marcas.kubota" @change="updateFilter">
+                <input type="checkbox" class="custom-control-input" id="kubota" v-model="marcas.kubota" @change="filterProductsByMarca">
                 <label class="custom-control-label" for="kubota">Kubota</label>
               </div>
               <div class="custom-control custom-checkbox">
-                <input type="checkbox" class="custom-control-input" id="johndeere" v-model="marcas.johndeere" @change="updateFilter">
+                <input type="checkbox" class="custom-control-input" id="johndeere" v-model="marcas.johndeere" @change="filterProductsByMarca">
                 <label class="custom-control-label" for="johndeere">Jhon Deere</label>
               </div>
               <div class="custom-control custom-checkbox">
-                <input type="checkbox" class="custom-control-input" id="ford" v-model="marcas.ford" @change="updateFilter">
+                <input type="checkbox" class="custom-control-input" id="ford" v-model="marcas.ford" @change="filterProductsByMarca">
                 <label class="custom-control-label" for="ford">Ford</label>
               </div>
             </div>
@@ -192,11 +222,11 @@ export default {
           </h5>
             <div class="mt-4">
               <div class="custom-control custom-checkbox">
-                <input type="checkbox" class="custom-control-input" id="con" v-model="existencias.con" @change="updateFilter">
+                <input type="checkbox" class="custom-control-input" id="con" v-model="existencias.con" @change="filterProductsByMarca">
                 <label class="custom-control-label" for="con">Con existencia</label>
               </div>
               <div class="custom-control custom-checkbox">
-                <input type="checkbox" class="custom-control-input" id="sin" v-model="existencias.sin" @change="updateFilter">
+                <input type="checkbox" class="custom-control-input" id="sin" v-model="existencias.sin" @change="filterProductsByMarca">
                 <label class="custom-control-label" for="sin">Sin existencia</label>
               </div>
             </div>
@@ -207,19 +237,12 @@ export default {
         <div>
           <div>
             <div v-for="(item,index) in getRowsNumber()" :key="index" class="row no-gutters mt-5">
-              <div v-for="(product,index) in products.slice(getRowStart(item),getRowEnd(item))" :key="index"  class="col-xl-4 col-sm-6">
-                <div v-for="producto, index in filtrarProductos()" :key="index">
-                  <img :src="producto.img" alt="producto">
-                  <p>Código: {{ producto.codigo }}</p>
-                  <p>Marca: {{ producto.marca }}</p>
-                  <p>Descripción: {{ producto.descripcion }}</p>
-                  <p>Precio: {{ producto.precio }}</p>
-                </div>
+              <div v-for="(product, index) in filteredProducts.slice(getRowStart(index), getRowEnd(index))" :key="index" class="col-xl-4 col-sm-6">
                 <div class="product-box">
                   <div class="product-img">
                     <!--<div class="product-ribbon badge badge-warning">Trending</div>-->
                     <div class="">
-                      <a href="#">
+                      <a href="/ecommerce/product-details">
                         
                       </a>
                     </div>
@@ -233,7 +256,7 @@ export default {
                   <div class="text-center">
                     <p class="font-size-16 mb-1" style="color: rgba(206, 17, 17, 0.889);">{{product.title}}</p>
                     <h5 class="font-size-18">
-                      <a href="#" class="text-dark">{{product.descripcion}}</a>
+                      <a href="/ecommerce/product-details" class="text-dark">{{product.descripcion}}</a>
                     </h5>
 
                     <h5 class="mt-3 mb-0" style="color: rgba(206, 17, 17, 0.889);">{{product.precio}}</h5>
