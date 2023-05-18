@@ -15,25 +15,23 @@ import {
 export default {
   data() {
     return {
-      title: "Profile",
+      title: "Perfil",
       items: [
         {
-          text: "Users",
+          text: "Usuarios",
           href: "/"
         },
         {
-          text: "Profile",
+          text: "Perfil",
           active: true
         }
       ],
-      user: {
-        Username: 'Jorge Nava',
-        ProfileImage: '/ruta/a/la/imagen.png',
-        Rmail: 'correo@example.com',
-        Role: 'Rol del usuario',
-        Notes: 'Notas del usuario',
-        Status: 'Active',
-      },
+      profileUserUsername: 'Jorge Nava',
+      profileUserProfileImage: '/ruta/a/la/imagen.png',
+      profileUserEmail: 'correo@example.com',
+      profileUserRole: 'Rol del usuario',
+      profileUserNotes: 'Notas del usuario',
+      profileUserStatus: 'Active',
       statusOptions: ['Active', 'Blocked'],
       editing: false,
       internalError: false
@@ -52,11 +50,11 @@ export default {
             text: 'Los datos del usuario no han podido ser registrados correctamente'
           };
           const USER_UPDATED_DATA = {
-            email: this.user.Email,
-            username: this.user.Username,
-            notes: this.user.Notes,
-            status: this.user.Status,
-            role: this.user.Role,
+            email: this.profileUserEmail,
+            username: this.profileUserUsername,
+            notes: this.profileUserNotes,
+            status: this.profileUserStatus,
+            role: this.profileUserRole,
           };
           const RAW_RESPONSE = await api.post('/users/update-one', USER_UPDATED_DATA);
           if (RAW_RESPONSE?.id) {
@@ -66,7 +64,14 @@ export default {
               text: 'Los datos del usuario han sido registrados exitosamente!'
             }
           }
-          this.setUser(this.user);
+          const NEW_CURRENT_USER = {
+            Email: this.profileUserEmail,
+            Username: this.profileUserUsername,
+            Notes: this.profileUserNotes,
+            Status: this.profileUserStatus,
+            Role: this.profileUserRole,
+          };
+          this.setUser(NEW_CURRENT_USER);
           this.editing = false;
           this.makeToast(alertParams);
         } else {
@@ -78,10 +83,10 @@ export default {
       }
     },
     validateInputs() {
-      if (_.isEmpty(this.user.Username)) return false; 
-      if (_.isEmpty(this.user.Email)) return false; 
-      if (_.isEmpty(this.user.Role)) return false; 
-      if (_.isEmpty(this.user.Status)) return false; 
+      if (_.isEmpty(this.profileUserUsername)) return false; 
+      if (_.isEmpty(this.profileUserEmail)) return false; 
+      if (_.isEmpty(this.profileUserRole)) return false; 
+      if (_.isEmpty(this.profileUserStatus)) return false; 
       return true;
     },
     makeToast(alertParams) {
@@ -103,7 +108,12 @@ export default {
   created() {
     const ACTUAL_USER = store.getters['auth/loggedInUser'];
     console.log('[NAVA] ACTUAL_USER:', ACTUAL_USER);
-    this.user = ACTUAL_USER;
+    this.profileUserUsername = ACTUAL_USER?.Username;
+    this.profileUserProfileImage = ACTUAL_USER.ProfileImage ? ACTUAL_USER.ProfileImage : '@/assets/images/users/avatar-6.jpg';
+    this.profileUserEmail = ACTUAL_USER?.Email;
+    this.profileUserRole = ACTUAL_USER?.Role;
+    this.profileUserNotes = ACTUAL_USER?.Notes;
+    this.profileUserStatus = ACTUAL_USER?.Status;
   },
   components: { Layout, PageHeader},
 };
@@ -119,22 +129,22 @@ export default {
             <img src="@/assets/images/users/avatar-6.jpg"  class="profile-image" />
             <b-form class="w-100 d-flex justify-content-center align-items-center text-center center-cursor">
               <b-form-group label="Nombre de usuario">
-                <b-form-input v-model="user.Username" :readonly="!editing"></b-form-input>
+                <b-form-input v-model="profileUserUsername" :readonly="!editing"></b-form-input>
               </b-form-group>
             </b-form>
           </div>
           <b-form class="pl-3 pr-5 py-3 w-50">
             <b-form-group label="Correo">
-              <b-form-input v-model="user.Email" :readonly="true"></b-form-input>
+              <b-form-input v-model="profileUserEmail" :readonly="true"></b-form-input>
             </b-form-group>
             <b-form-group label="Rol">
-              <b-form-input v-model="user.Role" :readonly="true"></b-form-input>
+              <b-form-input v-model="profileUserRole" :readonly="true"></b-form-input>
             </b-form-group>
             <b-form-group label="Notas">
-              <b-form-textarea v-model="user.Notes" :readonly="!editing"></b-form-textarea>
+              <b-form-textarea v-model="profileUserNotes" :readonly="!editing"></b-form-textarea>
             </b-form-group>
             <b-form-group label="Estatus">
-              <b-form-select v-model="user.Status" :options="editing ? statusOptions : [user.Status]" :readonly="true"></b-form-select>
+              <b-form-select v-model="profileUserStatus" :options="editing ? statusOptions : [profileUserStatus]" :readonly="true"></b-form-select>
             </b-form-group>
             <div class="text-center mt-4">
               <b-button variant="primary" @click="toggleEditing">
@@ -143,15 +153,7 @@ export default {
             </div>
           </b-form>
         </div>
-        <b-alert
-          :show="internalError"
-          dismissible
-          variant="danger"
-          class="text-center"
-          @dismissed="internalError = false"
-        >       
-        Los campos necesarios para la operación han fallado en su validación.
-        </b-alert>
+
       </b-card>
     </div>
   </Layout>
