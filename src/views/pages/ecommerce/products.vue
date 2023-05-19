@@ -336,12 +336,12 @@ export default {
                   </div>
 
                   <div class="text-center">
-                    <p class="font-size-16 mb-1" style="color: rgba(206, 17, 17, 0.889);">{{product.title}}</p>
+                    <p class="font-size-16 mb-1" style="color: rgba(206, 17, 17, 0.889);">{{product.codigo}}</p>
                     <h5 class="font-size-18">
-                      <a href="/ecommerce/product-details" class="text-dark">{{product.descripcion}}</a>
+                      <router-link :to="`/ecommerce/product-details/${product.descripcion}`" class="text-dark">{{product.descripcion}}</router-link>
                     </h5>
-
                     <h5 class="mt-3 mb-0" style="color: rgba(206, 17, 17, 0.889);">{{product.precio}}</h5>
+                    <router-link :to="{ path: '/ecommerce/product-details', query: { codigo: product.codigo, descripcion: product.descripcion, precio: product.precio } }">Ver detalles</router-link>
                   </div>
                 </div>
               </div>
