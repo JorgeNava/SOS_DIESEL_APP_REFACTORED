@@ -10,9 +10,9 @@ class FirebaseAuthBackend {
             firebase.initializeApp(firebaseConfig);
             firebase.auth().onAuthStateChanged((user) => {
                 if (user) {
-                    sessionStorage.setItem("authUser", JSON.stringify(user));
+                    sessionStorage.setItem("user", JSON.stringify(user));
                 } else {
-                    sessionStorage.removeItem('authUser');
+                    sessionStorage.removeItem('user');
                 }
             });
         }
@@ -25,7 +25,7 @@ class FirebaseAuthBackend {
         return new Promise((resolve, reject) => {
             firebase.auth().createUserWithEmailAndPassword(email, password).then((user) => {
                 // eslint-disable-next-line no-redeclare
-                var user = firebase.auth().currentUser;
+                var user = firebase.auth().user;
                 resolve(user);
             }, (error) => {
                 reject(this._handleError(error));
@@ -40,7 +40,7 @@ class FirebaseAuthBackend {
         return new Promise((resolve, reject) => {
             firebase.auth().signInWithEmailAndPassword(email, password).then((user) => {
                 // eslint-disable-next-line no-redeclare
-                var user = firebase.auth().currentUser;
+                var user = firebase.auth().user;
                 resolve(user);
             }, (error) => {
                 reject(this._handleError(error));
@@ -75,16 +75,16 @@ class FirebaseAuthBackend {
     }
 
     setLoggeedInUser = (user) => {
-        sessionStorage.setItem("authUser", JSON.stringify(user));
+        sessionStorage.setItem("user", JSON.stringify(user));
     }
 
     /**
      * Returns the authenticated user
      */
     getAuthenticatedUser = () => {
-        if (!sessionStorage.getItem('authUser'))
+        if (!sessionStorage.getItem('user'))
             return null;
-        return JSON.parse(sessionStorage.getItem('authUser'));
+        return JSON.parse(sessionStorage.getItem('user'));
     }
 
     /**

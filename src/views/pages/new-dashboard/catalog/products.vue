@@ -10,7 +10,7 @@ import appConfig from "@/app.config";
  */
 export default {
   page: {
-    title: "Product",
+    title: "Productos",
     meta: [{ name: "description", content: appConfig.description }]
   },
   components: {
@@ -20,13 +20,13 @@ export default {
   },
   data() {
     return {
-      title: "Products",
+      title: "Productos",
       items: [
         {
-          text: "Ecommerce"
+          text: "Catalog"
         },
         {
-          text: "Products",
+          text: "Productos",
           active: true
         }
       ],
@@ -43,11 +43,11 @@ export default {
       <div class="col-xl-3 col-lg-4">
         <div class="card">
           <div class="card-header bg-transparent border-bottom">
-            <h5 class="mb-0">Filters</h5>
+            <h5 class="mb-0">Filtros</h5>
           </div>
 
           <div class="card-body">
-            <h5 class="font-size-14 mb-3">Categories</h5>
+            <h5 class="font-size-14 mb-3">Categorias</h5>
 
             <div id="accordion" class="custom-accordion categories-accordion mb-3">
               <div class="categories-group-card">

@@ -1,4 +1,5 @@
 import store from "@/state/store";
+import router from './index.js'
 
 export default [
 	{
@@ -9,6 +10,24 @@ export default [
 			adminRequired: false,
 		},
 		component: () => import("../views/pages/home/home"),
+	},
+	{
+		path: "/contacto",
+		name: "contact",
+		meta: {
+			authRequired: false,
+			adminRequired: false,
+		},
+		component: () => import("../views/pages/utility/coming-soon"),
+	},
+	{
+		path: "/detalles-del-producto",
+		name: "product details",
+		meta: {
+			authRequired: false,
+			adminRequired: false,
+		},
+		component: () => import("../views/pages/utility/coming-soon"),
 	},
 	{
 		path: "/dashboard",
@@ -47,6 +66,15 @@ export default [
 		component: () => import("../views/pages/new-dashboard/catalog/product-detail"),
 	},
 	{
+		path: "/dashboard/profile",
+		name: "dashboard user profile",
+		meta: {
+			authRequired: true,
+			adminRequired: false,
+		},
+		component: () => import("../views/pages/new-dashboard/users/profile"),
+	},
+	{
 		path: "/login",
 		name: "login",
 		component: () => import("../views/pages/account/login"),
@@ -60,6 +88,22 @@ export default [
 					// Continue to the login page
 					next();
 				}
+			},
+		},
+	},
+	{
+		path: "/logout",
+		name: "logout",
+		meta: {
+			authRequired: true,
+			adminRequired: false,
+			beforeResolve(routeTo, routeFrom) {
+				store.dispatch("auth/logOut");
+				const authRequiredOnPreviousRoute = routeFrom.matched.some((route) => {
+					return route.meta.authRequired || false;
+				}
+				);
+				router.replace(authRequiredOnPreviousRoute ? { name: "login" } : { ...routeFrom });
 			},
 		},
 	},
@@ -98,22 +142,6 @@ export default [
 		},
 	},
 	{
-		path: "/logout",
-		name: "logout",
-		meta: {
-			authRequired: true,
-			beforeResolve(routeTo, routeFrom, next) {
-				store.dispatch("auth/logOut");
-				const authRequiredOnPreviousRoute = routeFrom.matched.some((route) => {
-					return route.meta.authRequired || false;
-				}
-				);
-				// Navigate back to previous page, or login as a fallback
-				next(authRequiredOnPreviousRoute ? { name: "login" } : { ...routeFrom });
-			},
-		},
-	},
-	{
 		path: "/chat",
 		name: "Chat",
 		meta: {
@@ -138,7 +166,8 @@ export default [
 	{
 		path: "/ecommerce/product-details",
 		name: "product detail",
-		meta: { authRequired: true },
+		props: true,
+		meta: { authRequired: false },
 		component: () => import("../views/pages/ecommerce/product-detail"),
 	},
 	{

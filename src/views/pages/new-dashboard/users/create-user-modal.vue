@@ -1,4 +1,5 @@
 <script>
+import _ from "lodash";
 import appConfig from "@/app.config";
 const { getApiClient } = require('@/helpers/sos-diesel-api-client');
 const api = getApiClient();
@@ -25,9 +26,10 @@ export default {
       newPassword: '',
       newUsername: '',
       newNotes: '',
-      newStatus: '',
+      newStatus: 'Active',
       newRole: '',
       show1: false,
+      internalError: false
     };
   },
   methods: {
@@ -38,6 +40,13 @@ export default {
           text: 'Los datos del usuario no han podido ser creados correctamente'
         };
       try {
+        this.internalError = false;
+        const INPUTS_ARE_VALID = this.validateInputs();
+        if (!INPUTS_ARE_VALID) {
+          this.internalError = true;
+          return;
+        }
+
         const NEW_USER_DATA = {
           email: this.newEmail,
           password: this.newPassword,
@@ -61,7 +70,27 @@ export default {
         console.error(error);
       } 
     },
+    validateEmail(email) {
+      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      return emailRegex.test(email);
+    },
+    validateInputs() {
+      if (_.isEmpty(this.newEmail) || !this.validateEmail(this.newEmail)) return false; 
+      if (_.isEmpty(this.newPassword)) return false; 
+      if (_.isEmpty(this.newUsername)) return false; 
+      if (_.isEmpty(this.newStatus)) return false; 
+      if (_.isEmpty(this.newRole)) return false; 
+      return true;
+    },
   },
+  watch: {
+    internalError: function () {
+      if (this.internalError) {
+        setTimeout(() => {
+        this.internalError = false
+      }, 3000)      }
+    }
+  }
 };
 </script>
 
@@ -104,6 +133,15 @@ export default {
           <b-form-select v-model="newStatus" :options="[{value: 'Active', text: 'Active'}, {value: 'Blocked', text: 'Blocked'}]"></b-form-select>
         </b-input-group>
       </b-form-group>
+      <b-alert
+        :show="internalError"
+        dismissible
+        variant="danger"
+        class="text-center"
+        @dismissed="internalError = false"
+      >
+        Los campos necesarios para la operación han fallado en su validación.
+      </b-alert> 
     </section>
     <footer class="modal-card-foot d-flex">
       <b-button variant="outline-primary" @click="createUser" class="ml-auto pr-3"><i class="mdi mdi-content-save mr-3"></i>Crear</b-button>

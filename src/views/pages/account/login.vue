@@ -50,6 +50,7 @@ export default {
           .then(token => {
             this.tryingToLogIn = false;
             this.isAuthError = false;
+            this.$root.startJwtTimer();
             // Redirect to the originally requested page, or to the home page
             this.$router.push(
               this.$route.query.redirectFrom || { name: "dashboard products" }

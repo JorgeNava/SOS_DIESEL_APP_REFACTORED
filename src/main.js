@@ -19,6 +19,8 @@ import "@/assets/scss/app.scss";
 import { initFirebaseBackend } from './helpers/firebase/authUtils';
 
 import { configureFakeBackend } from './helpers/fakebackend/fake-backend';
+import LocalStorageService from '@/helpers/local-storage-service';
+import eventBus from '@/helpers/event-bus';
 
 const firebaseConfig = {
   apiKey: process.env.VUE_APP_APIKEY,
@@ -58,5 +60,31 @@ new Vue({
   router,
   store,
   i18n,
+  data() {
+    return {
+      jwtTimer: null,
+    };
+  },
+  methods: {
+    startJwtTimer() {
+      this.jwtTimer = setInterval(() => {
+        const currentRoute = this.$route.path;
+        if (!currentRoute.includes('/dashboard') || currentRoute === '/login') {
+          return;
+        }
+  
+        const jwtToken = LocalStorageService.getToken();
+        const jwtExpireTime = new Date(JSON.parse(atob(jwtToken.split('.')[1])).exp * 1000);
+  
+        if (jwtExpireTime <= new Date()) {
+          clearInterval(this.jwtTimer);
+          eventBus.$emit('sessionExpired');
+        }
+      }, 1000  * 300); // Check 5 mins
+    },
+  },
+  destroyed() {
+    clearInterval(this.jwtTimer);
+  },
   render: h => h(App)
 }).$mount('#app')

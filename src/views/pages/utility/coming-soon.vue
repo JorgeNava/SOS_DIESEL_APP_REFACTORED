@@ -9,8 +9,8 @@ export default {
       minutes: "",
       hours: "",
       seconds: "",
-      starttime: "Nov 5, 2018 15:37:25",
-      endtime: "Dec 31, 2023 16:37:25"
+      starttime: "May 13, 2023 15:37:25",
+      endtime: "May 25, 2023 16:37:25"
     };
   },
   created() {
@@ -75,18 +75,15 @@ export default {
                       <div class="text-center">
                         <div>
                           <a href="index.html" class="logo">
-                            <img src="@/assets/images/logo-dark.png" height="20" alt="logo" />
+                            <img src="@/assets/images/logo-dark.png" height="80" alt="logo" />
                           </a>
                         </div>
 
-                        <h4 class="font-size-18 mt-4">Let's get started with SOS Diesel</h4>
-                        <p
-                          class="text-muted"
-                        >It will be as simple as Occidental in fact it will be Occidental.</p>
+                        <h4 class="font-size-18 mt-4">Coming soon with SOS Diesel!</h4>
                       </div>
 
                       <div class="p-2 mt-5">
-                        <div data-countdown="2023/12/31" class="counter-number">
+                        <div data-countdown="2023/05/25" class="counter-number">
                           <div class="coming-box">
                             {{ days }}
                             <span>Days</span>
@@ -102,26 +99,6 @@ export default {
                           <div class="coming-box">
                             {{ seconds }}
                             <span>Seconds</span>
-                          </div>
-                        </div>
-                      </div>
-
-                      <div class="input-section mt-5">
-                        <div class="row">
-                          <div class="col">
-                            <div class="position-relative">
-                              <input
-                                type="email"
-                                class="form-control"
-                                placeholder="Enter email address..."
-                              />
-                            </div>
-                          </div>
-                          <div class="col-auto">
-                            <button
-                              type="submit"
-                              class="btn btn-primary w-md waves-effect waves-light"
-                            >Subscribe</button>
                           </div>
                         </div>
                       </div>

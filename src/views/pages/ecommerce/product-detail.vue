@@ -1,15 +1,10 @@
 <script>
-import Layout from "../../layouts/main";
-import PageHeader from "@/components/page-header";
 
 /**
  * Product Detail Component
  */
 export default {
-  components: {
-    Layout,
-    PageHeader
-  },
+  props: ['productId'],
   data() {
     return {
       title: "Product Detail",
@@ -19,12 +14,29 @@ export default {
         },
         {
           text: "Product Detail",
-          active: true
         }
       ]
     };
   },
+  created() {
+    // Realiza una llamada a tu API o accede a tu fuente de datos para obtener los detalles del producto
+    this.fetchProductDetails();
+  },
+
   methods: {
+    fetchProductDetails() {
+    // Aquí obtienes los parámetros del producto desde la ruta actual
+    const codigo = this.$route.query.codigo;
+    const descripcion = this.$route.query.descripcion;
+    const precio = this.$route.query.precio;
+
+    // Puedes utilizar los parámetros como desees, por ejemplo, asignarlos a la propiedad 'product'
+    this.product = {
+      codigo: codigo,
+      descripcion: descripcion,
+      precio: precio
+    };
+  },
     /**
      * Selected image shows
      */
@@ -38,8 +50,7 @@ export default {
 </script>
 
 <template>
-  <Layout>
-    <PageHeader :title="title" :items="items" />
+  <div>
     <div class="row">
       <div class="col-lg-12">
         <div class="card">
@@ -122,24 +133,6 @@ export default {
                           </div>
                         </div>
                       </div>
-                      <div class="row text-center mt-2">
-                        <div class="col-sm-6">
-                          <button
-                            type="button"
-                            class="btn btn-primary btn-block waves-effect waves-light mt-2 mr-1"
-                          >
-                            <i class="mdi mdi-cart mr-2"></i> Add to cart
-                          </button>
-                        </div>
-                        <div class="col-sm-6">
-                          <button
-                            type="button"
-                            class="btn btn-light btn-block waves-effect mt-2 waves-light"
-                          >
-                            <i class="mdi mdi-shopping mr-2"></i>Buy now
-                          </button>
-                        </div>
-                      </div>
                     </div>
                   </div>
                 </div>
@@ -173,21 +166,7 @@ export default {
                   <div class="row">
                     <div class="col-md-6">
                       <div>
-                        <h5 class="font-size-14">
-                          <i class="mdi mdi-location"></i> Delivery location
-                        </h5>
-                        <div class="form-inline">
-                          <div class="input-group mb-3">
-                            <input
-                              type="text"
-                              class="form-control"
-                              placeholder="Enter Delivery pincode "
-                            />
-                            <div class="input-group-append">
-                              <button class="btn btn-light" type="button">Check</button>
-                            </div>
-                          </div>
-                        </div>
+                       
 
                         <h5 class="font-size-14">Specification :</h5>
                         <ul class="list-unstyled product-desc-list">
@@ -205,20 +184,6 @@ export default {
                           </li>
                         </ul>
                       </div>
-                    </div>
-
-                    <div>
-                      <h5 class="font-size-14">Services :</h5>
-                      <ul class="list-unstyled product-desc-list">
-                        <li>
-                          <i class="mdi mdi-sync text-primary mr-1 align-middle font-size-16"></i> 10 Days Replacement
-                        </li>
-                        <li>
-                          <i
-                            class="mdi mdi-currency-usd-circle text-primary mr-1 align-middle font-size-16"
-                          ></i> Cash on Delivery available
-                        </li>
-                      </ul>
                     </div>
                   </div>
 
@@ -314,12 +279,12 @@ export default {
                       <table class="table table-nowrap mb-0">
                         <tbody>
                           <tr>
-                            <th scope="row" style="width: 400px;">Category</th>
-                            <td>T-Shirt</td>
+                            <th scope="row" style="width: 400px;">Código</th>
+                            <td>{{ product.codigo }}</td>
                           </tr>
                           <tr>
-                            <th scope="row">Brand</th>
-                            <td>Jack & Jones</td>
+                            <th scope="row">Descripcion</th>
+                            <td>{{ product.descripcion }}</td>
                           </tr>
                           <tr>
                             <th scope="row">Color</th>
@@ -340,88 +305,6 @@ export default {
                 </b-tabs>
               </div>
             </div>
-
-            <div class="mt-4">
-              <h5 class="font-size-14">Reviews :</h5>
-              <div class="d-inline-flex mb-3">
-                <div class="text-muted mr-3">
-                  <span class="mdi mdi-star text-warning"></span>
-                  <span class="mdi mdi-star text-warning"></span>
-                  <span class="mdi mdi-star text-warning"></span>
-                  <span class="mdi mdi-star text-warning"></span>
-                  <span class="mdi mdi-star"></span>
-                </div>
-                <div class="text-muted">( 132 customer Review)</div>
-              </div>
-              <div class="border p-4 rounded">
-                <div class="media border-bottom pb-3">
-                  <div class="media-body">
-                    <p
-                      class="text-muted mb-2"
-                    >To an English person, it will seem like simplified English, as a skeptical Cambridge</p>
-                    <h5 class="font-size-15 mb-3">James</h5>
-
-                    <ul class="list-inline product-review-link mb-0">
-                      <li class="list-inline-item">
-                        <a href="#">
-                          <i class="mdi mdi-thumb-up align-middle mr-1"></i> Like
-                        </a>
-                      </li>
-                      <li class="list-inline-item">
-                        <a href="#">
-                          <i class="mdi mdi-message-text align-middle mr-1"></i> Comment
-                        </a>
-                      </li>
-                    </ul>
-                  </div>
-                  <p class="float-sm-right font-size-12">11 Feb, 2023</p>
-                </div>
-                <div class="media border-bottom py-3">
-                  <div class="media-body">
-                    <p
-                      class="text-muted mb-2"
-                    >Everyone realizes why a new common language would be desirable</p>
-                    <h5 class="font-size-15 mb-3">David</h5>
-
-                    <ul class="list-inline product-review-link mb-0">
-                      <li class="list-inline-item">
-                        <a href="#">
-                          <i class="mdi mdi-thumb-up align-middle mr-1"></i> Like
-                        </a>
-                      </li>
-                      <li class="list-inline-item">
-                        <a href="#">
-                          <i class="mdi mdi-message-text align-middle mr-1"></i> Comment
-                        </a>
-                      </li>
-                    </ul>
-                  </div>
-                  <p class="float-sm-right font-size-12">22 Jan, 2023</p>
-                </div>
-                <div class="media py-3">
-                  <div class="media-body">
-                    <p
-                      class="text-muted mb-2"
-                    >If several languages coalesce, the grammar of the resulting</p>
-                    <h5 class="font-size-15 mb-3">Scott</h5>
-
-                    <ul class="list-inline product-review-link mb-0">
-                      <li class="list-inline-item">
-                        <a href="#">
-                          <i class="mdi mdi-thumb-up align-middle mr-1"></i> Like
-                        </a>
-                      </li>
-                      <li class="list-inline-item">
-                        <a href="#">
-                          <i class="mdi mdi-message-text align-middle mr-1"></i> Comment
-                        </a>
-                      </li>
-                    </ul>
-                  </div>
-                  <p class="float-sm-right font-size-12">04 Jan, 2023</p>
-                </div>
-              </div>
-            </div>
           </div>
         </div>
         <!-- end card -->
@@ -436,41 +319,17 @@ export default {
             <div class="row">
               <div class="col-md-4">
                 <div class="media">
-                  <div class="avatar-sm mr-3">
-                    <span class="avatar-title bg-light rounded-circle text-primary font-size-24">
-                      <i class="ri-checkbox-circle-line"></i>
-                    </span>
-                  </div>
-                  <div class="media-body align-self-center overflow-hidden">
-                    <h5>Free Shipping</h5>
-                    <p class="text-muted mb-0">Sed ut perspiciatis unde</p>
-                  </div>
+                  
                 </div>
               </div>
               <div class="col-md-4">
                 <div class="media mt-4 mt-md-0">
-                  <div class="avatar-sm mr-3">
-                    <span class="avatar-title bg-light rounded-circle text-primary font-size-24">
-                      <i class="ri-exchange-line"></i>
-                    </span>
-                  </div>
-                  <div class="media-body align-self-center overflow-hidden">
-                    <h5>Easy Return</h5>
-                    <p class="text-muted mb-0">Neque porro quisquam est</p>
-                  </div>
+                  
                 </div>
               </div>
               <div class="col-md-4">
                 <div class="media mt-4 mt-md-0">
-                  <div class="avatar-sm mr-3">
-                    <span class="avatar-title bg-light rounded-circle text-primary font-size-24">
-                      <i class="ri-money-dollar-circle-line"></i>
-                    </span>
-                  </div>
-                  <div class="media-body align-self-center overflow-hidden">
-                    <h5>Cash on Delivery</h5>
-                    <p class="text-muted mb-0">Ut enim ad minima quis</p>
-                  </div>
+                  
                 </div>
               </div>
             </div>
@@ -479,5 +338,5 @@ export default {
       </div>
     </div>
     <!-- end row -->
-  </Layout>
+  </div>
 </template>

@@ -41,6 +41,11 @@ class LocalStorageService {
     this.removeItem('token')
   }
 
+  static setUser(user) {
+    console.log('[NAVA] localstorage setUser user:', user);
+    return this.setItem('user', user);
+  }
+
   static getUser() {
     return this.getItem('user');
   }
