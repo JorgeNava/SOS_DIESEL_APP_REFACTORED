@@ -166,7 +166,8 @@ export default [
 	{
 		path: "/ecommerce/product-details",
 		name: "product detail",
-		meta: { authRequired: true },
+		props: true,
+		meta: { authRequired: false },
 		component: () => import("../views/pages/ecommerce/product-detail"),
 	},
 	{
