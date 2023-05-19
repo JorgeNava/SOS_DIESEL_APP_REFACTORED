@@ -15,6 +15,17 @@ export default {
   },*/
   mounted() {
     this.filterProductsByMarca();
+    this.paginateProducts();
+  },
+  watch: {
+    currentPage() {
+      this.paginateProducts(); // Agregado: volver a paginar cuando cambie currentPage
+    }
+  },
+  computed: {
+    totalPages() {
+      return Math.ceil(this.filteredProducts.length / this.limitRowsPerPage);
+    },
   },  
   methods: {
     getRowsNumber() {
@@ -46,70 +57,77 @@ export default {
       }
     },
     filterProductsByMarca() {
-    if (this.searchMarca) {
-      this.filteredProducts = this.products.filter((product) =>
-        product.marca.toLowerCase().includes(this.searchMarca.toLowerCase())
-      );
-    } else {
-      this.filteredProducts = this.products;
-    }
+      if (this.searchMarca) {
+        this.filteredProducts = this.products.filter((product) =>
+          product.marca.toLowerCase().includes(this.searchMarca.toLowerCase())
+        );
+      } else {
+        this.filteredProducts = this.products;
+      }
 
-    this.filteredProducts = this.filteredProducts.filter((product) => {
-      if (this.precios.bajo && this.precios.medio && this.precios.alto) {
-        // Si se seleccionan todos los filtros, mostrar todos los productos
+      this.filteredProducts = this.filteredProducts.filter((product) => {
+        if (this.precios.bajo && this.precios.medio && this.precios.alto) {
+          // Si se seleccionan todos los filtros, mostrar todos los productos
+          return true;
+        }
+        if(this.precios.bajo && this.precios.medio && (product.precio <= 5000)){
+          return true;
+        }
+        if(this.precios.bajo && this.precios.alto && (product.precio < 2000 || product.precio > 5000)){
+          return true;
+        }
+        if(this.precios.medio && this.precios.alto && (product.precio >= 2000 || product.precio > 5000)){
+          return true;
+        }
+        if (this.precios.bajo && product.precio > 2000) {
+          return false;
+        }
+        if (this.precios.medio && (product.precio < 2000 || product.precio >= 5000)) {
+          return false;
+        }
+        if (this.precios.alto && product.precio < 5000) {
+          return false;
+        }
+        if (
+        (this.marcas.kubota && product.marca.toLowerCase() === 'kubota') ||
+        (this.marcas.johndeere && product.marca.toLowerCase() === 'jhon deere') ||
+        (this.marcas.ford && product.marca.toLowerCase() === 'ford')) 
+        {
         return true;
-      }
-      if(this.precios.bajo && this.precios.medio && (product.precio <= 5000)){
-        return true;
-      }
-      if(this.precios.bajo && this.precios.alto && (product.precio < 2000 || product.precio > 5000)){
-        return true;
-      }
-      if(this.precios.medio && this.precios.alto && (product.precio >= 2000 || product.precio > 5000)){
-        return true;
-      }
-      if (this.precios.bajo && product.precio > 2000) {
+        }
+        if (
+        (this.marcas.kubota && product.marca.toLowerCase() !== 'kubota') ||
+        (this.marcas.johndeere && product.marca.toLowerCase() !== 'jhon deere') ||
+        (this.marcas.ford && product.marca.toLowerCase() !== 'ford')) 
+        {
         return false;
-      }
-      if (this.precios.medio && (product.precio < 2000 || product.precio >= 5000)) {
-        return false;
-      }
-      if (this.precios.alto && product.precio < 5000) {
-        return false;
-      }
-      if (
-      (this.marcas.kubota && product.marca.toLowerCase() === 'kubota') ||
-      (this.marcas.johndeere && product.marca.toLowerCase() === 'jhon deere') ||
-      (this.marcas.ford && product.marca.toLowerCase() === 'ford')) 
-      {
-      return true;
-      }
-      if (
-      (this.marcas.kubota && product.marca.toLowerCase() !== 'kubota') ||
-      (this.marcas.johndeere && product.marca.toLowerCase() !== 'jhon deere') ||
-      (this.marcas.ford && product.marca.toLowerCase() !== 'ford')) 
-      {
-      return false;
-      }
-      if (
-      (this.existencias.con && product.existencia.toLowerCase() === 'con') ||
-      (this.existencias.sin && product.existencia.toLowerCase() === 'sin')) 
-      {
+        }
+        if (
+        (this.existencias.con && product.existencia.toLowerCase() === 'con') ||
+        (this.existencias.sin && product.existencia.toLowerCase() === 'sin')) 
+        {
+          return true;
+        }
+        if (
+        (this.existencias.con && product.existencia.toLowerCase() !== 'con') ||
+        (this.existencias.sin && product.existencia.toLowerCase() !== 'sin')) 
+        {
+          return false;
+        }
+        
         return true;
-      }
-      if (
-      (this.existencias.con && product.existencia.toLowerCase() !== 'con') ||
-      (this.existencias.sin && product.existencia.toLowerCase() !== 'sin')) 
-      {
-        return false;
-      }
-      
-      return true;
-    });
-  },
+      });
+      this.paginateProducts();
+    },
+    paginateProducts() {
+      const startIndex = (this.currentPage - 1) * this.limitRowsPerPage;
+      const endIndex = startIndex + this.limitRowsPerPage;
+      this.filteredProducts = this.filteredProducts.slice(startIndex, endIndex);
+    },
 },
   data() {
     return {
+      currentPage: 1,
       searchMarca: "",
       shouldFilter: false,
       precios: {
@@ -128,7 +146,7 @@ export default {
       },
       title: "Products",
       limitColumsPerRow: 3,
-      limitRowsPerPage: 3,
+      limitRowsPerPage: 9,
       products: [
         {
           img:  require("@/assets/images/product/img-1.png"),
@@ -165,6 +183,41 @@ export default {
           descripcion: "xxx",
           precio: 1
         },
+        {
+          img:  require("@/assets/images/product/img-6.png"),
+          codigo: "xxx",
+          marca: "xxx",
+          descripcion: "xxx",
+          precio: 0
+        },
+        {
+          img:  require("@/assets/images/product/img-3.png"),
+          codigo: "xxx",
+          marca: "Jhon Deere",
+          descripcion: "xxx",
+          precio: 0
+        },
+        {
+          img:  require("@/assets/images/product/img-3.png"),
+          codigo: "xxx",
+          marca: "xxx",
+          descripcion: "xxx",
+          precio: 3000
+        },
+        {
+          img:  require("@/assets/images/product/img-3.png"),
+          codigo: "xxx",
+          marca: "kubota",
+          descripcion: "9",
+          precio: 6000
+        },
+        {
+          img:  require("@/assets/images/product/img-3.png"),
+          codigo: "xxx",
+          marca: "ford",
+          descripcion: "10",
+          precio: 1
+        },
       ],
       items: [
         {
@@ -190,7 +243,7 @@ export default {
         <h1 class="Productos ">Productos</h1>
       </div>
       <div class="col search-box d-flex justify-content-end">
-        <input type="text" class="form-control rounded-pill rounded-end border-danger" placeholder="buscar" v-model="searchMarca"
+        <input type="text" class="form-control rounded-pill rounded-end border-danger text-capitalize" placeholder="BUSCAR" v-model="searchMarca"
         @change="filterProductsByMarca" />
       </div>
       <div class="image-container col-md-4">
@@ -296,7 +349,7 @@ export default {
                 <div>
                   <p class="mb-sm-0 mt-2">
                     Page
-                    <span class="font-weight-bold">2</span> Of
+                    <span class="font-weight-bold">1</span> Of
                     <span class="font-weight-bold">113</span>
                   </p>
                 </div>
@@ -309,20 +362,8 @@ export default {
                         <i class="mdi mdi-chevron-left"></i>
                       </a>
                     </li>
-                    <li class="page-item">
-                      <a href="#" class="page-link">1</a>
-                    </li>
-                    <li class="page-item active">
-                      <a href="#" class="page-link">2</a>
-                    </li>
-                    <li class="page-item">
-                      <a href="#" class="page-link">3</a>
-                    </li>
-                    <li class="page-item">
-                      <a href="#" class="page-link">4</a>
-                    </li>
-                    <li class="page-item">
-                      <a href="#" class="page-link">5</a>
+                    <li v-for="page in totalPages" :key="page" class="page-item" @click="currentPage = page; paginateProducts()">
+                      <a href="#" class="page-link">{{ page }}</a>
                     </li>
                     <li class="page-item">
                       <a href="#" class="page-link">
@@ -410,7 +451,7 @@ h1 {
   width: 20vw;
   margin: 0 0;
   height: 4vh;
-  padding: 15px 3px 8px;
+  padding: 15px 3px 15px;
   font-family: 'Helvetica-SOS';
 }
 
