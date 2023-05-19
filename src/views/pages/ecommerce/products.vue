@@ -10,41 +10,158 @@ export default {
     title: "Product",
     meta: [{ name: "description", content: appConfig.description }]
   },
-  /*components: {
-    VueSlideBar,
-  },*/
+  data() {
+    return {
+      productsPerPage: 0,
+      rowsPerPage: 0,
+      totalPages: 0,
+      pageRows: 0,
+      pageStartIndex: 0,
+      pageEndIndex: 8,
+      currentPage: 1,
+      limitColumsPerRow: 3,
+      limitRowsPerPage: 3,
+      limitProductsPerPage: 9,
+      searchMarca: "",
+      shouldFilter: false,
+      precios: {
+      bajo: false,
+      medio: false,
+      alto: false
+      },
+      marcas: {
+        kubota: false,
+        johndeere: false,
+        ford: false
+      },
+      existencias: {
+        con: false,
+        sin: false
+      },
+      title: "Products",
+      products: [
+        {
+          img:  require("@/assets/images/product/img-1.png"),
+          codigo: "xxx",
+          marca: "xxx",
+          descripcion: "1",
+          precio: 0
+        },
+        {
+          img:  require("@/assets/images/product/img-2.png"),
+          codigo: "xxx",
+          marca: "Jhon Deere",
+          descripcion: "2",
+          precio: 0
+        },
+        {
+          img:  require("@/assets/images/product/img-3.png"),
+          codigo: "xxx",
+          marca: "xxx",
+          descripcion: "3",
+          precio: 3000
+        },
+        {
+          img:  require("@/assets/images/product/img-4.png"),
+          codigo: "xxx",
+          marca: "kubota",
+          descripcion: "4",
+          precio: 6000
+        },
+        {
+          img:  require("@/assets/images/product/img-5.png"),
+          codigo: "xxx",
+          marca: "ford",
+          descripcion: "5",
+          precio: 1
+        },
+        {
+          img:  require("@/assets/images/product/img-6.png"),
+          codigo: "xxx",
+          marca: "xxx",
+          descripcion: "6",
+          precio: 0
+        },
+        {
+          img:  require("@/assets/images/product/img-3.png"),
+          codigo: "xxx",
+          marca: "Jhon Deere",
+          descripcion: "7",
+          precio: 0
+        },
+        {
+          img:  require("@/assets/images/product/img-3.png"),
+          codigo: "xxx",
+          marca: "xxx",
+          descripcion: "8",
+          precio: 3000
+        },
+        {
+          img:  require("@/assets/images/product/img-3.png"),
+          codigo: "xxx",
+          marca: "kubota",
+          descripcion: "9",
+          precio: 6000
+        },
+        {
+          img:  require("@/assets/images/product/img-3.png"),
+          codigo: "xxx",
+          marca: "ford",
+          descripcion: "10",
+          precio: 1
+        },
+        {
+          img:  require("@/assets/images/product/img-3.png"),
+          codigo: "xxx",
+          marca: "ford",
+          descripcion: "11",
+          precio: 1
+        },
+      ],
+      items: [
+        {
+          text: "Ecommerce"
+        },
+        {
+          text: "Products",
+          active: true
+        }
+      ],
+      filteredProducts: []
+    };
+  },
   mounted() {
     this.filterProductsByMarca();
-    this.paginateProducts();
   },
-  watch: {
-    currentPage() {
-      this.paginateProducts(); // Agregado: volver a paginar cuando cambie currentPage
-    }
-  },
-  computed: {
+/*   computed: {
     totalPages() {
       return Math.ceil(this.filteredProducts.length / this.limitRowsPerPage);
     },
-  },  
+  },  */ 
   methods: {
-    getRowsNumber() {
-      let rowNumber = Math.ceil(this.products.length / this.limitColumsPerRow);
+    getTotalRows() {
+      this.totalRows = Math.ceil(this.filteredProducts.length / this.limitColumsPerRow);
+      return this.totalRows;
+    },
+    getPageRowsNumber() {
+      const PRODUCTS_NOT_SHOWN = (this.filteredProducts.length - ((this.currentPage - 1) * this.limitProductsPerPage));
+      this.productsPerPage = PRODUCTS_NOT_SHOWN >= this.limitProductsPerPage ? this.limitProductsPerPage : PRODUCTS_NOT_SHOWN;
+      this.rowsPerPage = Math.ceil(this.productsPerPage / this.limitColumsPerRow);
       const numbersArray = [];
-      for (let i = 0; i < rowNumber; i++) {
+      for (let i = 0; i < this.rowsPerPage; i++) {
         numbersArray.push(i);
       }
-      console.log(numbersArray, rowNumber)
       return numbersArray;
     },
     getRowStart(actualRow) {
-      return actualRow * this.limitColumsPerRow;
+      const ROW_START_INDEX = ((this.currentPage - 1) * this.limitProductsPerPage) + (actualRow * this.limitColumsPerRow);
+      return ROW_START_INDEX;
     },
     getRowEnd(actualRow) {
-      return actualRow * this.limitColumsPerRow + 3;
+      const ROW_END_INDEX = ((this.currentPage - 1) * this.limitProductsPerPage) + (actualRow * this.limitColumsPerRow) + 3;
+      return ROW_END_INDEX;
     },
     getImageSource(path) {
-      console.log(path);
       return path;
     },
     handleSearchInput() {
@@ -117,120 +234,7 @@ export default {
         
         return true;
       });
-      this.paginateProducts();
     },
-    paginateProducts() {
-      const startIndex = (this.currentPage - 1) * this.limitRowsPerPage;
-      const endIndex = startIndex + this.limitRowsPerPage;
-      this.filteredProducts = this.filteredProducts.slice(startIndex, endIndex);
-    },
-},
-  data() {
-    return {
-      currentPage: 1,
-      searchMarca: "",
-      shouldFilter: false,
-      precios: {
-      bajo: false,
-      medio: false,
-      alto: false
-      },
-      marcas: {
-        kubota: false,
-        johndeere: false,
-        ford: false
-      },
-      existencias: {
-        con: false,
-        sin: false
-      },
-      title: "Products",
-      limitColumsPerRow: 3,
-      limitRowsPerPage: 9,
-      products: [
-        {
-          img:  require("@/assets/images/product/img-1.png"),
-          codigo: "xxx",
-          marca: "xxx",
-          descripcion: "xxx",
-          precio: 0
-        },
-        {
-          img:  require("@/assets/images/product/img-2.png"),
-          codigo: "xxx",
-          marca: "Jhon Deere",
-          descripcion: "xxx",
-          precio: 0
-        },
-        {
-          img:  require("@/assets/images/product/img-3.png"),
-          codigo: "xxx",
-          marca: "xxx",
-          descripcion: "xxx",
-          precio: 3000
-        },
-        {
-          img:  require("@/assets/images/product/img-4.png"),
-          codigo: "xxx",
-          marca: "kubota",
-          descripcion: "xxx",
-          precio: 6000
-        },
-        {
-          img:  require("@/assets/images/product/img-5.png"),
-          codigo: "xxx",
-          marca: "ford",
-          descripcion: "xxx",
-          precio: 1
-        },
-        {
-          img:  require("@/assets/images/product/img-6.png"),
-          codigo: "xxx",
-          marca: "xxx",
-          descripcion: "xxx",
-          precio: 0
-        },
-        {
-          img:  require("@/assets/images/product/img-3.png"),
-          codigo: "xxx",
-          marca: "Jhon Deere",
-          descripcion: "xxx",
-          precio: 0
-        },
-        {
-          img:  require("@/assets/images/product/img-3.png"),
-          codigo: "xxx",
-          marca: "xxx",
-          descripcion: "xxx",
-          precio: 3000
-        },
-        {
-          img:  require("@/assets/images/product/img-3.png"),
-          codigo: "xxx",
-          marca: "kubota",
-          descripcion: "9",
-          precio: 6000
-        },
-        {
-          img:  require("@/assets/images/product/img-3.png"),
-          codigo: "xxx",
-          marca: "ford",
-          descripcion: "10",
-          precio: 1
-        },
-      ],
-      items: [
-        {
-          text: "Ecommerce"
-        },
-        {
-          text: "Products",
-          active: true
-        }
-      ],
-      sliderPrice: 800,
-      filteredProducts: []
-    };
   },
 };
 </script>
@@ -271,7 +275,6 @@ export default {
               <input type="checkbox" class="custom-control-input" id="alto" v-model="precios.alto" @change="filterProductsByMarca">
               <label class="custom-control-label" for="alto">Más de 5000</label>
             </div>
-            <!--<vue-slide-bar v-model="sliderPrice" :min="0" :max="10000" />-->
           </div>
         </div>
         <div>
@@ -315,7 +318,7 @@ export default {
       <div class="fotos col-lg-8 ml-5">
         <div>
           <div>
-            <div v-for="(item,index) in getRowsNumber()" :key="index" class="row no-gutters mt-5">
+            <div v-for="(item,index) in getPageRowsNumber()" :key="index" class="row no-gutters mt-5">
               <div v-for="(product, index) in filteredProducts.slice(getRowStart(index), getRowEnd(index))" :key="index" class="col-xl-4 col-sm-6">
                 <div class="product-box">
                   <div class="product-img">
@@ -362,9 +365,12 @@ export default {
                         <i class="mdi mdi-chevron-left"></i>
                       </a>
                     </li>
-                    <li v-for="page in totalPages" :key="page" class="page-item" @click="currentPage = page; paginateProducts()">
-                      <a href="#" class="page-link">{{ page }}</a>
-                    </li>
+                    <div class="dataTables_paginate paging_simple_numbers float-right">
+                      <ul class="pagination pagination-rounded mb-0">
+                        <!-- pagination -->
+                        <b-pagination v-model="currentPage" :total-rows="filteredProducts.length" :per-page="limitProductsPerPage"></b-pagination>
+                      </ul>
+                    </div>
                     <li class="page-item">
                       <a href="#" class="page-link">
                         <i class="mdi mdi-chevron-right"></i>
