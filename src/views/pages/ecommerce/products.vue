@@ -55,14 +55,34 @@ export default {
     }
 
     this.filteredProducts = this.filteredProducts.filter((product) => {
-      if (this.precios.bajo && product.precio >= 2000) {
+      if (this.precios.bajo && this.precios.medio && this.precios.alto) {
+        // Si se seleccionan todos los filtros, mostrar todos los productos
+        return true;
+      }
+      if(this.precios.bajo && this.precios.medio && (product.precio <= 5000)){
+        return true;
+      }
+      if(this.precios.bajo && this.precios.alto && (product.precio < 2000 || product.precio > 5000)){
+        return true;
+      }
+      if(this.precios.medio && this.precios.alto && (product.precio >= 2000 || product.precio > 5000)){
+        return true;
+      }
+      if (this.precios.bajo && product.precio > 2000) {
         return false;
       }
       if (this.precios.medio && (product.precio < 2000 || product.precio >= 5000)) {
         return false;
       }
-      if (this.precios.alto && product.precio <= 5000) {
+      if (this.precios.alto && product.precio < 5000) {
         return false;
+      }
+      if (
+      (this.marcas.kubota && product.marca.toLowerCase() === 'kubota') ||
+      (this.marcas.johndeere && product.marca.toLowerCase() === 'jhon deere') ||
+      (this.marcas.ford && product.marca.toLowerCase() === 'ford')) 
+      {
+      return true;
       }
       if (
       (this.marcas.kubota && product.marca.toLowerCase() !== 'kubota') ||
@@ -70,6 +90,12 @@ export default {
       (this.marcas.ford && product.marca.toLowerCase() !== 'ford')) 
       {
       return false;
+      }
+      if (
+      (this.existencias.con && product.existencia.toLowerCase() === 'con') ||
+      (this.existencias.sin && product.existencia.toLowerCase() === 'sin')) 
+      {
+        return true;
       }
       if (
       (this.existencias.con && product.existencia.toLowerCase() !== 'con') ||
@@ -199,7 +225,7 @@ export default {
           <h5 class="font-size-20 mt-3 ml-2" style="font-family: 'Helvetica-SOS'; color: rgba(206, 17, 17, 0.889);">
               Marca
           </h5>
-            <div class="mt-4">
+            <div class="mt-2">
               <div class="custom-control custom-checkbox">
                 <input type="checkbox" class="custom-control-input" id="kubota" v-model="marcas.kubota" @change="filterProductsByMarca">
                 <label class="custom-control-label" for="kubota">Kubota</label>
@@ -220,7 +246,7 @@ export default {
           <h5 class="font-size-20 mt-3 ml-2" style="font-family: 'Helvetica-SOS'; color: rgba(206, 17, 17, 0.889);">
               Existencia
           </h5>
-            <div class="mt-4">
+            <div class="mt-2">
               <div class="custom-control custom-checkbox">
                 <input type="checkbox" class="custom-control-input" id="con" v-model="existencias.con" @change="filterProductsByMarca">
                 <label class="custom-control-label" for="con">Con existencia</label>
@@ -373,11 +399,13 @@ h1 {
 
 .form-control::placeholder {
     font-weight:bolder;
-    font-size: 1.8rem;
+    font-size: 1.4rem;
     text-align: center;
   }
 
 .search-box input {
+  font-size: 1.2rem;
+  text-align: center;
   border-width: 6px;
   width: 20vw;
   margin: 0 0;
