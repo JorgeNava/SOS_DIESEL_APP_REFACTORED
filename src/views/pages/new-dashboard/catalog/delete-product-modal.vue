@@ -14,6 +14,7 @@ export default {
         Brand: '',
         TruckModel: '',
         Price: '',
+        Quantity: 0,
         Description: '',
       }),
     },
@@ -40,6 +41,7 @@ export default {
       newBrand: '',
       newTruckModel: '',
       newPrice: '',
+      newQuantity: 0,
       newDescription: ''
     };
   },
@@ -50,6 +52,7 @@ export default {
       this.newBrand = product ? product.Brand : '';
       this.newTruckModel = product ? product.TruckModel : '';
       this.newPrice = product ? product.Price : '';
+      this.newQuantity = product ? product.Quantity : '';
       this.newDescription = product ? product.Description : '';
     },
   },
@@ -113,6 +116,12 @@ export default {
         <b-input-group>
           <b-input-group-prepend is-text><i class="ri-money-dollar-circle-line"></i></b-input-group-prepend>
           <b-form-input type="text" v-model="newPrice" readonly></b-form-input>
+        </b-input-group>
+      </b-form-group>
+      <b-form-group label="Cantidad">
+        <b-input-group>
+          <b-input-group-prepend is-text><i class="ri-hashtag"></i></b-input-group-prepend>
+          <b-form-input type="text" v-model="newQuantity" readonly></b-form-input>
         </b-input-group>
       </b-form-group>
       <b-form-group label="Descripción">

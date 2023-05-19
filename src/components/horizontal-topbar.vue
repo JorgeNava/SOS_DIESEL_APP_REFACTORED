@@ -23,17 +23,17 @@ export default {
       username: '',
       languages: [
         {
+          flag: require("@/assets/images/flags/spain.jpg"),
+          language: "es",
+          title: "Spanish",
+        },
+        {
           flag: require("@/assets/images/flags/us.jpg"),
           language: "en",
           title: "English",
         },
-        {
-          flag: require("@/assets/images/flags/spain.jpg"),
-          language: "es",
-          title: "spanish",
-        }
       ],
-      current_language: "en",
+      current_language: "es",
     };
   },
   methods: {
@@ -181,7 +181,7 @@ export default {
           <template v-slot:button-content>
             <img
               class
-              src="@/assets/images/flags/us.jpg"
+              src="@/assets/images/flags/spain.jpg"
               alt="Header Language"
               height="16"
             />
@@ -222,21 +222,17 @@ export default {
           class="d-inline-block user-dropdown"
         >
           <template v-slot:button-content>
-            <img
-              class="rounded-circle header-profile-user"
-              src="@/assets/images/users/avatar-2.jpg"
-              alt="Header Avatar"
-            />
+            <i class="ri-user-line rounded-circle header-profile-user user--icon"></i>
             <span class="d-none d-xl-inline-block ml-1">{{
               username
             }}</span>
             <i class="mdi mdi-chevron-down d-none d-xl-inline-block"></i>
           </template>
           <!-- item-->
-          <a class="dropdown-item" href="#">
+          <router-link class="dropdown-item" to="/dashboard/profile">
             <i class="ri-user-line align-middle mr-1"></i>
-            {{ $t("navbar.dropdown.kevin.list.profile") }}
-          </a>
+            {{ $t('navbar.dropdown.kevin.list.profile') }}
+          </router-link>
           <div class="dropdown-divider"></div>
           <router-link tag="a" class="dropdown-item text-danger" to="/logout">
             <i class="ri-shut-down-line align-middle mr-1 text-danger"></i>
@@ -257,3 +253,9 @@ export default {
     </div>
   </header>
 </template>
+
+<style lang="scss" scoped>
+.user--icon {
+  font-size: 1.3rem;
+}
+</style>

@@ -15,6 +15,7 @@ export default {
         Brand: '',
         TruckModel: '',
         Price: '',
+        Quantity: '',
         Description: '',
       }),
     },
@@ -40,6 +41,7 @@ export default {
       newBrand: '',
       newTruckModel: '',
       newPrice: '',
+      newQuantity: 0,
       newDescription: '',
       internalError: false
     };
@@ -50,6 +52,7 @@ export default {
       this.newBrand = product ? product.Brand : '';
       this.newTruckModel = product ? product.TruckModel : '';
       this.newPrice = product ? product.Price : '';
+      this.newQuantity = product ? product.Quantity : '';
       this.newDescription = product ? product.Description : '';
     },
     internalError: function () {
@@ -79,6 +82,7 @@ export default {
           brand: this.newBrand,
           truckModel: this.newTruckModel,
           price: parseInt(this.newPrice),
+          quantity: parseInt(this.newQuantity),
           description: this.newDescription,
         };
         const RAW_RESPONSE = await api.post('/catalog/update-product', NEW_PRODUCT_DATA);
@@ -140,7 +144,13 @@ export default {
       <b-form-group label="Precio">
         <b-input-group>
           <b-input-group-prepend is-text><i class="ri-money-dollar-circle-line"></i></b-input-group-prepend>
-          <b-form-textarea v-model="newPrice"></b-form-textarea>
+          <b-form-input type="text" v-model="newPrice"></b-form-input>
+        </b-input-group>
+      </b-form-group>
+      <b-form-group label="Cantidad">
+        <b-input-group>
+          <b-input-group-prepend is-text><i class="ri-hashtag"></i></b-input-group-prepend>
+          <b-form-textarea v-model="newQuantity"></b-form-textarea>
         </b-input-group>
       </b-form-group>
       <b-form-group label="Descripción">

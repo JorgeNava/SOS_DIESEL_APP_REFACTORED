@@ -71,6 +71,9 @@ router.beforeEach((routeTo, routeFrom, next) => {
   } else {
     const publicPages = [
       '/',
+      'productos',
+      'detalles-del-producto',
+      'contacto',
       '/ecommerce/products',
       '/ecommerce/product-details',
       '/login', '/register', '/forgot-password'];

@@ -16,21 +16,21 @@ const api = getApiClient();
 
 export default {
   page: {
-    title: "Products Table",
+    title: "Inventario de productos",
     meta: [{ name: "description", content: appConfig.description }]
   },
   components: { Layout, PageHeader, EditProductModal, DeleteProductModal, CreateProductModal},
   data() {
     return {
       tableData: [],
-      title: "Products Management Table",
+      title: "Inventario de productos",
       items: [
         {
-          text: "Tables",
+          text: "Catalogo",
           href: "/"
         },
         {
-          text: "Advanced",
+          text: "Inventario de productos",
           active: true
         }
       ],
@@ -43,14 +43,14 @@ export default {
       sortBy: "Code",
       sortDesc: false,
       fields: [
-        { key: "Code", sortable: true },
-        { key: "Name", sortable: true },
-        { key: "Brand", sortable: true },
-        { key: "Brand", sortable: true },
-        { key: "TruckModel", sortable: true },
-        { key: "Price", sortable: true },
-        { key: "Description", sortable: true },
-        { key: "Edit", sortable: false }
+        { key: "Código", sortable: true },
+        { key: "Nombre", sortable: true },
+        { key: "Marca", sortable: true },
+        { key: "Modelo de tractor", sortable: true },
+        { key: "Precio", sortable: true },
+        { key: "Cantidad", sortable: true },
+        { key: "Descripción", sortable: true },
+        { key: "Editar", sortable: false }
       ],
       selectedProduct: {},
       showErrorNotification: false
@@ -64,7 +64,17 @@ export default {
       return this.tableData.length;
     },
     productsTableData() {
-      return this.tableData; 
+      return this.tableData.map((product) => {
+        return {
+          Código: product?.Code,
+          Nombre: product?.Name,
+          Marca: product?.Brand,
+          "Modelo de tractor": product?.TruckModel,
+          Precio: product?.Price,
+          Cantidad: product?.Quantity,
+          Descripción: product?.Description,
+        };
+      })
     }
   },
   created() {
@@ -91,7 +101,15 @@ export default {
       this.currentPage = 1;
     },
     openModal(type, item) {
-      this.selectedProduct = item;
+      this.selectedProduct = {
+        "Code": item?.Código,
+        "Name": item?.Nombre,
+        "Brand": item?.Marca,
+        "TruckModel": item["Modelo de tractor"],
+        "Price": item?.Precio,
+        "Quantity": item?.Cantidad,
+        "Description": item?.Descripción
+      };
       if (type === "editProduct") {
         this.$bvModal.show('edit-product-modal');
       } else if (type === "deleteProduct") {
@@ -132,10 +150,10 @@ export default {
         <div class="card">
           <div class="card-body">
             <div class="d-flex justify-content-between">
-              <h4 class="card-title">Data Table</h4>
+              <h4 class="card-title">Tabla de productos</h4>
               <div>
                 <b-button variant="outline-success" class="d-flex justify-center" @click="openModal('createProduct', {})">
-                  <i class="ri-add-fill mr-2"></i>Create Product
+                  <i class="ri-add-fill mr-2"></i>Crear producto
                 </b-button>
               </div>
             </div>
@@ -143,8 +161,8 @@ export default {
               <div class="col-sm-12 col-md-6">
                 <div id="tickets-table_length" class="dataTables_length">
                   <label class="d-inline-flex align-items-center">
-                    Show&nbsp;
-                    <b-form-select v-model="perPage" size="sm" :options="pageOptions"></b-form-select>&nbsp;entries
+                    Mostrar&nbsp;
+                    <b-form-select v-model="perPage" size="sm" :options="pageOptions"></b-form-select>&nbsp;entradas
                   </label>
                 </div>
               </div>
@@ -152,11 +170,11 @@ export default {
               <div class="col-sm-12 col-md-6">
                 <div id="tickets-table_filter" class="dataTables_filter text-md-right">
                   <label class="d-inline-flex align-items-center">
-                    Search:
+                    Buscar:
                     <b-form-input
                       v-model="filter"
                       type="search"
-                      placeholder="Search..."
+                      placeholder="Buscar..."
                       class="form-control form-control-sm ml-2"
                     ></b-form-input>
                   </label>
@@ -178,7 +196,7 @@ export default {
                 :filter-included-fields="filterOn"
                 @filtered="onFiltered"
               >
-              <template #cell(Edit)="row">
+              <template #cell(Editar)="row">
                 <i role="button" class="ri-pencil-line pointer text-success ri-lg mr-3" @click="openModal('editProduct', row.item)"></i>
                 <i role="button" class="ri-delete-bin-line pointer text-danger ri-lg" @click="openModal('deleteProduct', row.item)"></i>
               </template>

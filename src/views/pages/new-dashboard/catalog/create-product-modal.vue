@@ -6,27 +6,18 @@ const api = getApiClient();
 
 export default {
   page: {
-    title: "Create Product",
+    title: "Crear Producto",
     meta: [{ name: "description", content: appConfig.description }]
   },
   data() {
     return {
-      title: "Create Product",
-      items: [
-        {
-          text: "UI Elements",
-          href: "/"
-        },
-        {
-          text: "Modals",
-          active: true
-        }
-      ],
+      title: "Crear Producto",
       newCode: '',
       newName: '',
       newBrand: '',
       newTruckModel: '',
       newPrice: '',
+      newQuantity: 0,
       newDescription: '',
       internalError: false
     };
@@ -52,13 +43,14 @@ export default {
           brand: this.newBrand,
           truckModel: this.newTruckModel,
           price: parseInt(this.newPrice),
+          quantity: parseInt(this.newQuantity),
           description: this.newDescription,
         };
         const RAW_RESPONSE = await api.post('/catalog/create-product', NEW_PRODUCT_DATA);
         if (RAW_RESPONSE?.id) {
           alertParams = {
             type: 'success',
-            title: 'Product creado',
+            title: 'Producto creado',
             text: 'Los datos del producto han sido registrados exitosamente!'
           }
         }
@@ -84,6 +76,9 @@ export default {
       if (_.isEmpty(this.newName)) return false; 
       if (_.isEmpty(this.newBrand)) return false; 
       if (_.isEmpty(this.newPrice) || !this.isValidPositiveNumber(this.newPrice)) return false; 
+      console.log('[NAVA] isNaN(this.newQuantity)):', isNaN(this.newQuantity));
+      console.log('[NAVA] _.isEmpty(this.newQuantity):', _.isEmpty(this.newQuantity));
+      if (_.isEmpty(this.newQuantity) || isNaN(this.newQuantity)) return false; 
       return true;
     },
   },
@@ -128,6 +123,12 @@ export default {
         <b-input-group>
           <b-input-group-prepend is-text><i class="ri-money-dollar-circle-line"></i></b-input-group-prepend>
           <b-form-input type="text" v-model="newPrice"></b-form-input>
+        </b-input-group>
+      </b-form-group>
+      <b-form-group label="Cantidad">
+        <b-input-group>
+          <b-input-group-prepend is-text><i class="ri-hashtag"></i></b-input-group-prepend>
+          <b-form-input type="number" v-model="newQuantity"></b-form-input>
         </b-input-group>
       </b-form-group>
       <b-form-group label="Descripción">

@@ -1,4 +1,5 @@
 <script>
+import _ from "lodash";
 import appConfig from "@/app.config";
 const { getApiClient } = require('@/helpers/sos-diesel-api-client');
 const api = getApiClient();
@@ -40,6 +41,7 @@ export default {
       newStatus: '',
       newRole: '',
       show1: false,
+      internalError: false
     };
   },
   watch: {
@@ -50,6 +52,12 @@ export default {
       this.newStatus = user ? user.Status : '';
       this.newRole = user ? user.Role : '';
     },
+    internalError: function () {
+      if (this.internalError) {
+        setTimeout(() => {
+        this.internalError = false
+      }, 3000)      }
+    }
   },
   methods: {
     async editUser() {
@@ -59,6 +67,12 @@ export default {
           text: 'Los datos del usuario no han podido ser registrados correctamente'
         };
       try {
+        const INPUTS_ARE_VALID = this.validateInputs();
+        if (!INPUTS_ARE_VALID) {
+          this.internalError = true;
+          return;
+        }
+
         const USER_UPDATED_DATA = {
           email: this.user.Email,
           username: this.newUsername,
@@ -80,6 +94,12 @@ export default {
         this.$emit('modalActionTriggered', alertParams);
         console.error(error);
       } 
+    },
+    validateInputs() {
+      if (_.isEmpty(this.newUsername)) return false; 
+      if (_.isEmpty(this.newRole)) return false; 
+      if (_.isEmpty(this.newStatus)) return false; 
+      return true;
     },
   },
 };
@@ -124,6 +144,15 @@ export default {
           <b-form-select v-model="newStatus" :options="[{value: 'Active', text: 'Active'}, {value: 'Blocked', text: 'Blocked'}]"></b-form-select>
         </b-input-group>
       </b-form-group>
+      <b-alert
+        :show="internalError"
+        dismissible
+        variant="danger"
+        class="text-center"
+        @dismissed="internalError = false"
+      >
+        Los campos necesarios para la operación han fallado en su validación.
+      </b-alert>
     </section>
     <footer class="modal-card-foot d-flex">
       <b-button variant="outline-primary" @click="editUser" class="ml-auto pr-3"><i class="mdi mdi-content-save mr-3"></i>Guardar</b-button>
