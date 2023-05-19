@@ -29,12 +29,16 @@ export default {
     const codigo = this.$route.query.codigo;
     const descripcion = this.$route.query.descripcion;
     const precio = this.$route.query.precio;
+    const marca = this.$route.query.marca;
+    const img = this.$route.query.img;
 
     // Puedes utilizar los parámetros como desees, por ejemplo, asignarlos a la propiedad 'product'
     this.product = {
+      img: img,
       codigo: codigo,
       descripcion: descripcion,
-      precio: precio
+      precio: precio,
+      marca: marca
     };
   },
     /**
@@ -50,86 +54,88 @@ export default {
 </script>
 
 <template>
-  <div>
+  <div class="contenedor">
     <div class="row">
-      <div class="col-lg-12">
-        <div class="card">
+      <div class="col d-flex justify-content-center">
+        <div class="carrito card">
           <div class="card-body">
-            <div class="row">
-              <div class="col-xl-5">
+            <div class="holi row border border-danger">
+              <div class="col">
                 <div class="product-detail">
-                  <div class="row">
-                    <div class="col-3">
-                      <div
-                        class="nav flex-column nav-pills"
-                        id="v-pills-tab"
-                        role="tablist"
-                        aria-orientation="vertical"
-                      >
-                        <a
-                          class="nav-link"
-                          id="product-1-tab"
-                          data-toggle="pill"
-                          @click="imageShow($event)"
-                          role="tab"
+                  <div class="container-fluid">
+                    <div class="row justify-content-center text-center">
+                      <div class="col d-flex align-items-center">
+                        <div
+                          class="nav flex-column nav-pills"
+                          id="v-pills-tab"
+                          role="tablist"
+                          aria-orientation="vertical"
                         >
-                          <img
-                            src="@/assets/images/product/img-1.png"
-                            alt
-                            class="img-fluid mx-auto d-block tab-img rounded"
-                          />
-                        </a>
-                        <a
-                          class="nav-link"
-                          id="product-2-tab"
-                          data-toggle="pill"
-                          @click="imageShow($event)"
-                          role="tab"
-                        >
-                          <img
-                            src="@/assets/images/product/img-5.png"
-                            alt
-                            class="img-fluid mx-auto d-block tab-img rounded"
-                          />
-                        </a>
-                        <a
-                          class="nav-link"
-                          id="product-3-tab"
-                          data-toggle="pill"
-                          @click="imageShow($event)"
-                          role="tab"
-                        >
-                          <img
-                            src="@/assets/images/product/img-3.png"
-                            alt
-                            class="img-fluid mx-auto d-block tab-img rounded"
-                          />
-                        </a>
-                        <a
-                          class="nav-link"
-                          id="product-4-tab"
-                          data-toggle="pill"
-                          @click="imageShow($event)"
-                          role="tab"
-                        >
-                          <img
-                            src="@/assets/images/product/img-4.png"
-                            alt
-                            class="img-fluid mx-auto d-block tab-img rounded"
-                          />
-                        </a>
-                      </div>
-                    </div>
-                    <div class="col-md-8 col-9">
-                      <div class="tab-content" id="v-pills-tabContent">
-                        <div class="tab-pane fade show active" id="product-1" role="tabpanel">
-                          <div class="product-img">
+                          <a
+                            class="nav-link"
+                            id="product-1-tab"
+                            data-toggle="pill"
+                            @click="imageShow($event)"
+                            role="tab"
+                          >
                             <img
-                              id="expandedImg"
                               src="@/assets/images/product/img-1.png"
                               alt
-                              class="img-fluid mx-auto d-block"
+                              class="img-fluid mx-auto d-block tab-img rounded"
                             />
+                          </a>
+                          <a
+                            class="nav-link"
+                            id="product-2-tab"
+                            data-toggle="pill"
+                            @click="imageShow($event)"
+                            role="tab"
+                          >
+                            <img
+                              src="@/assets/images/product/img-5.png"
+                              alt
+                              class="img-fluid mx-auto d-block tab-img rounded"
+                            />
+                          </a>
+                          <a
+                            class="nav-link"
+                            id="product-3-tab"
+                            data-toggle="pill"
+                            @click="imageShow($event)"
+                            role="tab"
+                          >
+                            <img
+                              src="@/assets/images/product/img-3.png"
+                              alt
+                              class="img-fluid mx-auto d-block tab-img rounded"
+                            />
+                          </a>
+                          <a
+                            class="nav-link"
+                            id="product-4-tab"
+                            data-toggle="pill"
+                            @click="imageShow($event)"
+                            role="tab"
+                          >
+                            <img
+                              src="@/assets/images/product/img-4.png"
+                              alt
+                              class="img-fluid mx-auto d-block tab-img rounded"
+                            />
+                          </a>
+                        </div>
+                      </div>
+                      <div class="col-md-9 d-flex align-items-center">
+                        <div class="tab-content" id="v-pills-tabContent">
+                          <div class="tab-pane fade show active" id="product-1" role="tabpanel">
+                            <div class="product-img">
+                              <img
+                                id="expandedImg"
+                                :src=product.img
+                                alt
+                                class="img-fluid mx-auto d-block border border-danger"
+                              />
+                            </div>
                           </div>
                         </div>
                       </div>
@@ -140,8 +146,8 @@ export default {
               </div>
               <div class="col-xl-7">
                 <div class="mt-4 mt-xl-3">
-                  <a href="#" class="text-primary">T-shirt</a>
-                  <h5 class="mt-1 mb-3">Full sleeve Blue color t-shirt</h5>
+                  <p class="text-primary">{{ product.codigo }}</p>
+                  <h5 class="mt-1 mb-3">{{ product.descripcion }}</h5>
 
                   <div class="d-inline-flex">
                     <div class="text-muted mr-3">
@@ -155,12 +161,12 @@ export default {
                   </div>
 
                   <h5 class="mt-2">
-                    <del class="text-muted mr-2">$252</del>$240
-                    <span class="text-danger font-size-12 ml-2">25 % Off</span>
+                    <h4 class="text-muted mr-2">{{ product.precio }}</h4>
+                    <!--<span class="text-danger font-size-12 ml-2">25 % Off</span>-->
                   </h5>
                   <p
                     class="mt-3"
-                  >To achieve this, it would be necessary to have uniform pronunciation</p>
+                  >{{ product.marca}}</p>
                   <hr class="my-4" />
 
                   <div class="row">
@@ -168,19 +174,19 @@ export default {
                       <div>
                        
 
-                        <h5 class="font-size-14">Specification :</h5>
+                        <h5 class="font-size-14">Especificaciones :</h5>
                         <ul class="list-unstyled product-desc-list">
                           <li>
-                            <i class="mdi mdi-circle-medium mr-1 align-middle"></i> Full Sleeve
+                            <i class="mdi mdi-circle-medium mr-1 align-middle"></i> Material duradero.
                           </li>
                           <li>
-                            <i class="mdi mdi-circle-medium mr-1 align-middle"></i> Cotton
+                            <i class="mdi mdi-circle-medium mr-1 align-middle"></i> Luces led.
                           </li>
                           <li>
-                            <i class="mdi mdi-circle-medium mr-1 align-middle"></i> All Sizes available
+                            <i class="mdi mdi-circle-medium mr-1 align-middle"></i> lorem impusm.
                           </li>
                           <li>
-                            <i class="mdi mdi-circle-medium mr-1 align-middle"></i> 4 Different Color
+                            <i class="mdi mdi-circle-medium mr-1 align-middle"></i> 4 lorem impusm.
                           </li>
                         </ul>
                       </div>
@@ -190,61 +196,29 @@ export default {
                   <div class="row">
                     <div class="col-md-6">
                       <div class="product-color mt-3">
-                        <h5 class="font-size-14">Color :</h5>
+                        <h5 class="font-size-14">Otros articulos que podrían interesarte:</h5>
                         <a href="#" class="active">
                           <div class="product-color-item">
                             <img src="@/assets/images/product/img-1.png" alt class="avatar-md" />
                           </div>
-                          <p>Blue</p>
+                          <p>1</p>
                         </a>
                         <a href="#">
                           <div class="product-color-item">
                             <img src="@/assets/images/product/img-5.png" alt class="avatar-md" />
                           </div>
-                          <p>Cyan</p>
+                          <p>2</p>
                         </a>
                         <a href="#">
                           <div class="product-color-item">
                             <img src="@/assets/images/product/img-3.png" alt class="avatar-md" />
                           </div>
-                          <p>Green</p>
+                          <p>3</p>
                         </a>
                       </div>
                     </div>
 
-                    <div class="col-md-6">
-                      <div class="product-color mt-3">
-                        <h5 class="font-size-14">Size :</h5>
-                        <a href="#" class="active">
-                          <div class="product-color-item">
-                            <div class="avatar-xs">
-                              <span class="avatar-title bg-transparent text-body">S</span>
-                            </div>
-                          </div>
-                        </a>
-                        <a href="#">
-                          <div class="product-color-item">
-                            <div class="avatar-xs">
-                              <span class="avatar-title bg-transparent text-body">M</span>
-                            </div>
-                          </div>
-                        </a>
-                        <a href="#">
-                          <div class="product-color-item">
-                            <div class="avatar-xs">
-                              <span class="avatar-title bg-transparent text-body">L</span>
-                            </div>
-                          </div>
-                        </a>
-                        <a href="#">
-                          <div class="product-color-item">
-                            <div class="avatar-xs">
-                              <span class="avatar-title bg-transparent text-body">XL</span>
-                            </div>
-                          </div>
-                        </a>
-                      </div>
-                    </div>
+                    
                   </div>
                 </div>
               </div>
@@ -252,29 +226,16 @@ export default {
             <!-- end row -->
 
             <div class="mt-4">
-              <h5 class="font-size-14 mb-3">Product description:</h5>
+              <h5 class="font-size-14 mb-3">Descripcion de Producto:</h5>
               <div class="product-desc">
                 <b-tabs class="nav-tabs-custom" content-class="border border-top-0 p-4">
-                  <b-tab title="Description">
+                  <b-tab title="Descripción">
                     <div>
-                      <p>If several languages coalesce, the grammar of the resulting language is more simple and regular than that of the individual</p>
-                      <p>To achieve this, it would be necessary to have uniform grammar, pronunciation and more common several languages coalesce, the grammar of the resulting.</p>
-                      <p>It will be as simple as occidental in fact.</p>
+                      <p>{{ product.descripcion }}</p>
 
-                      <div>
-                        <p class="mb-2">
-                          <i class="mdi mdi-circle-medium mr-1 align-middle"></i> If several languages coalesce
-                        </p>
-                        <p class="mb-2">
-                          <i class="mdi mdi-circle-medium mr-1 align-middle"></i> To an English person, it will seem like simplified
-                        </p>
-                        <p class="mb-0">
-                          <i class="mdi mdi-circle-medium mr-1 align-middle"></i> These cases are perfectly simple.
-                        </p>
-                      </div>
                     </div>
                   </b-tab>
-                  <b-tab title="Specifications">
+                  <b-tab title="Especificaciones">
                     <div class="table-responsive">
                       <table class="table table-nowrap mb-0">
                         <tbody>
@@ -283,20 +244,12 @@ export default {
                             <td>{{ product.codigo }}</td>
                           </tr>
                           <tr>
-                            <th scope="row">Descripcion</th>
-                            <td>{{ product.descripcion }}</td>
+                            <th scope="row">Marca</th>
+                            <td>{{ product.marca }}</td>
                           </tr>
                           <tr>
-                            <th scope="row">Color</th>
-                            <td>Blue</td>
-                          </tr>
-                          <tr>
-                            <th scope="row">Material</th>
-                            <td>Cotton</td>
-                          </tr>
-                          <tr>
-                            <th scope="row">Weight</th>
-                            <td>140 G</td>
+                            <th scope="row">Precio</th>
+                            <td>{{ product.precio }}</td>
                           </tr>
                         </tbody>
                       </table>
@@ -311,32 +264,26 @@ export default {
       </div>
     </div>
     <!-- end row -->
-
-    <div class="row">
-      <div class="col-lg-12">
-        <div class="card">
-          <div class="card-body">
-            <div class="row">
-              <div class="col-md-4">
-                <div class="media">
-                  
-                </div>
-              </div>
-              <div class="col-md-4">
-                <div class="media mt-4 mt-md-0">
-                  
-                </div>
-              </div>
-              <div class="col-md-4">
-                <div class="media mt-4 mt-md-0">
-                  
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-    <!-- end row -->
   </div>
 </template>
+
+<style scoped>
+
+.contenedor{
+  background-color: blue;
+}
+
+.carrito {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.holi{
+  padding: 10vh 5vh;
+  background-color: aliceblue;
+}
+
+</style>

@@ -248,7 +248,7 @@ export default {
       </div>
       <div class="col search-box d-flex justify-content-end">
         <input type="text" class="form-control rounded-pill rounded-end border-danger text-capitalize" placeholder="BUSCAR" v-model="searchMarca"
-        @change="filterProductsByMarca" />
+        @input="filterProductsByMarca" />
       </div>
       <div class="image-container col-md-4">
         <img src="@/assets/images/envio.png">
@@ -320,30 +320,28 @@ export default {
           <div>
             <div v-for="(item,index) in getPageRowsNumber()" :key="index" class="row no-gutters mt-5">
               <div v-for="(product, index) in filteredProducts.slice(getRowStart(index), getRowEnd(index))" :key="index" class="col-xl-4 col-sm-6">
-                <div class="product-box">
-                  <div class="product-img">
-                    <!--<div class="product-ribbon badge badge-warning">Trending</div>-->
-                    <div class="">
-                      <a href="/ecommerce/product-details">
-                        
-                      </a>
-                    </div>
-                    <img
-                      :src="getImageSource(product.img)"
-                      :alt="product.codigo"
-                      class="img-fluid mx-auto d-block"
-                    />
-                  </div>
+                <router-link :to="{ path: '/ecommerce/product-details', query: { codigo: product.codigo, descripcion: product.descripcion, precio: product.precio, marca: product.marca, img: product.img } }">
 
-                  <div class="text-center">
-                    <p class="font-size-16 mb-1" style="color: rgba(206, 17, 17, 0.889);">{{product.codigo}}</p>
-                    <h5 class="font-size-18">
-                      <router-link :to="`/ecommerce/product-details/${product.descripcion}`" class="text-dark">{{product.descripcion}}</router-link>
-                    </h5>
-                    <h5 class="mt-3 mb-0" style="color: rgba(206, 17, 17, 0.889);">{{product.precio}}</h5>
-                    <router-link :to="{ path: '/ecommerce/product-details', query: { codigo: product.codigo, descripcion: product.descripcion, precio: product.precio } }">Ver detalles</router-link>
+                  <div class="product-box">
+                    <div class="product-img">
+                      <!--<div class="product-ribbon badge badge-warning">Trending</div>-->
+    
+                      <img
+                        :src="getImageSource(product.img)"
+                        :alt="product.codigo"
+                        class="img-fluid mx-auto d-block"
+                      />
+                    </div>
+
+                    <div class="text-center">
+                      <p class="font-size-16 mb-1" style="color: rgba(206, 17, 17, 0.889);">{{product.codigo}}</p>
+                      <h5 class="font-size-18">
+                        <h5 class="text-dark">{{product.descripcion}}</h5>
+                      </h5>
+                      <h5 class="mt-3 mb-0" style="color: rgba(206, 17, 17, 0.889);">{{product.precio}}</h5>
+                    </div>
                   </div>
-                </div>
+                </router-link>
               </div>
             </div>
 
