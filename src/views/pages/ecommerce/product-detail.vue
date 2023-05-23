@@ -97,7 +97,7 @@ export default {
                               class="img-fluid mx-auto d-block tab-img rounded"
                             />
                           </a>
-                          <a
+                          <div
                             class="nav-link"
                             id="product-3-tab"
                             data-toggle="pill"
@@ -109,7 +109,7 @@ export default {
                               alt
                               class="img-fluid mx-auto d-block tab-img rounded"
                             />
-                          </a>
+                        </div>
                           <a
                             class="nav-link"
                             id="product-4-tab"
@@ -125,15 +125,15 @@ export default {
                           </a>
                         </div>
                       </div>
-                      <div class="col-md-9 d-flex align-items-center">
+                      <div class="col-md-9 d-flex align-items-center ">
                         <div class="tab-content" id="v-pills-tabContent">
-                          <div class="tab-pane fade show active" id="product-1" role="tabpanel">
-                            <div class="product-img">
+                          <div class="tab-pane fade show active " id="product-1" role="tabpanel">
+                            <div class="product-img ">
                               <img
                                 id="expandedImg"
                                 :src=product.img
                                 alt
-                                class="img-fluid mx-auto d-block border border-danger"
+                                class="img-fluid mx-auto d-block border border-danger img-lg"
                               />
                             </div>
                           </div>
@@ -144,10 +144,10 @@ export default {
                 </div>
                 <!-- end product img -->
               </div>
-              <div class="col-xl-7">
+              <div class="col-xl-7 ">
                 <div class="mt-4 mt-xl-3">
-                  <p class="text-primary">{{ product.codigo }}</p>
-                  <h5 class="mt-1 mb-3">{{ product.descripcion }}</h5>
+                  <p class="text-primary ">{{ product.codigo }}</p>
+                  <h5 class="mt-1 mb-3 ">{{ product.descripcion }}</h5>
 
                   <h5 class="mt-2">
                     <h4 class="text-muted mr-2">{{ product.precio }}</h4>
@@ -195,25 +195,7 @@ export default {
                   <div class="row">
                     <div class="col-md-6">
                       <div class="product-color mt-3">
-                        <h5 class="font-size-14">Otros articulos que podrían interesarte:</h5>
-                        <router-link :to="{ path: '/ecommerce/product-details', query: { codigo: product.codigo, descripcion: product.descripcion, precio: product.precio, marca: product.marca, img: product.img } }">
-                          <div class="product-color-item">
-                            <img :src="product.img" alt class="avatar-md" />
-                          </div>
-                          <p>1</p>
-                        </router-link>
-                        <router-link :to="{ path: '/ecommerce/product-details', query: { codigo: product.codigo, descripcion: product.descripcion, precio: product.precio, marca: product.marca, img: product.img } }">
-                          <div class="product-color-item">
-                            <img src="@/assets/images/product/img-2.png" :alt="product.codigo" class="avatar-md" />
-                          </div>
-                          <p>2</p>
-                        </router-link>
-                        <a href="#">
-                          <div class="product-color-item">
-                            <img src="@/assets/images/product/img-3.png" alt class="avatar-md" />
-                          </div>
-                          <p>3</p>
-                        </a>
+                        
                       </div>
                     </div>
 
