@@ -149,6 +149,13 @@ export default {
                   <p class="text-primary">{{ product.codigo }}</p>
                   <h5 class="mt-1 mb-3">{{ product.descripcion }}</h5>
 
+                  <h5 class="mt-2">
+                    <h4 class="text-muted mr-2">{{ product.precio }}</h4>
+                    <!--<span class="text-danger font-size-12 ml-2">25 % Off</span>-->
+                  </h5>
+                  <p
+                    class="mt-3"
+                  >{{ product.marca}}</p>
                   <div class="d-inline-flex">
                     <div class="text-muted mr-3">
                       <span class="mdi mdi-star text-warning"></span>
@@ -157,16 +164,8 @@ export default {
                       <span class="mdi mdi-star text-warning"></span>
                       <span class="mdi mdi-star"></span>
                     </div>
-                    <div class="text-muted">( 132 )</div>
+                    <div class="text-muted">( 1,320 )</div>
                   </div>
-
-                  <h5 class="mt-2">
-                    <h4 class="text-muted mr-2">{{ product.precio }}</h4>
-                    <!--<span class="text-danger font-size-12 ml-2">25 % Off</span>-->
-                  </h5>
-                  <p
-                    class="mt-3"
-                  >{{ product.marca}}</p>
                   <hr class="my-4" />
 
                   <div class="row">
@@ -197,18 +196,18 @@ export default {
                     <div class="col-md-6">
                       <div class="product-color mt-3">
                         <h5 class="font-size-14">Otros articulos que podrían interesarte:</h5>
-                        <a href="#" class="active">
+                        <router-link :to="{ path: '/ecommerce/product-details', query: { codigo: product.codigo, descripcion: product.descripcion, precio: product.precio, marca: product.marca, img: product.img } }">
                           <div class="product-color-item">
-                            <img src="@/assets/images/product/img-1.png" alt class="avatar-md" />
+                            <img :src="product.img" alt class="avatar-md" />
                           </div>
                           <p>1</p>
-                        </a>
-                        <a href="#">
+                        </router-link>
+                        <router-link :to="{ path: '/ecommerce/product-details', query: { codigo: product.codigo, descripcion: product.descripcion, precio: product.precio, marca: product.marca, img: product.img } }">
                           <div class="product-color-item">
-                            <img src="@/assets/images/product/img-5.png" alt class="avatar-md" />
+                            <img src="@/assets/images/product/img-2.png" :alt="product.codigo" class="avatar-md" />
                           </div>
                           <p>2</p>
-                        </a>
+                        </router-link>
                         <a href="#">
                           <div class="product-color-item">
                             <img src="@/assets/images/product/img-3.png" alt class="avatar-md" />
