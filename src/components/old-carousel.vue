@@ -25,7 +25,7 @@
         </button>
       </div>
     </div>
-    <router-link to="/ecommerce/Products" class="ver-mas ">Ver catálogo</router-link>
+    <router-link to="/productos" class="ver-mas ">Ver catálogo</router-link>
   </div>
 </template>
 

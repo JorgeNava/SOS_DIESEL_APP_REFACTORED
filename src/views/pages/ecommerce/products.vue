@@ -249,7 +249,7 @@ export default {
                   <div class="product-img">
                     <!--<div class="product-ribbon badge badge-warning">Trending</div>-->
                     <div class="">
-                      <a href="/ecommerce/product-details"></a>
+                      <a href="/detalles-del-producto"></a>
                     </div>
                     <img
                       :src="getImageSource(product)"
@@ -260,10 +260,10 @@ export default {
                   <div class="text-center">
                     <p class="font-size-16 mb-1" style="color: rgba(206, 17, 17, 0.889);">{{product.Code}}</p>
                     <h5 class="font-size-18">
-                      <router-link :to="`/ecommerce/product-details/${product.Description}`" class="text-dark">{{product.Description}}</router-link>
+                      <router-link :to="`/detalles-del-producto/${product.Description}`" class="text-dark">{{product.Description}}</router-link>
                     </h5>
                     <h5 class="mt-3 mb-0" style="color: rgba(206, 17, 17, 0.889);">{{product.Price}}</h5>
-                    <router-link :to="{ path: '/ecommerce/product-details', query: { Code: product.Code, Description: product.Description, Price: product.Price } }">Ver detalles</router-link>
+                    <router-link :to="{ path: '/detalles-del-producto', query: { Code: product.Code, Description: product.Description, Price: product.Price } }">Ver detalles</router-link>
                   </div>
                 </div>
               </div>

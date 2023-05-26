@@ -3,12 +3,9 @@ import appConfig from "@/app.config";
 const { getApiClient } = require('@/helpers/sos-diesel-api-client');
 const api = getApiClient();
 
-/**
- * Products Component
- */
 export default {
   page: {
-    title: "Product",
+    title: "Productos",
     meta: [{ name: "description", content: appConfig.description }]
   },
   data() {
@@ -39,14 +36,14 @@ export default {
         con: false,
         sin: false
       },
-      title: "Products",
+      title: "Productos",
       products: [],
       items: [
         {
-          text: "Ecommerce"
+          text: "Catálogo"
         },
         {
-          text: "Products",
+          text: "Productos",
           active: true
         }
       ],
@@ -101,7 +98,7 @@ export default {
     filterProductsByMarca() {
       if (this.searchMarca) {
         this.filteredProducts = this.products.filter((product) =>
-          product.marca.toLowerCase().includes(this.searchMarca.toLowerCase())
+          product.Brand.toLowerCase().includes(this.searchMarca.toLowerCase())
         );
       } else {
         this.filteredProducts = this.products;
@@ -131,28 +128,30 @@ export default {
           return false;
         }
         if (
-        (this.marcas.kubota && product.marca.toLowerCase() === 'kubota') ||
-        (this.marcas.johndeere && product.marca.toLowerCase() === 'jhon deere') ||
-        (this.marcas.ford && product.marca.toLowerCase() === 'ford')) 
+        (this.marcas.kubota && product.Brand.toLowerCase() === 'kubota') ||
+        (this.marcas.johndeere && product.Brand.toLowerCase() === 'jhon deere') ||
+        (this.marcas.ford && product.Brand.toLowerCase() === 'ford')) 
         {
         return true;
         }
         if (
-        (this.marcas.kubota && product.marca.toLowerCase() !== 'kubota') ||
-        (this.marcas.johndeere && product.marca.toLowerCase() !== 'jhon deere') ||
-        (this.marcas.ford && product.marca.toLowerCase() !== 'ford')) 
+        (this.marcas.kubota && product.Brand.toLowerCase() !== 'kubota') ||
+        (this.marcas.johndeere && product.Brand.toLowerCase() !== 'jhon deere') ||
+        (this.marcas.ford && product.Brand.toLowerCase() !== 'ford')) 
         {
         return false;
         }
         if (
-        (this.existencias.con && product.existencia.toLowerCase() === 'con') ||
-        (this.existencias.sin && product.existencia.toLowerCase() === 'sin')) 
+          this.existencias.con && product.Quantity > 0 ||
+          (this.existencias.sin && product.Quantity === 0)
+        ) 
         {
           return true;
         }
         if (
-        (this.existencias.con && product.existencia.toLowerCase() !== 'con') ||
-        (this.existencias.sin && product.existencia.toLowerCase() !== 'sin')) 
+          this.existencias.con && product.Quantity < 1 ||
+          (this.existencias.sin && product.Quantity > 0)
+        )
         {
           return false;
         }
@@ -165,25 +164,18 @@ export default {
 </script>
 
 <template>
-<div class="pagina  "> 
-  <div class="container m-0 pt-5">
-    <div class=" a row  d-flex align-items-center ">
-      <div class="juas col d-flex align-items-start ">
+  <div class="pagina"> 
+    <div class="row  d-flex align-items-center ">
+      <div class="col d-flex align-items-start ">
         <h1 class="Productos ">Productos</h1>
       </div>
       <div class="col search-box d-flex justify-content-end">
         <input type="text" class="form-control rounded-pill rounded-end border-danger text-capitalize" placeholder="BUSCAR" v-model="searchMarca"
         @change="filterProductsByMarca" />
       </div>
-      <div class="image-container col-md-4">
-        <img src="@/assets/images/envio.png">
-      </div>
     </div>
-  </div>
-  
-
-  <div class="row">
-    <div class="filtros col-xl-2 col-lg-2 custom-width">
+    <div class="row">
+      <div class="filtros col-2">
         <div class="mt-5 border-top">
           <h5 class="font-size-22 mb-4 mt-3 ml-2" style="font-family: 'Helvetica-SOS';">Filtros:</h5>
           <div>
@@ -221,8 +213,6 @@ export default {
               </div>
             </div>
         </div>
-      
-
         <div>
           <h5 class="font-size-20 mt-3 ml-2" style="font-family: 'Helvetica-SOS'; color: rgba(206, 17, 17, 0.889);">
               Existencia
@@ -239,75 +229,64 @@ export default {
             </div>
         </div>
       </div>
-
-      <div class="fotos col-lg-8 ml-5">
-        <div>
-          <div>
-            <div v-for="(item,index) in getPageRowsNumber()" :key="index" class="row no-gutters mt-5">
-              <div v-for="(product, index) in filteredProducts.slice(getRowStart(index), getRowEnd(index))" :key="index" class="col-xl-4 col-sm-6">
-                <div class="product-box">
-                  <div class="product-img">
-                    <!--<div class="product-ribbon badge badge-warning">Trending</div>-->
-                    <div class="">
-                      <a href="/detalles-del-producto"></a>
-                    </div>
-                    <img
-                      :src="getImageSource(product)"
-                      :alt="product.Code"
-                      class="img-fluid mx-auto d-block"
-                    />
-                  </div>
-                  <div class="text-center">
-                    <p class="font-size-16 mb-1" style="color: rgba(206, 17, 17, 0.889);">{{product.Code}}</p>
-                    <h5 class="font-size-18">
-                      <router-link :to="`/ecommerce/product-details/${product.Description}`" class="text-dark">{{product.Description}}</router-link>
-                    </h5>
-                    <h5 class="mt-3 mb-0" style="color: rgba(206, 17, 17, 0.889);">{{product.Price}}</h5>
-                    <router-link :to="{ path: '/ecommerce/product-details', query: { Code: product.Code, Description: product.Description, Price: product.Price } }">Ver detalles</router-link>
-                  </div>
+      <div class="col-8">
+        <div v-for="(item,index) in getPageRowsNumber()" :key="index" class="row no-gutters mt-5">
+          <div v-for="(product, index) in filteredProducts.slice(getRowStart(index), getRowEnd(index))" :key="index" class="col-xl-4 col-sm-6">
+            <div class="product-box">
+              <div class="product-img">
+                <!--<div class="product-ribbon badge badge-warning">Trending</div>-->
+                <div class="">
+                  <a href="/detalles-del-producto"></a>
                 </div>
+                <img
+                  :src="getImageSource(product)"
+                  :alt="product.Code"
+                  class="img-fluid mx-auto d-block"
+                />
+              </div>
+              <div class="text-center">
+                <p class="font-size-16 mb-1" style="color: rgba(206, 17, 17, 0.889);">{{product.Code}}</p>
+                <h5 class="font-size-18">
+                  <router-link :to="`/detalles-del-producto/${product.Description}`" class="text-dark">{{product.Description}}</router-link>
+                </h5>
+                <h5 class="mt-3 mb-0" style="color: rgba(206, 17, 17, 0.889);">{{product.Price}}</h5>
+                <router-link :to="{ path: '/detalles-del-producto', query: { Code: product.Code, Description: product.Description, Price: product.Price } }">Ver detalles</router-link>
               </div>
             </div>
-
-            <div class="row mt-4">
-              <div class="col-sm-6">
-                <div>
-                  <p class="mb-sm-0 mt-2">
-                    Page
-                    <span class="font-weight-bold">1</span> Of
-                    <span class="font-weight-bold">{{Math.ceil(filteredProducts.length / limitProductsPerPage)}}</span>
-                  </p>
-                </div>
-              </div>
-              <div class="col-sm-6">
-                <div class="float-sm-right">
-                  <ul class="pagination pagination-rounded mb-sm-0">
-                    <li class="page-item disabled">
-                      <a href="#" class="page-link">
-                        <i class="mdi mdi-chevron-left"></i>
-                      </a>
-                    </li>
-                    <div class="dataTables_paginate paging_simple_numbers float-right">
-                      <ul class="pagination pagination-rounded mb-0">
-                        <!-- pagination -->
-                        <b-pagination v-model="currentPage" :total-rows="filteredProducts.length" :per-page="limitProductsPerPage"></b-pagination>
-                      </ul>
-                    </div>
-                    <li class="page-item">
-                      <a href="#" class="page-link">
-                        <i class="mdi mdi-chevron-right"></i>
-                      </a>
-                    </li>
-                  </ul>
-                </div>
-              </div>
-            </div> 
           </div>
         </div>
       </div>
+      <div class="col-2">
+        <img src="@/assets/images/envio.png">
+      </div>
     </div>
+    <div class="d-flex justify-content-around mt-4">
+      <p class="mb-sm-0 mt-2">
+        Página
+        <span class="font-weight-bold">1</span> de
+        <span class="font-weight-bold">{{Math.ceil(filteredProducts.length / limitProductsPerPage)}}</span>
+      </p>
+      <div class="float-sm-right">
+        <ul class="pagination pagination-rounded mb-sm-0">
+          <li class="page-item disabled">
+            <a href="#" class="page-link">
+              <i class="mdi mdi-chevron-left"></i>
+            </a>
+          </li>
+          <div class="dataTables_paginate paging_simple_numbers float-right">
+            <ul class="pagination pagination-rounded mb-0">
+              <b-pagination v-model="currentPage" :total-rows="filteredProducts.length" :per-page="limitProductsPerPage"></b-pagination>
+            </ul>
+          </div>
+          <li class="page-item">
+            <a href="#" class="page-link">
+              <i class="mdi mdi-chevron-right"></i>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div> 
   </div> 
-<!-- end row -->
 </template>
 
 
@@ -347,12 +326,10 @@ export default {
   background-color: #f0f0f0 !important;
 }
 
-.container{
-  max-width: 92%;
-}
-
 
 .pagina{
+  padding: 5vh 2vw;
+  min-height: 100vh;
   background-color: white
 }
 
@@ -388,24 +365,8 @@ h1 {
 }
 
 .image-container {
-
-  position: absolute;
-  height: 70vh;
-  width:9vw;
-  top: 25vh;
-  left: 85%;
 }
-
-.image-container img{
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  align-self: center;
-  width: 14vw;
-  height: 70vh;
-}
-
-.Productos{
+ .Productos{
   font-family: 'Helvetica-SOS';
   letter-spacing: 3px;
   margin-left: 6%;
