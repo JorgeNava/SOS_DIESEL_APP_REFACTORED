@@ -5,10 +5,9 @@ import { layoutComputed } from "@/state/helpers";
 import Topbar from "@/components/topbar";
 import SideBar from "@/components/side-bar";
 import Rightsidebar from "@/components/right-sidebar";
-import Footer from "@/components/footer";
 
 export default {
-  components: { Topbar, SideBar, Rightsidebar, Footer },
+  components: { Topbar, SideBar, Rightsidebar },
   data() {
     return {
       isMenuCondensed: false,
@@ -94,7 +93,6 @@ export default {
             <slot />
           </div>
         </div>
-        <Footer />
       </div>
       <Rightsidebar />
     </div>

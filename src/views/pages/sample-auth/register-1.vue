@@ -91,7 +91,7 @@ export default {};
                         </p>
                         <p>
                           © 2023 SOS Diesel. Crafted with
-                          <i class="mdi mdi-heart text-danger"></i> by Themesdesign
+                          <i class="mdi mdi-heart text-danger"></i> by DigitalTransformation
                         </p>
                       </div>
                     </div>

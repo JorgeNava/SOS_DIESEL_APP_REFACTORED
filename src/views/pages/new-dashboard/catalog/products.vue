@@ -10,7 +10,7 @@ const api = getApiClient();
  */
 export default {
   page: {
-    title: "Productos",
+    title: "Catálogo",
     meta: [{ name: "description", content: appConfig.description }]
   },
     components: { Layout, PageHeader},
@@ -42,14 +42,14 @@ export default {
         con: false,
         sin: false
       },
-      title: "Productos",
+      title: "Catálogo",
       products: [],
       items: [
         {
-          text: "Catálogo"
+          text: "Tienda"
         },
         {
-          text: "Productos",
+          text: "Catálogo",
           active: true
         }
       ],
@@ -178,7 +178,7 @@ export default {
         <h1 class="Productos ">Productos</h1>
       </div>
       <div class="col search-box d-flex justify-content-end">
-        <input type="text" class="form-control rounded-pill rounded-end border-danger text-capitalize" placeholder="BUSCAR" v-model="searchMarca"
+        <input type="text" class="form-control rounded-pill rounded-end border-danger" placeholder="Buscar" v-model="searchMarca"
         @change="filterProductsByMarca" />
       </div>
     </div>

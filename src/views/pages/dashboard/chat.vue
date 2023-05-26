@@ -138,7 +138,7 @@ export default {
                         <input
                           type="text"
                           class="form-control rounded bg-light border-0"
-                          placeholder="Search..."
+                          placeholder="Buscar..."
                         />
                         <i class="mdi mdi-magnify search-icon"></i>
                       </div>

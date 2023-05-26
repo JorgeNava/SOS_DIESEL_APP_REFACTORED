@@ -16,38 +16,29 @@ const api = getApiClient();
 
 export default {
   page: {
-    title: "Users Table",
+    title: "Administración de usuarios",
     meta: [{ name: "description", content: appConfig.description }]
   },
   components: { Layout, PageHeader, EditUserModal, DeleteUserModal, CreateUserModal},
   data() {
     return {
       tableData: [],
-      title: "Users Management Table",
-      items: [
-        {
-          text: "Tables",
-          href: "/"
-        },
-        {
-          text: "Advanced",
-          active: true
-        }
-      ],
+      title: "Administración de usuarios",
+      items: [],
       totalRows: 1,
       currentPage: 1,
       perPage: 10,
       pageOptions: [10, 25, 50, 100],
       filter: null,
       filterOn: [],
-      sortBy: "Email",
+      sortBy: "Correo",
       sortDesc: false,
       fields: [
-        { key: "Email", sortable: true },
-        { key: "Username", sortable: true },
-        { key: "Role", sortable: true },
-        { key: "Notes", sortable: true },
-        { key: "Status", sortable: true },
+        { key: "Correo", sortable: true },
+        { key: "Nombre de usuario", sortable: true },
+        { key: "Rol", sortable: true },
+        { key: "Notas", sortable: true },
+        { key: "Estatus", sortable: true },
         { key: "Edit", sortable: false }
       ],
       selectedUser: {},
@@ -62,7 +53,15 @@ export default {
       return this.tableData.length;
     },
     usersTableData() {
-      return this.tableData; 
+      return this.tableData.map((user) => {
+        return {
+          Correo: user?.Email,
+          "Nombre de usuario": user?.Username,
+          Rol: user?.Role,
+          Notas: user?.Notes,
+          Estatus: user?.Status,
+        };
+      })
     }
   },
   created() {
@@ -130,10 +129,10 @@ export default {
         <div class="card">
           <div class="card-body">
             <div class="d-flex justify-content-between">
-              <h4 class="card-title">Data Table</h4>
+              <h4 class="card-title">Usuarios</h4>
               <div>
                 <b-button variant="outline-success" class="d-flex justify-center" @click="openModal('createUser', {})">
-                  <i class="ri-user-add-fill mr-2"></i>Create User
+                  <i class="ri-user-add-fill mr-2"></i>Crear usuario
                 </b-button>
               </div>
             </div>
@@ -141,8 +140,8 @@ export default {
               <div class="col-sm-12 col-md-6">
                 <div id="tickets-table_length" class="dataTables_length">
                   <label class="d-inline-flex align-items-center">
-                    Show&nbsp;
-                    <b-form-select v-model="perPage" size="sm" :options="pageOptions"></b-form-select>&nbsp;entries
+                    Mostrar&nbsp;
+                    <b-form-select v-model="perPage" size="sm" :options="pageOptions"></b-form-select>&nbsp;entradas
                   </label>
                 </div>
               </div>
@@ -150,11 +149,11 @@ export default {
               <div class="col-sm-12 col-md-6">
                 <div id="tickets-table_filter" class="dataTables_filter text-md-right">
                   <label class="d-inline-flex align-items-center">
-                    Search:
+                    Buscar:
                     <b-form-input
                       v-model="filter"
                       type="search"
-                      placeholder="Search..."
+                      placeholder="Buscar..."
                       class="form-control form-control-sm ml-2"
                     ></b-form-input>
                   </label>
