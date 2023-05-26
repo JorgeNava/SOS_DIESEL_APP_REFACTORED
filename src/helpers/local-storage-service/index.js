@@ -42,7 +42,6 @@ class LocalStorageService {
   }
 
   static setUser(user) {
-    console.log('[NAVA] localstorage setUser user:', user);
     return this.setItem('user', user);
   }
 

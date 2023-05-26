@@ -76,8 +76,6 @@ export default {
       if (_.isEmpty(this.newName)) return false; 
       if (_.isEmpty(this.newBrand)) return false; 
       if (_.isEmpty(this.newPrice) || !this.isValidPositiveNumber(this.newPrice)) return false; 
-      console.log('[NAVA] isNaN(this.newQuantity)):', isNaN(this.newQuantity));
-      console.log('[NAVA] _.isEmpty(this.newQuantity):', _.isEmpty(this.newQuantity));
       if (_.isEmpty(this.newQuantity) || isNaN(this.newQuantity)) return false; 
       return true;
     },

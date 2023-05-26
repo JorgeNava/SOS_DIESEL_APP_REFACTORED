@@ -21,7 +21,7 @@
     </div>
     <div class="fotosRandom d-flex align-items-center justify-content-center">
       <div class="carousel--container">
-        <Carousel :slides="carouselImages" /> 
+        <Carousel /> 
       </div> 
     </div>
     <Footer class="footersillo"/>
