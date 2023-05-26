@@ -53,7 +53,7 @@ export default {
             this.$root.startJwtTimer();
             // Redirect to the originally requested page, or to the home page
             this.$router.push(
-              this.$route.query.redirectFrom || { name: "dashboard products" }
+              this.$route.query.redirectFrom || { name: "panel-de-administracion-productos" }
             );
           })
           .catch(error => {

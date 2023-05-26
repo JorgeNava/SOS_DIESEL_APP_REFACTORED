@@ -69,7 +69,7 @@ new Vue({
     startJwtTimer() {
       this.jwtTimer = setInterval(() => {
         const currentRoute = this.$route.path;
-        if (!currentRoute.includes('/dashboard') || currentRoute === '/login') {
+        if (!currentRoute.includes('/panel-de-administracion') || currentRoute === '/login') {
           return;
         }
   

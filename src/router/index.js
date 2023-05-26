@@ -51,7 +51,7 @@ router.beforeEach((routeTo, routeFrom, next) => {
         } else if (validUser && adminRequired && validUser.Role === 'Admin') {
           next()
         } else if (validUser && adminRequired && validUser.Role !== 'Admin') {
-          next({ name: 'dashboard' })
+          next({ name: 'panel-de-administracion' })
         } else {
           redirectToLogin()
         }
@@ -74,8 +74,6 @@ router.beforeEach((routeTo, routeFrom, next) => {
       'productos',
       'detalles-del-producto',
       'contacto',
-      '/ecommerce/products',
-      '/ecommerce/product-details',
       '/login', '/register', '/forgot-password'];
     const authpage = !publicPages.includes(routeTo.path);
     const loggeduser = localStorage.getItem('user');

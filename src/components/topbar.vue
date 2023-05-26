@@ -180,7 +180,7 @@ export default {
             <i class="mdi mdi-chevron-down d-none d-xl-inline-block"></i>
           </template>
           <!-- item-->
-          <router-link class="dropdown-item" to="/dashboard/profile">
+          <router-link class="dropdown-item" to="/panel-de-administracion/perfil">
             <i class="ri-user-line align-middle mr-1"></i>
             {{ $t('navbar.dropdown.kevin.list.profile') }}
           </router-link>
