@@ -151,7 +151,7 @@ export default {
         <div class="card-body border-bottom py-2">
           <div class="search-box chat-search-box">
             <div class="position-relative">
-              <input type="text" class="form-control" placeholder="Search..." />
+              <input type="text" class="form-control" placeholder="Buscar..." />
               <i class="ri-search-line search-icon"></i>
             </div>
           </div>
@@ -426,7 +426,7 @@ export default {
                             <input
                               type="text"
                               class="form-control rounded"
-                              placeholder="Search..."
+                              placeholder="Buscar..."
                             />
                             <i class="mdi mdi-magnify search-icon"></i>
                           </div>
@@ -441,7 +441,7 @@ export default {
                       <input
                         type="text"
                         class="form-control"
-                        placeholder="Search..."
+                        placeholder="Buscar..."
                       />
                       <i class="mdi mdi-magnify search-icon"></i>
                     </div>

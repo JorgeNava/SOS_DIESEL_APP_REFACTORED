@@ -1,19 +1,13 @@
 <script>
-import Layout from "@/views/layouts/main";
-import PageHeader from "@/components/page-header";
 import appConfig from "@/app.config";
 const { getApiClient } = require('@/helpers/sos-diesel-api-client');
 const api = getApiClient();
 
-/**
- * Products Component
- */
 export default {
   page: {
-    title: "Catálogo",
+    title: "Productos",
     meta: [{ name: "description", content: appConfig.description }]
   },
-    components: { Layout, PageHeader},
   data() {
     return {
       productsPerPage: 0,
@@ -42,14 +36,14 @@ export default {
         con: false,
         sin: false
       },
-      title: "Catálogo",
+      title: "Productos",
       products: [],
       items: [
         {
-          text: "Tienda"
+          text: "Catálogo"
         },
         {
-          text: "Catálogo",
+          text: "Productos",
           active: true
         }
       ],
@@ -170,9 +164,7 @@ export default {
 </script>
 
 <template>
-    <Layout>
-    <PageHeader :title="title" :items="items" />
-    <div class="pagina"> 
+  <div class="pagina"> 
     <div class="row  d-flex align-items-center ">
       <div class="col d-flex align-items-start ">
         <h1 class="Productos ">Productos</h1>
@@ -295,7 +287,6 @@ export default {
       </div>
     </div> 
   </div> 
-</Layout>
 </template>
 
 
@@ -337,8 +328,9 @@ export default {
 
 
 .pagina{
-  background-color: white;
-  min-height: 75vh;
+  padding: 5vh 2vw;
+  min-height: 100vh;
+  background-color: white
 }
 
 h1 {

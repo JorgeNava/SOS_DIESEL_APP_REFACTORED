@@ -23,14 +23,14 @@ export default {
   data() {
     return {
       tableData: [],
-      title: "Inventario de productos",
+      title: "Inventario",
       items: [
         {
-          text: "Catalogo",
+          text: "Tienda",
           href: "/"
         },
         {
-          text: "Inventario de productos",
+          text: "Inventario",
           active: true
         }
       ],
@@ -46,7 +46,7 @@ export default {
         { key: "Código", sortable: true },
         { key: "Nombre", sortable: true },
         { key: "Marca", sortable: true },
-        { key: "Modelo de tractor", sortable: true },
+        { key: "Modelo de motor", sortable: true },
         { key: "Precio", sortable: true },
         { key: "Cantidad", sortable: true },
         { key: "Descripción", sortable: true },
@@ -69,7 +69,7 @@ export default {
           Código: product?.Code,
           Nombre: product?.Name,
           Marca: product?.Brand,
-          "Modelo de tractor": product?.TruckModel,
+          "Modelo de motor": product?.TruckModel,
           Precio: product?.Price,
           Cantidad: product?.Quantity,
           Descripción: product?.Description,
@@ -105,7 +105,7 @@ export default {
         "Code": item?.Código,
         "Name": item?.Nombre,
         "Brand": item?.Marca,
-        "TruckModel": item["Modelo de tractor"],
+        "TruckModel": item["Modelo de motor"],
         "Price": item?.Precio,
         "Quantity": item?.Cantidad,
         "Description": item?.Descripción
@@ -150,7 +150,7 @@ export default {
         <div class="card">
           <div class="card-body">
             <div class="d-flex justify-content-between">
-              <h4 class="card-title">Tabla de productos</h4>
+              <h4 class="card-title">Productos</h4>
               <div>
                 <b-button variant="outline-success" class="d-flex justify-center" @click="openModal('createProduct', {})">
                   <i class="ri-add-fill mr-2"></i>Crear producto

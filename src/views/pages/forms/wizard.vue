@@ -52,7 +52,7 @@ export default {
                           type="text"
                           class="form-control"
                           name="userName"
-                          value="Themesdesign"
+                          value="DigitalTransformation"
                         />
                       </div>
                     </div>
@@ -165,7 +165,7 @@ export default {
                     <div class="form-group row mb-3">
                       <label class="col-md-3 col-form-label" for="name">User name</label>
                       <div class="col-md-9">
-                        <input id="name" type="text" class="form-control" value="Themesdesign" />
+                        <input id="name" type="text" class="form-control" value="DigitalTransformation" />
                       </div>
                     </div>
                     <div class="form-group row mb-3">

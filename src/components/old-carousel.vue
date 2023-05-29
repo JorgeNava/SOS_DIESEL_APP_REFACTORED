@@ -8,11 +8,11 @@
         <div v-for="(item, i) in items" :key="i" :class="{'carousel-item': true, 'active': i === currentSlide}">
           <div class="d-flex align-items-center justify-content-center h-100">
             <div class="card text-center" style="max-width: 600px; ">
-              <img :src="item.imageUrl" class="card-img-top" style="max-width: 600px; max-height: 600px;" alt="...">
+              <img :src="item?.Image1[0]?.url" class="card-img-top" alt="...">
               <div class="card-body">
-                <h5 class="card-title">{{ item.title }}</h5>
-                <p class="card-text">{{ item.description }}</p>
-                <p class="card-text">{{ item.price }}</p>
+                <h5 class="card-title">{{ item.Code }}</h5>
+                <p class="card-text">{{ item.Description }}</p>
+                <p class="card-text">{{ item.Price }}</p>
               </div>
             </div>
           </div>
@@ -25,44 +25,37 @@
         </button>
       </div>
     </div>
-    <router-link to="/ecommerce/Products" class="ver-mas ">Ver catálogo</router-link>
+    <router-link to="/productos" class="ver-mas ">Ver catálogo</router-link>
   </div>
 </template>
 
 <script>
+const { getApiClient } = require('@/helpers/sos-diesel-api-client');
+const api = getApiClient();
+
 export default {
   name: 'carouselHome',
   data() {
     return {
       currentSlide: 0,
-      items: [
-        {
-          imageUrl: require('@/assets/images/old_repo/img5.png'), 
-          title: 'Slide 1', 
-          description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.', 
-          price: '$10'
-        },
-        {imageUrl: require('@/assets/images/old_repo/img30.png'), title: 'Slide 2', description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.', price: '$20'},
-        {imageUrl: require('@/assets/images/old_repo/img20.png'), title: 'Slide 3', description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.', price: '$30'},
-        {imageUrl: require('@/assets/images/old_repo/img4.png'), title: 'Slide 4', description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.', price: '$40'},
-        {
-          imageUrl: require('@/assets/images/old_repo/img22.png'), 
-          title: 'Slide 5', 
-          description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.', 
-          price: '$50'
-        },
-      ],
+      items: [],
       }
+  },
+  async mounted() {
+    const RESPONSE = await api.get('/catalog/get-five-products');
+    this.items = RESPONSE.map((product) => {
+      return product?.fields;
+    });
+  },
+  methods: {
+    nextSlide() {
+      this.currentSlide = (this.currentSlide + 1) % this.items.length;
     },
-    methods: {
-      nextSlide() {
-        this.currentSlide = (this.currentSlide + 1) % this.items.length;
-      },
-      prevSlide() {
-        this.currentSlide = (this.currentSlide - 1 + this.items.length) % this.items.length;
-      },
+    prevSlide() {
+      this.currentSlide = (this.currentSlide - 1 + this.items.length) % this.items.length;
     },
-  }
+  },
+}
 </script>
 
 <style scoped>
@@ -105,10 +98,11 @@ export default {
   }
 
   .card-img-top {
-    object-fit: cover; /* ajustar imagen para que se ajuste al ancho y alto del elemento padre */
+    object-fit: cover;
     width: 100vw;
-    height: 38vh; /* agregar altura para que ocupe todo el espacio disponible */
-    max-width: 600px;
+    height: 38vh;
+    max-width: 600px; 
+    max-height: 600px;
   }
 
   .card-title {

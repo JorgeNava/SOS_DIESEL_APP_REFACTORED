@@ -22,9 +22,6 @@ export const getters = {
         return !!state.user
     },
     loggedInUser(state) {
-        console.log('[NAVA] state.user:', state.user);
-        console.log('[NAVA] sessionStorage.getItem(user);:', sessionStorage.getItem('user'));
-        console.log('[NAVA] LocalStorageService.getUser():', LocalStorageService.getUser());
         return state.user
     },
 }
@@ -101,7 +98,6 @@ export const actions = {
     },
 
     setUser({ commit }, user ) {
-        console.log('[NAVA] setUser user:', user);
         commit('SET_CURRENT_USER', user);
         return user;
     },

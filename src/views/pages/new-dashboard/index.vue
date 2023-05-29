@@ -2,9 +2,6 @@
 import Layout from "../../layouts/main";
 import PageHeader from "@/components/page-header";
 
-/**
- * Dashboard component
- */
 export default {
   components: {
     Layout,
@@ -12,13 +9,13 @@ export default {
   },
   data() {
     return {
-      title: "Dashboard",
+      title: "Panel de Administración",
       items: [
         {
           text: "SOS Diesel"
         },
         {
-          text: "Dashboard",
+          text: "Panel de Administración",
           active: true
         }
       ]

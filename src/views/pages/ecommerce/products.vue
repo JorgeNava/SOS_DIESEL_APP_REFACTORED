@@ -1,6 +1,7 @@
 <script>
-/*import VueSlideBar from "vue-slide-bar";*/
 import appConfig from "@/app.config";
+const { getApiClient } = require('@/helpers/sos-diesel-api-client');
+const api = getApiClient();
 
 /**
  * Products Component
@@ -25,9 +26,9 @@ export default {
       searchMarca: "",
       shouldFilter: false,
       precios: {
-      bajo: false,
-      medio: false,
-      alto: false
+        bajo: false,
+        medio: false,
+        alto: false
       },
       marcas: {
         kubota: false,
@@ -39,85 +40,7 @@ export default {
         sin: false
       },
       title: "Products",
-      products: [
-        {
-          img:  require("@/assets/images/product/img-1.png"),
-          codigo: "xxx",
-          marca: "xxx",
-          descripcion: "1",
-          precio: 0
-        },
-        {
-          img:  require("@/assets/images/product/img-2.png"),
-          codigo: "xxx",
-          marca: "Jhon Deere",
-          descripcion: "2",
-          precio: 0
-        },
-        {
-          img:  require("@/assets/images/product/img-3.png"),
-          codigo: "xxx",
-          marca: "xxx",
-          descripcion: "3",
-          precio: 3000
-        },
-        {
-          img:  require("@/assets/images/product/img-4.png"),
-          codigo: "xxx",
-          marca: "kubota",
-          descripcion: "4",
-          precio: 6000
-        },
-        {
-          img:  require("@/assets/images/product/img-5.png"),
-          codigo: "xxx",
-          marca: "ford",
-          descripcion: "5",
-          precio: 1
-        },
-        {
-          img:  require("@/assets/images/product/img-6.png"),
-          codigo: "xxx",
-          marca: "xxx",
-          descripcion: "6",
-          precio: 0
-        },
-        {
-          img:  require("@/assets/images/product/img-3.png"),
-          codigo: "xxx",
-          marca: "Jhon Deere",
-          descripcion: "7",
-          precio: 0
-        },
-        {
-          img:  require("@/assets/images/product/img-3.png"),
-          codigo: "xxx",
-          marca: "xxx",
-          descripcion: "8",
-          precio: 3000
-        },
-        {
-          img:  require("@/assets/images/product/img-3.png"),
-          codigo: "xxx",
-          marca: "kubota",
-          descripcion: "9",
-          precio: 6000
-        },
-        {
-          img:  require("@/assets/images/product/img-3.png"),
-          codigo: "xxx",
-          marca: "ford",
-          descripcion: "10",
-          precio: 1
-        },
-        {
-          img:  require("@/assets/images/product/img-3.png"),
-          codigo: "xxx",
-          marca: "ford",
-          descripcion: "11",
-          precio: 1
-        },
-      ],
+      products: [],
       items: [
         {
           text: "Ecommerce"
@@ -130,15 +53,17 @@ export default {
       filteredProducts: []
     };
   },
-  mounted() {
+  async mounted() {
+    await this.getProducts();
     this.filterProductsByMarca();
   },
-/*   computed: {
-    totalPages() {
-      return Math.ceil(this.filteredProducts.length / this.limitRowsPerPage);
-    },
-  },  */ 
   methods: {
+    async getProducts() {
+      const RESPONSE = await api.get('/catalog/get-all-products');
+      this.products = RESPONSE.map((product) => {
+        return product?.fields;
+      });
+    },
     getTotalRows() {
       this.totalRows = Math.ceil(this.filteredProducts.length / this.limitColumsPerRow);
       return this.totalRows;
@@ -161,8 +86,8 @@ export default {
       const ROW_END_INDEX = ((this.currentPage - 1) * this.limitProductsPerPage) + (actualRow * this.limitColumsPerRow) + 3;
       return ROW_END_INDEX;
     },
-    getImageSource(path) {
-      return path;
+    getImageSource(product) {
+      return product?.Image1[0].url;
     },
     handleSearchInput() {
       // Si el campo de búsqueda está vacío, no se realizará el filtrado
@@ -187,22 +112,22 @@ export default {
           // Si se seleccionan todos los filtros, mostrar todos los productos
           return true;
         }
-        if(this.precios.bajo && this.precios.medio && (product.precio <= 5000)){
+        if(this.precios.bajo && this.precios.medio && (product.Price <= 5000)){
           return true;
         }
-        if(this.precios.bajo && this.precios.alto && (product.precio < 2000 || product.precio > 5000)){
+        if(this.precios.bajo && this.precios.alto && (product.Price < 2000 || product.Price > 5000)){
           return true;
         }
-        if(this.precios.medio && this.precios.alto && (product.precio >= 2000 || product.precio > 5000)){
+        if(this.precios.medio && this.precios.alto && (product.Price >= 2000 || product.Price > 5000)){
           return true;
         }
-        if (this.precios.bajo && product.precio > 2000) {
+        if (this.precios.bajo && product.Price > 2000) {
           return false;
         }
-        if (this.precios.medio && (product.precio < 2000 || product.precio >= 5000)) {
+        if (this.precios.medio && (product.Price < 2000 || product.Price >= 5000)) {
           return false;
         }
-        if (this.precios.alto && product.precio < 5000) {
+        if (this.precios.alto && product.Price < 5000) {
           return false;
         }
         if (
@@ -247,7 +172,7 @@ export default {
         <h1 class="Productos ">Productos</h1>
       </div>
       <div class="col search-box d-flex justify-content-end">
-        <input type="text" class="form-control rounded-pill rounded-end border-danger text-capitalize" placeholder="BUSCAR" v-model="searchMarca"
+        <input type="text" class="form-control rounded-pill rounded-end border-danger" placeholder="Buscar" v-model="searchMarca"
         @change="filterProductsByMarca" />
       </div>
       <div class="image-container col-md-4">
@@ -324,24 +249,21 @@ export default {
                   <div class="product-img">
                     <!--<div class="product-ribbon badge badge-warning">Trending</div>-->
                     <div class="">
-                      <a href="/ecommerce/product-details">
-                        
-                      </a>
+                      <a href="/detalles-del-producto"></a>
                     </div>
                     <img
-                      :src="getImageSource(product.img)"
-                      :alt="product.codigo"
+                      :src="getImageSource(product)"
+                      :alt="product.Code"
                       class="img-fluid mx-auto d-block"
                     />
                   </div>
-
                   <div class="text-center">
-                    <p class="font-size-16 mb-1" style="color: rgba(206, 17, 17, 0.889);">{{product.codigo}}</p>
+                    <p class="font-size-16 mb-1" style="color: rgba(206, 17, 17, 0.889);">{{product.Code}}</p>
                     <h5 class="font-size-18">
-                      <router-link :to="`/ecommerce/product-details/${product.descripcion}`" class="text-dark">{{product.descripcion}}</router-link>
+                      <router-link :to="`/detalles-del-producto/${product.Description}`" class="text-dark">{{product.Description}}</router-link>
                     </h5>
-                    <h5 class="mt-3 mb-0" style="color: rgba(206, 17, 17, 0.889);">{{product.precio}}</h5>
-                    <router-link :to="{ path: '/ecommerce/product-details', query: { codigo: product.codigo, descripcion: product.descripcion, precio: product.precio } }">Ver detalles</router-link>
+                    <h5 class="mt-3 mb-0" style="color: rgba(206, 17, 17, 0.889);">{{product.Price}}</h5>
+                    <router-link :to="{ path: '/detalles-del-producto', query: { Code: product.Code, Description: product.Description, Price: product.Price } }">Ver detalles</router-link>
                   </div>
                 </div>
               </div>
@@ -353,7 +275,7 @@ export default {
                   <p class="mb-sm-0 mt-2">
                     Page
                     <span class="font-weight-bold">1</span> Of
-                    <span class="font-weight-bold">113</span>
+                    <span class="font-weight-bold">{{Math.ceil(filteredProducts.length / limitProductsPerPage)}}</span>
                   </p>
                 </div>
               </div>

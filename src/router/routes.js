@@ -30,8 +30,8 @@ export default [
 		component: () => import("../views/pages/utility/coming-soon"),
 	},
 	{
-		path: "/dashboard",
-		name: "dashboard",
+		path: "/panel-de-administracion",
+		name: "panel-de-administracion",
 		meta: {
 			authRequired: true,
 			adminRequired: false,
@@ -39,8 +39,8 @@ export default [
 		component: () => import("../views/pages/new-dashboard/catalog/products"),
 	},
 	{
-		path: "/dashboard/users",
-		name: "users",
+		path: "/panel-de-administracion/usuarios",
+		name: "usuarios",
 		meta: {
 			authRequired: true,
 			adminRequired: true,
@@ -48,8 +48,8 @@ export default [
 		component: () => import("../views/pages/new-dashboard/users/index"),
 	},
 	{
-		path: "/dashboard/products",
-		name: "dashboard products",
+		path: "/panel-de-administracion/productos",
+		name: "panel-de-administracion-productos",
 		meta: {
 			authRequired: true,
 			adminRequired: false,
@@ -57,8 +57,8 @@ export default [
 		component: () => import("../views/pages/new-dashboard/catalog/products"),
 	},
 	{
-		path: "/dashboard/product-details",
-		name: "dashboard product detail",
+		path: "/panel-de-administracion/detalles-del-producto",
+		name: "panel-de-administracion-detalles-del-producto",
 		meta: {
 			authRequired: true,
 			adminRequired: false,
@@ -66,8 +66,8 @@ export default [
 		component: () => import("../views/pages/new-dashboard/catalog/product-detail"),
 	},
 	{
-		path: "/dashboard/profile",
-		name: "dashboard user profile",
+		path: "/panel-de-administracion/perfil",
+		name: "panel-de-administracion-perfil",
 		meta: {
 			authRequired: true,
 			adminRequired: false,
@@ -83,7 +83,7 @@ export default [
 				// If the user is already logged in
 				if (store.getters["auth/loggedIn"]) {
 					// Redirect to the home page instead
-					next({ name: "dashboard products" });
+					next({ name: "panel-de-administracion-productos" });
 				} else {
 					// Continue to the login page
 					next();
@@ -116,7 +116,7 @@ export default [
 				// If the user is already logged in
 				if (store.getters["auth/loggedIn"]) {
 					// Redirect to the home page instead
-					next({ name: "dashboard products" });
+					next({ name: "panel-de-administracion-productos" });
 				} else {
 					// Continue to the login page
 					next();
@@ -133,7 +133,7 @@ export default [
 				// If the user is already logged in
 				if (store.getters["auth/loggedIn"]) {
 					// Redirect to the home page instead
-					next({ name: "dashboard products" });
+					next({ name: "panel-de-administracion-productos" });
 				} else {
 					// Continue to the login page
 					next();
@@ -158,10 +158,10 @@ export default [
 		component: () => import("../views/pages/calendar/index"),
 	},
 	{
-		path: "/ecommerce/products",
-		name: "products",
+		path: "/productos",
+		name: "productos",
 		meta: { authRequired: false },
-		component: () => import("../views/pages/ecommerce/products"),
+		component: () => import("../views/pages/products/products"),
 	},
 	{
 		path: "/ecommerce/product-details",

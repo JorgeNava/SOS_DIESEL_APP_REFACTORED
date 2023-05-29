@@ -107,7 +107,6 @@ export default {
   },
   created() {
     const ACTUAL_USER = store.getters['auth/loggedInUser'];
-    console.log('[NAVA] ACTUAL_USER:', ACTUAL_USER);
     this.profileUserUsername = ACTUAL_USER?.Username;
     this.profileUserProfileImage = ACTUAL_USER.ProfileImage ? ACTUAL_USER.ProfileImage : '@/assets/images/users/avatar-6.jpg';
     this.profileUserEmail = ACTUAL_USER?.Email;
