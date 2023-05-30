@@ -1,4 +1,5 @@
 <script>
+import Footer from "@/components/footer";
 
 /**
  * Product Detail Component
@@ -15,9 +16,10 @@ export default {
         {
           text: "Product Detail",
         }
-      ]
+      ],
     };
   },
+  components: { Footer },
   created() {
     // Realiza una llamada a tu API o accede a tu fuente de datos para obtener los detalles del producto
     this.fetchProductDetails();
@@ -223,6 +225,7 @@ export default {
       </div>
     </div>
     <!-- end row -->
+    <Footer class="footersillo"/>
   </div>
 </template>
 
@@ -234,16 +237,14 @@ export default {
 
 .carrito {
   width: 99%;
-  height: 100vh;
+  height: 88vh;
   display: flex;
-  justify-content: center;
   align-items: center;
 }
 
 .holi{
-  padding: 10vh 5vh;
   width: 90vw;
-  height: 90vh;
+  height: 90%;
   background-color: aliceblue;
   display: flex;
   align-items: center;
@@ -258,4 +259,7 @@ export default {
   right:  50vw;
 }
 
+.footersillo {
+    background-color: #C1272D;
+}
 </style>
