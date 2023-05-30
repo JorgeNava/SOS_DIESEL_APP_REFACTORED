@@ -13,12 +13,12 @@
       <div class="Tractor col">
         <img :src="imageUrl" alt="tractor image" class="img_tractor">
       </div>
-      <div class="col d-flex flex-column justify-content-center align-self-center align-items-end">
+      <div class="col d-flex flex-column justify-content-center  align-items-end">
         <img :src="imageUrls.Kubotalogo" alt="" class="img_Kubotalogo">
         <img :src="imageUrls.yanmarlogo" alt="" class="img_yanmarlogo">
         <img :src="imageUrls.sprinterlogo" alt="" class="img_sprinterlogo">
         <div class="widget">
-          <img src="@/assets/images/wWhats.png" alt="WhatsApp" @click="openWhatsApp"/>
+          <img src="@/assets/images/WhatsAppButtonGreenMedium.png" class="img_whatsapp" alt="WhatsApp" @click="openWhatsApp"/>
         </div>
       </div>
     </div>
@@ -99,7 +99,7 @@
 }
 
 .img_tractor{
-  width: 146%;
+  width: 148%;
   height: auto;
 }
 
@@ -111,18 +111,18 @@
 
 .img_Kubotalogo, .img_sprinterlogo, .img_yanmarlogo {
   flex-direction: column;
-  width: 40%;
+  width: 45%;
   height: auto;
   margin-bottom: 2rem;
   
 }
 
 .widget img{
-  position: absolute;
-  width: 10%;
-  height: auto;
-  left: 75%;
-  margin-top: 25%;
+  position: fixed;
+  right: 3rem;
+  bottom: 12vh;
+  width: 12%;
   cursor: pointer;
 }
+
 </style>

@@ -25,7 +25,6 @@
         </button>
       </div>
     </div>
-    <router-link to="/ecommerce/Products" class="ver-mas ">Ver catálogo</router-link>
   </div>
 </template>
 
@@ -74,6 +73,7 @@ export default {
 
   .carousel-wrapper{
     height: 90vh;
+    overflow: hidden;
   }
   .carousel-inner {
     width: 100%;
@@ -125,30 +125,28 @@ export default {
     max-height: 100%;
   }
 
+  .carousel-indicators {
+  position: absolute;
+  margin-top: 10px;
+  margin-bottom: 0;
+  display: flex;
+  justify-content: center;
+}
 
-  .carousel-indicators{
-    margin-top: 1%;
-    margin-bottom: 1%;
-  }
+.carousel-indicators li {
+  margin: 0 4px;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background-color: #888;
+  cursor: pointer;
+}
 
-  .ver-mas {
-    font-family: 'Helvetica-SOS';
-    width: fit-content;
-    padding: 10px 20px;
-    background-color: #C1272D;
-    color: white;
-    text-decoration: none;
-    border-radius: 5px;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
-    font-size: 1.2rem;
-  }
-    .ver-mas:hover{
-      background-color: rgb(255, 255, 255);
-      color: #C1272D;
-      border: 1px solid #C1272D;
-    }
+.carousel-indicators li.active {
+  background-color: #000;
+}
     .carousel-control-prev-icon, .carousel-control-next-icon {
-      position: absolute;
+      position: relative;
       top: 40%;
       transform: translateY(-80%);
     }

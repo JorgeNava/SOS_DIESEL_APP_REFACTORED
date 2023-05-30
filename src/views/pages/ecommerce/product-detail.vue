@@ -63,8 +63,8 @@ export default {
               <div class="col">
                 <div class="product-detail">
                   <div class="container-fluid">
-                    <div class="row justify-content-center text-center">
-                      <div class="col d-flex align-items-center">
+                    <div class="row">
+                      <div class="col d-flex align-items-center justify-content-center">
                         <div
                           class="nav flex-column nav-pills"
                           id="v-pills-tab"
@@ -125,7 +125,7 @@ export default {
                           </a>
                         </div>
                       </div>
-                      <div class="col-md-9 d-flex align-items-center ">
+                      <div class="col-md-7 d-flex align-items-center ">
                         <div class="tab-content" id="v-pills-tabContent">
                           <div class="tab-pane fade show active " id="product-1" role="tabpanel">
                             <div class="product-img ">
@@ -146,11 +146,10 @@ export default {
               </div>
               <div class="col-xl-7 ">
                 <div class="mt-4 mt-xl-3">
-                  <p class="text-primary ">{{ product.codigo }}</p>
                   <h5 class="mt-1 mb-3 ">{{ product.descripcion }}</h5>
 
                   <h5 class="mt-2">
-                    <h4 class="text-muted mr-2">{{ product.precio }}</h4>
+                    <h4 class="text-muted mr-2">${{ product.precio }}</h4>
                     <!--<span class="text-danger font-size-12 ml-2">25 % Off</span>-->
                   </h5>
                   <p
@@ -169,25 +168,38 @@ export default {
                   <hr class="my-4" />
 
                   <div class="row">
-                    <div class="col-md-6">
-                      <div>
-                       
+                      <div class="Detalles">
+                        <div class="mt-4">
+                          <div class="product-desc">
+                            <b-tabs class="nav-tabs-custom" content-class="border border-top-0 p-4">
+                              <b-tab title="Descripción">
+                                <div>
+                                  <p>{{ product.descripcion }}</p>
 
-                        <h5 class="font-size-14">Especificaciones :</h5>
-                        <ul class="list-unstyled product-desc-list">
-                          <li>
-                            <i class="mdi mdi-circle-medium mr-1 align-middle"></i> Material duradero.
-                          </li>
-                          <li>
-                            <i class="mdi mdi-circle-medium mr-1 align-middle"></i> Luces led.
-                          </li>
-                          <li>
-                            <i class="mdi mdi-circle-medium mr-1 align-middle"></i> lorem impusm.
-                          </li>
-                          <li>
-                            <i class="mdi mdi-circle-medium mr-1 align-middle"></i> 4 lorem impusm.
-                          </li>
-                        </ul>
+                                </div>
+                              </b-tab>
+                              <b-tab title="Especificaciones">
+                                <div class="table-responsive">
+                                  <table class="table table-nowrap mb-0">
+                                    <tbody>
+                                      <tr>
+                                        <th scope="row" style="width: 400px;">Código</th>
+                                        <td>{{ product.codigo }}</td>
+                                      </tr>
+                                      <tr>
+                                        <th scope="row">Marca</th>
+                                        <td>{{ product.marca }}</td>
+                                      </tr>
+                                      <tr>
+                                        <th scope="row">Precio</th>
+                                        <td>{{ product.precio }}</td>
+                                      </tr>
+                                    </tbody>
+                                  </table>
+                                </div>
+                              </b-tab>
+                            </b-tabs>
+                        </div>
                       </div>
                     </div>
                   </div>
@@ -205,40 +217,6 @@ export default {
               </div>
             </div>
             <!-- end row -->
-
-            <div class="mt-4">
-              <h5 class="font-size-14 mb-3">Descripcion de Producto:</h5>
-              <div class="product-desc">
-                <b-tabs class="nav-tabs-custom" content-class="border border-top-0 p-4">
-                  <b-tab title="Descripción">
-                    <div>
-                      <p>{{ product.descripcion }}</p>
-
-                    </div>
-                  </b-tab>
-                  <b-tab title="Especificaciones">
-                    <div class="table-responsive">
-                      <table class="table table-nowrap mb-0">
-                        <tbody>
-                          <tr>
-                            <th scope="row" style="width: 400px;">Código</th>
-                            <td>{{ product.codigo }}</td>
-                          </tr>
-                          <tr>
-                            <th scope="row">Marca</th>
-                            <td>{{ product.marca }}</td>
-                          </tr>
-                          <tr>
-                            <th scope="row">Precio</th>
-                            <td>{{ product.precio }}</td>
-                          </tr>
-                        </tbody>
-                      </table>
-                    </div>
-                  </b-tab>
-                </b-tabs>
-              </div>
-            </div>
           </div>
         </div>
         <!-- end card -->
@@ -251,12 +229,12 @@ export default {
 <style scoped>
 
 .contenedor{
-  background-color: blue;
+  background-color: aliceblue;
 }
 
 .carrito {
-  width: 100%;
-  height: 100%;
+  width: 99%;
+  height: 100vh;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -264,7 +242,20 @@ export default {
 
 .holi{
   padding: 10vh 5vh;
+  width: 90vw;
+  height: 90vh;
   background-color: aliceblue;
+  display: flex;
+  align-items: center;
+}
+
+.Detalles{
+  background-color: white;
+  width: 50%;
+}
+
+.nav-link{
+  right:  50vw;
 }
 
 </style>

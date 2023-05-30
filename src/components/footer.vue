@@ -17,6 +17,9 @@
 </template>
 
 <style scoped>
+.footersillo{
+  padding: 1vh;
+}
   .mr-2 {
     height: 70%;
     margin-top: 4%;
