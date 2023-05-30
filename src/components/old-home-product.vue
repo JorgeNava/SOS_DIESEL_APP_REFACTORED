@@ -18,7 +18,7 @@
         <img :src="imageUrls.yanmarlogo" alt="" class="img_yanmarlogo">
         <img :src="imageUrls.sprinterlogo" alt="" class="img_sprinterlogo">
         <div class="widget">
-          <img src="@/assets/images/WhatsAppButtonGreenMedium.png" class="img_whatsapp" alt="WhatsApp" @click="openWhatsApp"/>
+          <img src="@/assets/images/WhatsAppButtonWhiteSmall.png" class="img_whatsapp" alt="WhatsApp" @click="openWhatsApp"/>
         </div>
       </div>
     </div>
