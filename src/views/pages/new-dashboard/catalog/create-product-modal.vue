@@ -49,7 +49,6 @@ export default {
           images: [],
         };
 
-        // Convert uploaded images to Base64 strings
         for (let i = 0; i < this.newImages.length; i++) {
           const file = this.newImages[i];
           const base64String = await this.convertFileToBase64(file);
@@ -114,10 +113,8 @@ export default {
       const files = event.target.files;
       for (let i = 0; i < files.length; i++) {
         const file = files[i];
-        console.log('[NAVA] file:', file);
         this.newImages.push(file);
       }
-      console.log('[NAVA] this.newImages:', this.newImages);
     },
   },
   watch: {

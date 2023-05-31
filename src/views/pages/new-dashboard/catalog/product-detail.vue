@@ -73,6 +73,7 @@ export default {
           Precio: product?.Price,
           Cantidad: product?.Quantity,
           Descripción: product?.Description,
+          Imagenes: product?.Images,
         };
       })
     }
@@ -108,7 +109,8 @@ export default {
         "TruckModel": item["Modelo de motor"],
         "Price": item?.Precio,
         "Quantity": item?.Cantidad,
-        "Description": item?.Descripción
+        "Description": item?.Descripción,
+        "Images": item?.Imagenes
       };
       if (type === "editProduct") {
         this.$bvModal.show('edit-product-modal');
@@ -129,7 +131,7 @@ export default {
       this.makeToast(alertParams);
       api.get('/catalog/get-all-products')
         .then(response => { 
-        this.tableData = response.map(product => {
+          this.tableData = response.map(product => {
           return product?.fields;
         })
       }).catch(err => {

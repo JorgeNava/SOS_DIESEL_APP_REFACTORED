@@ -16,6 +16,7 @@ export default {
         Price: '',
         Quantity: 0,
         Description: '',
+        Images: []
       }),
     },
   },
@@ -42,7 +43,10 @@ export default {
       newTruckModel: '',
       newPrice: '',
       newQuantity: 0,
-      newDescription: ''
+      newDescription: '',
+      newImages: [],
+      isImageOpen: {},
+      selectedImage: null
     };
   },
   watch: {
@@ -54,6 +58,7 @@ export default {
       this.newPrice = product ? product.Price : '';
       this.newQuantity = product ? product.Quantity : '';
       this.newDescription = product ? product.Description : '';
+      this.newImages = product ? product.Images : [];
     },
   },
   methods: {
@@ -80,6 +85,14 @@ export default {
         this.$emit('modalActionTriggered', alertParams);
         console.error(error);
       } 
+    },
+    showImage(imageUrl) {
+      this.selectedImage = imageUrl;
+      this.$bvModal.show('image-modal');
+    },
+    closeImage() {
+      this.selectedImage = null;
+      this.$bvModal.hide('image-modal');
     },
   },
 };
@@ -130,9 +143,36 @@ export default {
           <b-form-textarea v-model="newDescription" readonly></b-form-textarea>
         </b-input-group>
       </b-form-group>
+      <b-form-group label="Imágenes">
+        <div class="d-flex flex-wrap">
+          <div v-for="image in newImages" :key="image.id" class="position-relative mr-2 mb-2">
+            <img :src="image.url" class="rounded-circle" style="width: 50px; height: 50px;" @click="showImage(image.url)">
+          </div>
+        </div>
+      </b-form-group>
     </section>
     <footer class="modal-card-foot d-flex">
       <b-button variant="outline-primary" @click="deleteProduct" class="ml-auto pr-3"><i class="ri-delete-bin-line mr-3"></i>Eliminar</b-button>
     </footer>
+    <b-modal id="image-modal" :hide-header="true" :hide-footer="true" :centered="true" :content-class="'image-modal'">
+        <div class="image-container">
+          <img :src="selectedImage" class="modal-image" @click="closeImage">
+        </div>
+    </b-modal>
   </b-modal>
 </template>
+
+<style scoped lang="scss">
+  .image-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+  }
+
+  .modal-image {
+    max-width: 90vw;
+    max-height: 90vh;
+    cursor: pointer;
+  }
+</style>
