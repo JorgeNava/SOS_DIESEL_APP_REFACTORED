@@ -1,26 +1,66 @@
 <template>
   <div class="carousel-wrapper d-flex flex-column align-items-center justify-content-center">
-    <div id="v" class="carousel slide " data-bs-ride="carousel">
+    <div id="v" class="carousel slide" data-bs-ride="carousel">
       <div class="carousel-indicators d-flex mb-2">
-        <li data-bs-target="#v" :data-bs-slide-to="i" :class="{'active': i === currentSlide}" v-for="(item, i) in items" :key="i" @click="currentSlide = i"></li>
+        <li
+          data-bs-target="#v"
+          :data-bs-slide-to="i"
+          :class="{'active': i === currentSlide}"
+          v-for="(item, i) in items"
+          :key="i"
+          @click="currentSlide = i"
+        ></li>
       </div>
-      <div class="carousel-inner " data-bs-target="#v">
-        <div v-for="(item, i) in items" :key="i" :class="{'carousel-item': true, 'active': i === currentSlide}">
-          <div class="d-flex align-items-center justify-content-center h-100">
-            <div class="card text-center" style="max-width: 600px; ">
-              <img :src="item.imageUrl" class="card-img-top" style="max-width: 600px; max-height: 600px;" alt="...">
-              <div class="card-body">
-                <h5 class="card-title">{{ item.title }}</h5>
-                <p class="card-text">{{ item.description }}</p>
-                <p class="card-text">{{ item.price }}</p>
+      <div class="carousel-inner" data-bs-target="#v">
+        <div
+          v-for="(item, i) in items"
+          :key="i"
+          :class="{'carousel-item': true, 'active': i === currentSlide}"
+        >
+          <router-link
+            :to="{
+              path: '/ecommerce/product-details',
+              query: {
+                codigo: item.codigo,
+                descripcion: item.descripcion,
+                precio: item.precio,
+                marca: item.marca,
+                img: item.imageUrl,
+                truckModel: item.truckModel,
+              }
+            }"
+          >
+            <div class="d-flex align-items-center justify-content-center h-100">
+              <div class="card text-center" style="max-width: 600px; ">
+                <img
+                  :src="item.imageUrl"
+                  class="card-img-top"
+                  style="max-width: 600px; max-height: 600px;"
+                  alt="..."
+                />
+                <div class="card-body">
+                  <h5 class="card-title">{{ item.marca }}</h5>
+                  <p class="card-text">{{ item.descripcion }}</p>
+                  <p class="card-text">${{ item.precio }}</p>
+                </div>
               </div>
             </div>
-          </div>
+          </router-link>
         </div>
-        <button class="carousel-control-prev"  role="button" data-bs-slide="prev" @click="prevSlide">
+        <button
+          class="carousel-control-prev"
+          role="button"
+          data-bs-slide="prev"
+          @click="prevSlide"
+        >
           <span class="carousel-control-prev-icon" aria-hidden="true"></span>
         </button>
-        <button class="carousel-control-next"  role="button" data-bs-slide="next" @click="nextSlide">
+        <button
+          class="carousel-control-next"
+          role="button"
+          data-bs-slide="next"
+          @click="nextSlide"
+        >
           <span class="carousel-control-next-icon" aria-hidden="true"></span>
         </button>
       </div>
@@ -37,18 +77,22 @@ export default {
       items: [
         {
           imageUrl: require('@/assets/images/old_repo/img5.png'), 
-          title: 'Slide 1', 
-          description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.', 
-          price: '$10'
+          codigo: "xxx",
+          marca: "Jhon Deere",
+          descripcion: "Hola, esta es la prueba de que esta funcionando",
+          precio: 0,
+          truckModel: "xxx"
         },
-        {imageUrl: require('@/assets/images/old_repo/img30.png'), title: 'Slide 2', description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.', price: '$20'},
-        {imageUrl: require('@/assets/images/old_repo/img20.png'), title: 'Slide 3', description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.', price: '$30'},
-        {imageUrl: require('@/assets/images/old_repo/img4.png'), title: 'Slide 4', description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.', price: '$40'},
+        {imageUrl: require('@/assets/images/old_repo/img30.png'), codigo: "xxx", marca: "xxx", descripcion: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.', precio: 6000, truckModel: "truckModel"},
+        {imageUrl: require('@/assets/images/old_repo/img20.png'), codigo: "xxx", marca: "xxx", descripcion: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.', precio: 6000, truckModel: "trucky"},
+        {imageUrl: require('@/assets/images/old_repo/img4.png'), codigo: "xxx", marca: "xxx", descripcion: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.', precio: 6000, truckModel: "trucky Modelo 1 JT"},
         {
           imageUrl: require('@/assets/images/old_repo/img22.png'), 
-          title: 'Slide 5', 
-          description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.', 
-          price: '$50'
+          codigo: "xxx",
+          marca: "xxx",
+          descripcion: "3",
+          precio: 3000,
+          truckModel: "xxx"
         },
       ],
       }
@@ -59,6 +103,11 @@ export default {
       },
       prevSlide() {
         this.currentSlide = (this.currentSlide - 1 + this.items.length) % this.items.length;
+      },
+      goToProductDetail(item) {
+        // Aquí redirecciona a la página de detalles del producto utilizando el objeto 'item'
+        // Puedes usar el enrutador o el método de redirección adecuado para tu aplicación
+        console.log('Redireccionando a la página de detalles del producto:', item);
       },
     },
   }
@@ -120,6 +169,7 @@ export default {
 
   .card-text {
     font-family: 'Helvetica-SOS';
+    color: #584646;
     text-align: center;
     max-width: 100%;
     max-height: 100%;
@@ -147,7 +197,6 @@ export default {
 }
     .carousel-control-prev-icon, .carousel-control-next-icon {
       position: relative;
-      top: 40%;
-      transform: translateY(-80%);
+      bottom: 8vh;
     }
 </style>;

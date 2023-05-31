@@ -7,24 +7,7 @@
       <button class="button-bottom" @click="mostrarFormulario">Contacto</button>
       <div id="ventanaEmergente" class="ventana-emergente">
         <div class="contenido-ventana">
-          <div class="formContainer d-flex align-items-center justify-content-center" :class="{ 'show-form': mostrarVentana }">
-            <iframe :class="{'iframe-animation': mostrarVentana}" src="https://docs.google.com/forms/d/e/1FAIpQLSfx0Nr42LjGNaF872BVBUIa3lJxm2yDARKxKhkj5PirjF63Xw/viewform?embedded=true" frameborder="0" marginheight="0" marginwidth="0">Cargando…</iframe>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</template>
-
-<template> 
-  <div class="d-flex justify-center flex-column">
-    <img :src="imageUrls.logosos" alt="" class="img_logosos">
-    <div>
-      <router-link to="/ecommerce/products" class="button-top">Productos</router-link>
-      <a href="#mision" class="button" @click.prevent="scrollToMissionSection">Quienes Somos</a>
-      <button class="button-bottom" @click="mostrarFormulario">Contacto</button>
-      <div id="ventanaEmergente" class="ventana-emergente">
-        <div class="contenido-ventana">
+          <div class="close-button" @click="cerrarFormulario">X</div>
           <div class="formContainer" :class="{ 'show-form': mostrarVentana }">
             <form :class="{'iframe-animation': mostrarVentana}" action="https://formspree.io/f/xyyalodo" method="post">
               <h2>Contacto</h2>
@@ -253,7 +236,7 @@ export default {
     font-family: Helvetica-SOS;
     text-align: center;
     display: block;
-    margin-bottom: 1.5em;
+    margin-bottom: .5em;
     font-size: 20px;
     color: #de4b4b;
   }
@@ -266,7 +249,7 @@ export default {
     border: none;
     border-bottom: 2px solid #ccc;
     font-size: 16px;
-    margin-bottom: 16px;
+    margin-bottom: 1.5em;
   }
   
   textarea {
@@ -283,6 +266,20 @@ export default {
     cursor: pointer;
     font-size: 1.5em;
     width: 100%;
+    margin-top: 1em;
   }
 
+  button[type="submit"]:hover {
+    background-color: #3d8d40; /* Cambia el color de fondo cuando se hace hover */
+  }
+
+.close-button {
+  position: absolute;
+  color: rgb(148, 108, 108);
+  font-family: Helvetica-SOS;
+  top: 10px;
+  right: 25px;
+  font-size: 1.2em;
+  cursor: pointer;
+}
 </style>

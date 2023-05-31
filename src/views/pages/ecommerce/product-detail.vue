@@ -1,55 +1,58 @@
 <script>
 import Footer from "@/components/footer";
 
-/**
- * Product Detail Component
- */
 export default {
   props: ['productId'],
   data() {
     return {
       title: "Product Detail",
       items: [
-        {
-          text: "Ecommerce"
-        },
-        {
-          text: "Product Detail",
-        }
+        { text: "Ecommerce" },
+        { text: "Product Detail" }
       ],
+      product: {
+        img: '',
+        codigo: '',
+        descripcion: '',
+        precio: '',
+        marca: '',
+        truckModel: ''
+      },
+      selectedImage: '' // Nueva propiedad para almacenar la URL de la imagen seleccionada
     };
   },
   components: { Footer },
   created() {
-    // Realiza una llamada a tu API o accede a tu fuente de datos para obtener los detalles del producto
     this.fetchProductDetails();
   },
-
   methods: {
     fetchProductDetails() {
-    // Aquí obtienes los parámetros del producto desde la ruta actual
-    const codigo = this.$route.query.codigo;
-    const descripcion = this.$route.query.descripcion;
-    const precio = this.$route.query.precio;
-    const marca = this.$route.query.marca;
-    const img = this.$route.query.img;
+      // Obtener parámetros del producto desde la ruta actual
+      const codigo = this.$route.query.codigo;
+      const descripcion = this.$route.query.descripcion;
+      const precio = this.$route.query.precio;
+      const marca = this.$route.query.marca;
+      const img = this.$route.query.img;
+      const truckModel = this.$route.query.truckModel;
 
-    // Puedes utilizar los parámetros como desees, por ejemplo, asignarlos a la propiedad 'product'
-    this.product = {
-      img: img,
-      codigo: codigo,
-      descripcion: descripcion,
-      precio: precio,
-      marca: marca
-    };
-  },
-    /**
-     * Selected image shows
-     */
+      this.product = {
+        img: img,
+        codigo: codigo,
+        descripcion: descripcion,
+        precio: precio,
+        marca: marca,
+        truckModel: truckModel
+      };
+      this.selectedImage = img; // Establecer la imagen seleccionada inicialmente como la imagen principal
+    },
     imageShow(event) {
-      const image = event.target.src;
-      const expandImg = document.getElementById("expandedImg");
-      expandImg.src = image;
+      this.selectedImage = event.target.src;
+      const target = event.target;
+
+      // Verificar si el evento se originó desde un enlace de navegación
+      if (target.classList.contains('nav-link')) {
+        this.selectedImage = target.querySelector('img').src; // Actualizar la imagen seleccionada con la URL de la imagen en la que se hizo clic
+      }
     }
   }
 };
@@ -61,7 +64,7 @@ export default {
       <div class="col d-flex justify-content-center">
         <div class="carrito card">
           <div class="card-body">
-            <div class="holi row border border-danger">
+            <div class="holi row">
               <div class="col">
                 <div class="product-detail">
                   <div class="container-fluid">
@@ -133,9 +136,9 @@ export default {
                             <div class="product-img ">
                               <img
                                 id="expandedImg"
-                                :src=product.img
+                                :src=selectedImage
                                 alt
-                                class="img-fluid mx-auto d-block border border-danger img-lg"
+                                class="img-fluid mx-auto d-block  img-lg"
                               />
                             </div>
                           </div>
@@ -193,8 +196,8 @@ export default {
                                         <td>{{ product.marca }}</td>
                                       </tr>
                                       <tr>
-                                        <th scope="row">Precio</th>
-                                        <td>{{ product.precio }}</td>
+                                        <th scope="row">Modelo de motor</th>
+                                        <td>{{ product.truckModel }}</td>
                                       </tr>
                                     </tbody>
                                   </table>
@@ -236,6 +239,7 @@ export default {
 }
 
 .carrito {
+  background-color: aliceblue;
   width: 99%;
   height: 88vh;
   display: flex;
@@ -257,6 +261,7 @@ export default {
 
 .nav-link{
   right:  50vw;
+    
 }
 
 .footersillo {

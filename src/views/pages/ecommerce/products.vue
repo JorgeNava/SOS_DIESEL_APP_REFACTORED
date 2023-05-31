@@ -52,7 +52,8 @@ export default {
           codigo: "xxx",
           marca: "Jhon Deere",
           descripcion: "2",
-          precio: 0
+          precio: 0,
+          truckModel: "xxx"
         },
         {
           img:  require("@/assets/images/product/img-3.png"),
