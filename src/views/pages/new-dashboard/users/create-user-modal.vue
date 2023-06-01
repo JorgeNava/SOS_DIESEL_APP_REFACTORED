@@ -28,6 +28,7 @@ export default {
       newNotes: '',
       newStatus: 'Active',
       newRole: '',
+      newImage: {},
       show1: false,
       internalError: false
     };
@@ -54,7 +55,11 @@ export default {
           notes: this.newNotes,
           status: this.newStatus,
           role: this.newRole,
+          profileImage: await this.convertFileToBase64(this.newImage)
         };
+
+        console.log('[NAVA] NEW_USER_DATA:', NEW_USER_DATA);
+
         const RAW_RESPONSE = await api.post('/users/create-one', NEW_USER_DATA);
         if (RAW_RESPONSE?.id) {
           alertParams = {
@@ -63,6 +68,13 @@ export default {
             text: 'Los datos del usuario han sido registrados exitosamente!'
           }
         }
+        this.newEmail = '';
+        this.newPassword = '';
+        this.newUsername = '';
+        this.newNotes = '';
+        this.newStatus = 'Active';
+        this.newRole = '';
+        this.newImage = {};
         this.$emit('modalActionTriggered', alertParams);
         this.$bvModal.hide('create-user-modal');
       } catch (error) {
@@ -81,6 +93,31 @@ export default {
       if (_.isEmpty(this.newStatus)) return false; 
       if (_.isEmpty(this.newRole)) return false; 
       return true;
+    },
+    async convertFileToBase64(file) {
+      return new Promise((resolve, reject) => {
+        const reader = new FileReader();
+
+        reader.onloadend = () => {
+          const base64String = reader.result.split(',')[1];
+          resolve(base64String);
+        };
+
+        reader.onerror = (error) => {
+          reject(error);
+        };
+
+        reader.readAsDataURL(file);
+      });
+    },
+    openFileExplorer() {
+      this.$refs.imageInput.click();
+    },
+    handleImageUpload(event) {
+      const files = event.target.files;
+      console.log('[NAVA] this.newImage:', this.newImage);
+      console.log('[NAVA]  files:',  files);
+      this.newImage = files[0];
     },
   },
   watch: {
@@ -132,6 +169,21 @@ export default {
           <b-input-group-prepend is-text><i class="mdi mdi-format-list-checks"></i></b-input-group-prepend>
           <b-form-select v-model="newStatus" :options="[{value: 'Active', text: 'Active'}, {value: 'Blocked', text: 'Blocked'}]"></b-form-select>
         </b-input-group>
+      </b-form-group>
+      <b-form-group label="Foto de perfil">
+        <b-input-group>
+          <b-input-group-prepend is-text><i class="ri-align-center"></i></b-input-group-prepend>
+          <input type="file" accept="image/*" @change="handleImageUpload" ref="imageInput" style="display: none">
+          <div class="d-flex align-items-center">
+            <b-button variant="primary" @click="openFileExplorer" :disabled="newImage === {}">
+              Añadir imagen
+            </b-button>
+          </div>
+        </b-input-group>
+        <div v-if="newImage !== {}" class="mt-3">
+          <p class="mb-1">Imágen cargada:</p>
+          <p class="mb-1">{{ newImage.name }}</p>
+        </div>
       </b-form-group>
       <b-alert
         :show="internalError"

@@ -39,7 +39,8 @@ export default {
         { key: "Rol", sortable: true },
         { key: "Notas", sortable: true },
         { key: "Estatus", sortable: true },
-        { key: "Edit", sortable: false }
+        { key: "FotoDePerfil", sortable: false },
+        { key: "Editar", sortable: false }
       ],
       selectedUser: {},
       showErrorNotification: false
@@ -54,12 +55,14 @@ export default {
     },
     usersTableData() {
       return this.tableData.map((user) => {
+        console.log('[NAVA] user:', user);
         return {
           Correo: user?.Email,
           "Nombre de usuario": user?.Username,
           Rol: user?.Role,
           Notas: user?.Notes,
           Estatus: user?.Status,
+          FotoDePerfil: user?.ProfileImage ? user?.ProfileImage[0].url : '',
         };
       })
     }
@@ -88,7 +91,15 @@ export default {
       this.currentPage = 1;
     },
     openModal(type, item) {
-      this.selectedUser = item;
+      console.log('[NAVA] item:', item);
+      this.selectedUser = {
+        "Email": item?.Correo,
+        "Username": item["Nombre de usuario"],
+        "Status": item?.Estatus,
+        "Notes": item?.Notas,
+        "Role": item?.Rol,
+        "ProfileImage": item["FotoDePerfil"],
+      };
       if (type === "editUser") {
         this.$bvModal.show('edit-user-modal');
       } else if (type === "deleteUser") {
@@ -175,7 +186,12 @@ export default {
                 :filter-included-fields="filterOn"
                 @filtered="onFiltered"
               >
-              <template #cell(Edit)="row">
+              <template #cell(FotoDePerfil)="row">
+                <div class="position-relative mr-2 mb-2" v-if="row.item.FotoDePerfil">
+                  <img :src="row.item.FotoDePerfil" class="rounded-circle" style="width: 30px; height: 30px;" @click="showImage(row.item.FotoDePerfil)">
+                </div>
+              </template>
+              <template #cell(Editar)="row">
                 <i role="button" class="ri-pencil-line pointer text-success ri-lg mr-3" @click="openModal('editUser', row.item)"></i>
                 <i role="button" class="ri-delete-bin-line pointer text-danger ri-lg" @click="openModal('deleteUser', row.item)"></i>
               </template>

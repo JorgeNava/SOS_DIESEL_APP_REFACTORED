@@ -48,7 +48,7 @@ export default [
 		component: () => import("../views/pages/new-dashboard/users/index"),
 	},
 	{
-		path: "/panel-de-administracion/productos",
+		path: "/panel-de-administracion/catalogo",
 		name: "panel-de-administracion-productos",
 		meta: {
 			authRequired: true,
@@ -57,8 +57,8 @@ export default [
 		component: () => import("../views/pages/new-dashboard/catalog/products"),
 	},
 	{
-		path: "/panel-de-administracion/detalles-del-producto",
-		name: "panel-de-administracion-detalles-del-producto",
+		path: "/panel-de-administracion/inventario",
+		name: "panel-de-administracion-inventario",
 		meta: {
 			authRequired: true,
 			adminRequired: false,

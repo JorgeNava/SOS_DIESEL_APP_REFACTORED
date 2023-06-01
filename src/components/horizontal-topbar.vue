@@ -21,6 +21,7 @@ export default {
   data() {
     return {
       username: '',
+      profileImage: '',
       languages: [
         {
           flag: require("@/assets/images/flags/spain.jpg"),
@@ -81,6 +82,7 @@ export default {
     this.text = this.value.title;
     this.flag = this.value.flag;
     this.username = store.getters['auth/loggedInUser']?.Username;
+    this.profileImage = store.getters['auth/loggedInUser']?.ProfileImage[0].url;
   },
   watch: {
     type: {
@@ -222,7 +224,8 @@ export default {
           class="d-inline-block user-dropdown"
         >
           <template v-slot:button-content>
-            <i class="ri-user-line rounded-circle header-profile-user user--icon"></i>
+            <img v-if="profileImage" class="ri-user-line rounded-circle header-profile-user" :src="profileImage">
+            <i v-if="!profileImage" class="ri-user-line rounded-circle header-profile-user user--icon"></i>
             <span class="d-none d-xl-inline-block ml-1">{{
               username
             }}</span>

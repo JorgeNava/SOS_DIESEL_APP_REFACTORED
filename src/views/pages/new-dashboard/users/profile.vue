@@ -27,7 +27,7 @@ export default {
         }
       ],
       profileUserUsername: 'Jorge Nava',
-      profileUserProfileImage: '/ruta/a/la/imagen.png',
+      profileUserProfileImage: '@/assets/iamges/users/avatar-6.jpg',
       profileUserEmail: 'correo@example.com',
       profileUserRole: 'Rol del usuario',
       profileUserNotes: 'Notas del usuario',
@@ -55,6 +55,7 @@ export default {
             notes: this.profileUserNotes,
             status: this.profileUserStatus,
             role: this.profileUserRole,
+            //profileImage: await this.convertFileToBase64(this.profileUserProfileImage)
           };
           const RAW_RESPONSE = await api.post('/users/update-one', USER_UPDATED_DATA);
           if (RAW_RESPONSE?.id) {
@@ -70,6 +71,7 @@ export default {
             Notes: this.profileUserNotes,
             Status: this.profileUserStatus,
             Role: this.profileUserRole,
+            ProfileImage: [{url: this.profileUserProfileImage}],
           };
           this.setUser(NEW_CURRENT_USER);
           this.editing = false;
@@ -96,6 +98,74 @@ export default {
         solid: true
       });
     },
+    openFileExplorer() {
+      this.$refs.imageInput.click();
+    },
+    async handleImageUpload(event) {
+      const files = event.target.files;
+      const file = files[0];
+      const base64String = await this.convertFileToBase64(file);
+      this.newImage = {
+        id: file.name,
+        url: 'data:image/png;base64,' + base64String
+      };
+    },
+    async convertFileToBase64(file) {
+      if (typeof file === 'string' && file.startsWith('data:')) {
+        return(file);
+      }
+
+      if (file?.url) {
+        return await this.convertUrlToBase64(file.url);
+      }
+        
+      return new Promise((resolve, reject) => {
+        const reader = new FileReader();
+
+        reader.onloadend = () => {
+          const base64String = reader.result.split(',')[1];
+          resolve(base64String);
+        };
+
+        reader.onerror = (error) => {
+          reject(error);
+        };
+
+        reader.readAsDataURL(file);
+      });
+    },
+    async convertUrlToBase64(url) {
+      try {
+        const response = await fetch(url);
+        const blob = await response.blob();
+
+        return new Promise((resolve, reject) => {
+          const reader = new FileReader();
+
+          reader.onloadend = () => {
+            const base64String = reader.result.split(',')[1];
+            resolve(base64String);
+          };
+
+          reader.onerror = (error) => {
+            reject(error);
+          };
+
+          reader.readAsDataURL(blob);
+        });
+      } catch (error) {
+        throw new Error('Failed to convert URL to base64: ' + error.message);
+      }
+    },
+    showImage() {
+      this.$bvModal.show('image-modal');
+    },
+    closeImage() {
+      this.$bvModal.hide('image-modal');
+    },
+    removeImage() {
+      this.profileUserProfileImage = '';
+    },
   },
   watch: {
     internalError: function () {
@@ -105,10 +175,10 @@ export default {
       }, 3000)      }
     }
   },
-  created() {
+  mounted() {
     const ACTUAL_USER = store.getters['auth/loggedInUser'];
     this.profileUserUsername = ACTUAL_USER?.Username;
-    this.profileUserProfileImage = ACTUAL_USER.ProfileImage ? ACTUAL_USER.ProfileImage : '@/assets/images/users/avatar-6.jpg';
+    this.profileUserProfileImage = ACTUAL_USER.ProfileImage ? ACTUAL_USER.ProfileImage[0].url : '@/assets/images/users/avatar-6.jpg';
     this.profileUserEmail = ACTUAL_USER?.Email;
     this.profileUserRole = ACTUAL_USER?.Role;
     this.profileUserNotes = ACTUAL_USER?.Notes;
@@ -125,7 +195,7 @@ export default {
       <b-card class="card" :bg-variant="'light'" :border-variant="'light'" :shadow="4">
         <div class="d-flex">
           <div class="d-flex w-50 flex-column justify-content-center align-items-center">
-            <img src="@/assets/images/users/avatar-6.jpg"  class="profile-image" />
+            <img :src="profileUserProfileImage"  class="profile-image" />
             <b-form class="w-100 d-flex justify-content-center align-items-center text-center center-cursor">
               <b-form-group label="Nombre de usuario">
                 <b-form-input v-model="profileUserUsername" :readonly="!editing"></b-form-input>

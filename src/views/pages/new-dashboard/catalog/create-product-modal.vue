@@ -133,6 +133,7 @@ export default {
     <section class="modal-card-body text-left px-5 pb-4">
       <b-form-group label="Código">
         <b-input-group>
+          <b-input-group-prepend is-text><i class="ri-qr-code-line"></i></b-input-group-prepend>
           <b-form-input type="text" v-model="newCode"></b-form-input>
         </b-input-group>
       </b-form-group>

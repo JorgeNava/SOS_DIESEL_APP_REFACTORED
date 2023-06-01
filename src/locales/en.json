@@ -98,7 +98,7 @@
       "text": "Tienda",
       "list": {
         "products": "Catálogo",
-        "productdetail": "Productos",
+        "productdetail": "Inventario",
         "orders": "Pedidos",
         "customers": "Clientes",
         "cart": "Carrito",

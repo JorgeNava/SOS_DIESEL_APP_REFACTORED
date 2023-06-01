@@ -52,7 +52,6 @@ export default {
   },
   watch: {
     product: function (product) {
-      console.log('[NAVA] product:', product);
       this.newName = product ? product.Name : '';
       this.newBrand = product ? product.Brand : '';
       this.newTruckModel = product ? product.TruckModel : '';
@@ -152,7 +151,7 @@ export default {
         return(file);
       }
 
-      if (file.url) {
+      if (file?.url) {
         return await this.convertUrlToBase64(file.url);
       }
         
