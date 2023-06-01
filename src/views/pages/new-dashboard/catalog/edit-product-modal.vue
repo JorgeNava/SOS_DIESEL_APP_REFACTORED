@@ -150,7 +150,9 @@ export default {
       if (typeof file === 'string' && file.startsWith('data:')) {
         return(file);
       }
-
+      if (typeof file === 'string' && file.startsWith('http')) {
+        return await this.convertUrlToBase64(file);
+      }
       if (file?.url) {
         return await this.convertUrlToBase64(file.url);
       }
