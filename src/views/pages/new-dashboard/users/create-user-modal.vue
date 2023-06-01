@@ -58,8 +58,6 @@ export default {
           profileImage: await this.convertFileToBase64(this.newImage)
         };
 
-        console.log('[NAVA] NEW_USER_DATA:', NEW_USER_DATA);
-
         const RAW_RESPONSE = await api.post('/users/create-one', NEW_USER_DATA);
         if (RAW_RESPONSE?.id) {
           alertParams = {
@@ -115,8 +113,6 @@ export default {
     },
     handleImageUpload(event) {
       const files = event.target.files;
-      console.log('[NAVA] this.newImage:', this.newImage);
-      console.log('[NAVA]  files:',  files);
       this.newImage = files[0];
     },
   },

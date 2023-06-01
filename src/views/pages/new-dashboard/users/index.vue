@@ -55,7 +55,6 @@ export default {
     },
     usersTableData() {
       return this.tableData.map((user) => {
-        console.log('[NAVA] user:', user);
         return {
           Correo: user?.Email,
           "Nombre de usuario": user?.Username,
@@ -91,7 +90,6 @@ export default {
       this.currentPage = 1;
     },
     openModal(type, item) {
-      console.log('[NAVA] item:', item);
       this.selectedUser = {
         "Email": item?.Correo,
         "Username": item["Nombre de usuario"],

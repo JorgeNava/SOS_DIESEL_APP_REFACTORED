@@ -49,7 +49,6 @@ export default {
   },
   watch: {
     user: function (user) {
-      console.log('[NAVA] user:', user);
       this.newPassword = '';
       this.newUsername = user ? user.Username : '';
       this.newNotes = user ? user.Notes : '';

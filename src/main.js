@@ -75,12 +75,11 @@ new Vue({
   
         const jwtToken = LocalStorageService.getToken();
         const jwtExpireTime = new Date(JSON.parse(atob(jwtToken.split('.')[1])).exp * 1000);
-  
         if (jwtExpireTime <= new Date()) {
           clearInterval(this.jwtTimer);
           eventBus.$emit('sessionExpired');
         }
-      }, 1000  * 300); // Check 5 mins
+      }, 1000  * 60 * 5); // Check 5 mins
     },
   },
   destroyed() {
