@@ -458,6 +458,7 @@ h1 {
   height: 4vh;
   padding: 15px 3px 15px;
   font-family: 'Helvetica-SOS';
+  z-index: 1;
 }
 
 .search-box .border-danger {
@@ -465,12 +466,12 @@ h1 {
 }
 
 .image-container {
-
   position: absolute;
   height: 70vh;
   width:9vw;
   top: 25vh;
   left: 85%;
+  
 }
 
 .image-container img{

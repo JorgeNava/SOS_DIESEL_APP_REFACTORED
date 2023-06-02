@@ -9,20 +9,16 @@
         <div class="contenido-ventana">
           <div class="close-button" @click="cerrarFormulario">X</div>
           <div class="formContainer" :class="{ 'show-form': mostrarVentana }">
-            <form :class="{'iframe-animation': mostrarVentana}" action="https://formspree.io/f/xyyalodo" method="post">
+            <form ref="form" @submit.prevent="sendEmail">
               <h2>Contacto</h2>
               <label for="nombre">Nombre:</label>
-              <input type="text" id="nombre" name="nombre" placeholder="Tu nombre aquí" required>
-          
+              <input v-model="nombre" type="text" id="nombre" name="nombre" placeholder="Tu nombre aquí" required>
               <label for="email">Email:</label>
-              <input type="email" id="email" name="email" placeholder="Tu email aquí" required>
-
+              <input v-model="email" type="email" id="email" name="email" placeholder="Tu email aquí" required>
               <label for="telefono">Teléfono:</label>
-              <input type="tel" id="telefono" name="telefono" placeholder="Tu teléfono aquí">
-          
+              <input v-model="telefono" type="tel" id="telefono" name="telefono" placeholder="Tu teléfono aquí">
               <label for="mensaje">Mensaje:</label>
-              <textarea id="mensaje" name="mensaje" placeholder="Tu mensaje aquí" required></textarea>
-          
+              <textarea v-model="mensaje" id="mensaje" name="mensaje" placeholder="Tu mensaje aquí" required></textarea>
               <button type="submit">Enviar</button>
             </form>
           </div>
@@ -33,6 +29,8 @@
 </template>
 
 <script>
+import emailjs from '@emailjs/browser';
+
 export default {
   name: 'NavBar',
   props: {
@@ -41,6 +39,10 @@ export default {
   },
   data() {
     return {
+      nombre: '',
+      email: '',
+      telefono: '',
+      mensaje: '',
       mostrarVentana: false,
     };
   },
@@ -51,6 +53,14 @@ export default {
     document.removeEventListener('click', this.cerrarFormulario);
   },
   methods: {
+    sendEmail() {
+      emailjs.sendForm('service_9jw6mqj', 'template_y5lwc75', this.$refs.form,  'IUf6cjv3YTCcMHrAY')
+        .then((result) => {
+            console.log('SUCCESS!', result.text);
+        }, (error) => {
+            console.log('FAILED...', error.text);
+        });
+    },
     mostrarFormulario() {
       var ventana = document.getElementById('ventanaEmergente');
       ventana.style.display = 'block';
@@ -194,9 +204,13 @@ export default {
     transform: translate(-50%, -50%) scale(1);
     background-color: rgba(100, 9, 9, 0.8);
     padding: 20px;
-    width: 20vw;
-    height: 75vh;
+    width: 25vw;
+    height: 75%;
     opacity: 1;
+    padding: 20px;
+    max-width: 600px;
+    max-height: 100%;
+    overflow-y: auto;
   }
 
   .iframe-animation {
