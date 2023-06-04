@@ -74,7 +74,6 @@ export default {
     border-radius: 15px;
     overflow: hidden;
     font-family: 'Helvetica';
-    
   }
   .carousel-item {
     height: 630px;

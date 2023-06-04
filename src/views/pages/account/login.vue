@@ -12,7 +12,8 @@ export default {
       email: "",
       password: "",
       submitted: false,
-      showErrorNotification: false
+      showErrorNotification: false,
+      startSpinner: false,
     };
   },
   computed: {
@@ -31,10 +32,12 @@ export default {
     ...authMethods,
     ...notificationMethods,
     tryToLogIn() {
+      this.startSpinner = true;
       this.submitted = true;
       this.$v.$touch();
 
       if (this.$v.$invalid) {
+        this.startSpinner = false;
         return;
       } else {
         this.tryingToLogIn = true;
@@ -57,6 +60,7 @@ export default {
             );
           })
           .catch(error => {
+            this.startSpinner = false;
             this.tryingToLogIn = false;
             this.authError = error ? error?.response?.data?.error : "";
             this.isAuthError = true;
@@ -142,9 +146,11 @@ export default {
 
                           <div class="mt-4 text-center">
                             <button
+                              v-if="!startSpinner" 
                               class="btn btn-primary w-md waves-effect waves-light"
                               type="submit"
                             >Iniciar sesión</button>
+                            <b-spinner v-if="startSpinner" variant="primary" label="Spinning"></b-spinner>
                           </div>
 
                           <div class="mt-4 text-center">

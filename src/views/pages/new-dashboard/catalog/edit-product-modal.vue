@@ -47,6 +47,7 @@ export default {
       newImages: [],
       internalError: false,
       isImageOpen: {},
+      startSpinner: false,
       selectedImage: null
     };
   },
@@ -69,6 +70,7 @@ export default {
   },
   methods: {
     async editProduct() {
+      this.startSpinner = true;
       let alertParams = {
           type: 'error',
           title: 'Error durante actualización',
@@ -107,9 +109,11 @@ export default {
             text: 'Los datos del producto han sido registrados exitosamente!'
           }
         }
+        this.startSpinner = false;
         this.$emit('modalActionTriggered', alertParams);
         this.$bvModal.hide('edit-product-modal');
       } catch (error) {
+        this.startSpinner = false;
         this.$emit('modalActionTriggered', alertParams);
         console.error(error);
       } 
@@ -282,7 +286,8 @@ export default {
       </b-alert>
     </section>
     <footer class="modal-card-foot d-flex">
-      <b-button variant="outline-primary" @click="editProduct" class="ml-auto pr-3"><i class="mdi mdi-content-save mr-3"></i>Guardar</b-button>
+      <b-button v-if="startSpinner" variant="outline-primary" @click="editProduct" class="ml-auto pr-3"><i class="mdi mdi-content-save mr-3"></i>Guardar</b-button>
+      <b-spinner v-if="startSpinner" variant="primary" label="Spinning" class="ml-auto mr-4"></b-spinner>
     </footer>
     <b-modal id="image-modal" :hide-header="true" :hide-footer="true" :centered="true" :content-class="'image-modal'">
         <div class="image-container">

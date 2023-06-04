@@ -42,6 +42,7 @@ export default {
       newRole: '',
       newProfileImage: '',
       show1: false,
+      startSpinner: false,
       isImageOpen: false,
     };
   },
@@ -57,6 +58,7 @@ export default {
   },
   methods: {
     async deleteUser() {
+      this.startSpinner = true;
       let alertParams = {
           type: 'error',
           title: 'Error durante la eliminación',
@@ -73,9 +75,11 @@ export default {
             text: 'Los datos del usuario han sido eliminados exitosamente!'
           }
         }
+        this.startSpinner = false;
         this.$emit('modalActionTriggered', alertParams);
         this.$bvModal.hide('delete-user-modal');
       } catch (error) {
+        this.startSpinner = false;
         this.$emit('modalActionTriggered', alertParams);
         console.error(error);
       } 
@@ -139,7 +143,8 @@ export default {
       </b-form-group>
     </section>
     <footer class="modal-card-foot d-flex">
-      <b-button variant="outline-primary" @click="deleteUser" class="ml-auto pr-3"><i class="ri-delete-bin-line mr-3"></i>Eliminar</b-button>
+      <b-button v-if="!startSpinner" variant="outline-primary" @click="deleteUser" class="ml-auto pr-3"><i class="ri-delete-bin-line mr-3"></i>Eliminar</b-button>
+      <b-spinner v-if="startSpinner" variant="primary" label="Spinning" class="ml-auto mr-4"></b-spinner>
     </footer>
     <b-modal id="image-modal" :hide-header="true" :hide-footer="true" :centered="true" :content-class="'image-modal'">
         <div class="image-container">

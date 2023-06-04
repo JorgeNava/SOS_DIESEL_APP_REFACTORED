@@ -30,11 +30,13 @@ export default {
       newRole: '',
       newImage: {},
       show1: false,
+      startSpinner: false,
       internalError: false
     };
   },
   methods: {
     async createUser() {
+      this.startSpinner = true;
       let alertParams = {
           type: 'error',
           title: 'Error durante la creación',
@@ -45,6 +47,7 @@ export default {
         const INPUTS_ARE_VALID = this.validateInputs();
         if (!INPUTS_ARE_VALID) {
           this.internalError = true;
+          this.startSpinner = false;
           return;
         }
 
@@ -73,9 +76,11 @@ export default {
         this.newStatus = 'Active';
         this.newRole = '';
         this.newImage = {};
+        this.startSpinner = false;
         this.$emit('modalActionTriggered', alertParams);
         this.$bvModal.hide('create-user-modal');
       } catch (error) {
+        this.startSpinner = false;
         this.$emit('modalActionTriggered', alertParams);
         console.error(error);
       } 
@@ -192,7 +197,8 @@ export default {
       </b-alert> 
     </section>
     <footer class="modal-card-foot d-flex">
-      <b-button variant="outline-primary" @click="createUser" class="ml-auto pr-3"><i class="mdi mdi-content-save mr-3"></i>Crear</b-button>
+      <b-button  v-if="!startSpinner" variant="outline-primary" @click="createUser" class="ml-auto pr-3"><i class="mdi mdi-content-save mr-3"></i>Crear</b-button>
+      <b-spinner v-if="startSpinner" variant="primary" label="Spinning" class="ml-auto mr-4"></b-spinner>
     </footer>
   </b-modal>
 </template>
