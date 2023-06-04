@@ -49,11 +49,6 @@ export const actions = {
             .then(user => { 
                 const USER = user?.fields;
                 commit('SET_CURRENT_USER', USER);
-                // TO-DO: UPDATE getFirebaseBackend class, pass to a class/service
-/*                 setLoggeedInUser = (user) => {
-                    console.log('[NAVA] setLoggeedInUser user:', user);
-                    sessionStorage.setItem("user", JSON.stringify(user));
-                } */
                 return user;
             }).catch(err => {
                 dispatch('notification/error', err?.response?.data?.error, { root: true });

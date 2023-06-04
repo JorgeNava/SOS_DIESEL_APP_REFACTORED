@@ -50,6 +50,7 @@ export default {
         { key: "Precio", sortable: true },
         { key: "Cantidad", sortable: true },
         { key: "Descripción", sortable: true },
+        { key: "Imagenes", sortable: false },
         { key: "Editar", sortable: false }
       ],
       selectedProduct: {},
@@ -73,6 +74,7 @@ export default {
           Precio: product?.Price,
           Cantidad: product?.Quantity,
           Descripción: product?.Description,
+          Imagenes: product?.Images,
         };
       })
     }
@@ -108,7 +110,8 @@ export default {
         "TruckModel": item["Modelo de motor"],
         "Price": item?.Precio,
         "Quantity": item?.Cantidad,
-        "Description": item?.Descripción
+        "Description": item?.Descripción,
+        "Images": item?.Imagenes
       };
       if (type === "editProduct") {
         this.$bvModal.show('edit-product-modal');
@@ -129,7 +132,7 @@ export default {
       this.makeToast(alertParams);
       api.get('/catalog/get-all-products')
         .then(response => { 
-        this.tableData = response.map(product => {
+          this.tableData = response.map(product => {
           return product?.fields;
         })
       }).catch(err => {
@@ -196,6 +199,13 @@ export default {
                 :filter-included-fields="filterOn"
                 @filtered="onFiltered"
               >
+              <template #cell(Imagenes)="row" class="d-flex">
+                <div class="d-flex">
+                  <div v-for="image in row.item.Imagenes" :key="image.id" class="position-relative mr-2 mb-2">
+                    <img :src="image.url" class="rounded-circle" style="width: 30px; height: 30px;" @click="showImage(image.url)">
+                  </div>
+                </div>
+              </template>
               <template #cell(Editar)="row">
                 <i role="button" class="ri-pencil-line pointer text-success ri-lg mr-3" @click="openModal('editProduct', row.item)"></i>
                 <i role="button" class="ri-delete-bin-line pointer text-danger ri-lg" @click="openModal('deleteProduct', row.item)"></i>

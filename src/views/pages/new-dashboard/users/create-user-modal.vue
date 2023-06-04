@@ -28,12 +28,15 @@ export default {
       newNotes: '',
       newStatus: 'Active',
       newRole: '',
+      newImage: {},
       show1: false,
+      startSpinner: false,
       internalError: false
     };
   },
   methods: {
     async createUser() {
+      this.startSpinner = true;
       let alertParams = {
           type: 'error',
           title: 'Error durante la creación',
@@ -44,6 +47,7 @@ export default {
         const INPUTS_ARE_VALID = this.validateInputs();
         if (!INPUTS_ARE_VALID) {
           this.internalError = true;
+          this.startSpinner = false;
           return;
         }
 
@@ -54,7 +58,9 @@ export default {
           notes: this.newNotes,
           status: this.newStatus,
           role: this.newRole,
+          profileImage: await this.convertFileToBase64(this.newImage)
         };
+
         const RAW_RESPONSE = await api.post('/users/create-one', NEW_USER_DATA);
         if (RAW_RESPONSE?.id) {
           alertParams = {
@@ -63,9 +69,18 @@ export default {
             text: 'Los datos del usuario han sido registrados exitosamente!'
           }
         }
+        this.newEmail = '';
+        this.newPassword = '';
+        this.newUsername = '';
+        this.newNotes = '';
+        this.newStatus = 'Active';
+        this.newRole = '';
+        this.newImage = {};
+        this.startSpinner = false;
         this.$emit('modalActionTriggered', alertParams);
         this.$bvModal.hide('create-user-modal');
       } catch (error) {
+        this.startSpinner = false;
         this.$emit('modalActionTriggered', alertParams);
         console.error(error);
       } 
@@ -81,6 +96,29 @@ export default {
       if (_.isEmpty(this.newStatus)) return false; 
       if (_.isEmpty(this.newRole)) return false; 
       return true;
+    },
+    async convertFileToBase64(file) {
+      return new Promise((resolve, reject) => {
+        const reader = new FileReader();
+
+        reader.onloadend = () => {
+          const base64String = reader.result.split(',')[1];
+          resolve(base64String);
+        };
+
+        reader.onerror = (error) => {
+          reject(error);
+        };
+
+        reader.readAsDataURL(file);
+      });
+    },
+    openFileExplorer() {
+      this.$refs.imageInput.click();
+    },
+    handleImageUpload(event) {
+      const files = event.target.files;
+      this.newImage = files[0];
     },
   },
   watch: {
@@ -133,6 +171,21 @@ export default {
           <b-form-select v-model="newStatus" :options="[{value: 'Active', text: 'Active'}, {value: 'Blocked', text: 'Blocked'}]"></b-form-select>
         </b-input-group>
       </b-form-group>
+      <b-form-group label="Foto de perfil">
+        <b-input-group>
+          <b-input-group-prepend is-text><i class="ri-align-center"></i></b-input-group-prepend>
+          <input type="file" accept="image/*" @change="handleImageUpload" ref="imageInput" style="display: none">
+          <div class="d-flex align-items-center">
+            <b-button variant="primary" @click="openFileExplorer" :disabled="newImage === {}">
+              Añadir imagen
+            </b-button>
+          </div>
+        </b-input-group>
+        <div v-if="newImage !== {}" class="mt-3">
+          <p class="mb-1">Imágen cargada:</p>
+          <p class="mb-1">{{ newImage.name }}</p>
+        </div>
+      </b-form-group>
       <b-alert
         :show="internalError"
         dismissible
@@ -144,7 +197,8 @@ export default {
       </b-alert> 
     </section>
     <footer class="modal-card-foot d-flex">
-      <b-button variant="outline-primary" @click="createUser" class="ml-auto pr-3"><i class="mdi mdi-content-save mr-3"></i>Crear</b-button>
+      <b-button  v-if="!startSpinner" variant="outline-primary" @click="createUser" class="ml-auto pr-3"><i class="mdi mdi-content-save mr-3"></i>Crear</b-button>
+      <b-spinner v-if="startSpinner" variant="primary" label="Spinning" class="ml-auto mr-4"></b-spinner>
     </footer>
   </b-modal>
 </template>

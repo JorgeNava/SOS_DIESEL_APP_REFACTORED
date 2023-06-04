@@ -14,6 +14,7 @@ export default {
         Notes: '',
         Status: '',
         Role: '',
+        ProfileImage: ''
       }),
     },
   },
@@ -39,7 +40,10 @@ export default {
       newNotes: '',
       newStatus: '',
       newRole: '',
+      newProfileImage: '',
       show1: false,
+      startSpinner: false,
+      isImageOpen: false,
     };
   },
   watch: {
@@ -49,10 +53,12 @@ export default {
       this.newNotes = user ? user.Notes : '';
       this.newStatus = user ? user.Status : '';
       this.newRole = user ? user.Role : '';
+      this.newProfileImage = user ? user.ProfileImage : '';
     },
   },
   methods: {
     async deleteUser() {
+      this.startSpinner = true;
       let alertParams = {
           type: 'error',
           title: 'Error durante la eliminación',
@@ -69,12 +75,21 @@ export default {
             text: 'Los datos del usuario han sido eliminados exitosamente!'
           }
         }
+        this.startSpinner = false;
         this.$emit('modalActionTriggered', alertParams);
         this.$bvModal.hide('delete-user-modal');
       } catch (error) {
+        this.startSpinner = false;
         this.$emit('modalActionTriggered', alertParams);
         console.error(error);
       } 
+    },
+    showImage() {
+      this.$bvModal.show('image-modal');
+    },
+    closeImage() {
+      this.newProfileImage = '';
+      this.$bvModal.hide('image-modal');
     },
   },
 };
@@ -119,9 +134,22 @@ export default {
           <b-form-select v-model="newStatus" :options="[{value: 'Active', text: 'Active'}, {value: 'Blocked', text: 'Blocked'}]" readonly></b-form-select>
         </b-input-group>
       </b-form-group>
+      <b-form-group label="Foto de perfil">
+        <div class="d-flex flex-wrap">
+          <div v-if="newProfileImage" class="position-relative mr-2 mb-2">
+            <img :src="newProfileImage" class="rounded-circle" style="width: 50px; height: 50px;" @click="showImage(newProfileImage)">
+          </div>
+        </div>
+      </b-form-group>
     </section>
     <footer class="modal-card-foot d-flex">
-      <b-button variant="outline-primary" @click="deleteUser" class="ml-auto pr-3"><i class="ri-delete-bin-line mr-3"></i>Eliminar</b-button>
+      <b-button v-if="!startSpinner" variant="outline-primary" @click="deleteUser" class="ml-auto pr-3"><i class="ri-delete-bin-line mr-3"></i>Eliminar</b-button>
+      <b-spinner v-if="startSpinner" variant="primary" label="Spinning" class="ml-auto mr-4"></b-spinner>
     </footer>
+    <b-modal id="image-modal" :hide-header="true" :hide-footer="true" :centered="true" :content-class="'image-modal'">
+        <div class="image-container">
+          <img :src="newProfileImage" class="modal-image" @click="closeImage">
+        </div>
+    </b-modal>
   </b-modal>
 </template>

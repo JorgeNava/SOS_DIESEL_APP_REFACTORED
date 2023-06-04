@@ -17,6 +17,7 @@ export default {
         Price: '',
         Quantity: '',
         Description: '',
+        Images: []
       }),
     },
   },
@@ -43,7 +44,11 @@ export default {
       newPrice: '',
       newQuantity: 0,
       newDescription: '',
-      internalError: false
+      newImages: [],
+      internalError: false,
+      isImageOpen: {},
+      startSpinner: false,
+      selectedImage: null
     };
   },
   watch: {
@@ -51,9 +56,10 @@ export default {
       this.newName = product ? product.Name : '';
       this.newBrand = product ? product.Brand : '';
       this.newTruckModel = product ? product.TruckModel : '';
-      this.newPrice = product ? product.Price : '';
+      this.newPrice = product.Price ? product.Price.toString() : '';
       this.newQuantity = product ? product.Quantity : '';
       this.newDescription = product ? product.Description : '';
+      this.newImages = product ? product.Images : [];
     },
     internalError: function () {
       if (this.internalError) {
@@ -64,6 +70,7 @@ export default {
   },
   methods: {
     async editProduct() {
+      this.startSpinner = true;
       let alertParams = {
           type: 'error',
           title: 'Error durante actualización',
@@ -84,7 +91,16 @@ export default {
           price: parseInt(this.newPrice),
           quantity: parseInt(this.newQuantity),
           description: this.newDescription,
+          images: [],
         };
+
+        for (let i = 0; i < this.newImages.length; i++) {
+          const file = this.newImages[i];
+
+          const base64String = await this.convertFileToBase64(file);
+          NEW_PRODUCT_DATA.images.push(base64String);
+        }
+
         const RAW_RESPONSE = await api.post('/catalog/update-product', NEW_PRODUCT_DATA);
         if (RAW_RESPONSE?.id) {
           alertParams = {
@@ -93,22 +109,106 @@ export default {
             text: 'Los datos del producto han sido registrados exitosamente!'
           }
         }
+        this.startSpinner = false;
         this.$emit('modalActionTriggered', alertParams);
         this.$bvModal.hide('edit-product-modal');
       } catch (error) {
+        this.startSpinner = false;
         this.$emit('modalActionTriggered', alertParams);
         console.error(error);
       } 
     },
-    isValidPositiveNumber(str) {
-      const regex = /^[0-9]+(\.[0-9]+)?$/;
-      return regex.test(str);
+    isValidPositiveNumber(value) {
+      if (typeof value === 'number') {
+        return value >= 0;
+      }
+
+      if (typeof value === 'string') {
+        const regex = /^[0-9]+(\.[0-9]+)?$/;
+        return regex.test(value);
+      }
+
+      return false;
     },
     validateInputs() {
       if (_.isEmpty(this.newName)) return false; 
       if (_.isEmpty(this.newBrand)) return false; 
       if (_.isEmpty(this.newPrice) || !this.isValidPositiveNumber(this.newPrice)) return false; 
       return true;
+    },
+    openFileExplorer() {
+      this.$refs.imageInput.click();
+    },
+    async handleImageUpload(event) {
+      const files = event.target.files;
+      for (let i = 0; i < files.length; i++) {
+        const file = files[i];
+        const base64String = await this.convertFileToBase64(file);
+        this.newImages.push({
+          id: file.name,
+          url: 'data:image/png;base64,' + base64String
+        });
+      }
+    },
+    async convertFileToBase64(file) {
+      if (typeof file === 'string' && file.startsWith('data:')) {
+        return(file);
+      }
+      if (typeof file === 'string' && file.startsWith('http')) {
+        return await this.convertUrlToBase64(file);
+      }
+      if (file?.url) {
+        return await this.convertUrlToBase64(file.url);
+      }
+        
+      return new Promise((resolve, reject) => {
+        const reader = new FileReader();
+
+        reader.onloadend = () => {
+          const base64String = reader.result.split(',')[1];
+          resolve(base64String);
+        };
+
+        reader.onerror = (error) => {
+          reject(error);
+        };
+
+        reader.readAsDataURL(file);
+      });
+    },
+    async convertUrlToBase64(url) {
+      try {
+        const response = await fetch(url);
+        const blob = await response.blob();
+
+        return new Promise((resolve, reject) => {
+          const reader = new FileReader();
+
+          reader.onloadend = () => {
+            const base64String = reader.result.split(',')[1];
+            resolve(base64String);
+          };
+
+          reader.onerror = (error) => {
+            reject(error);
+          };
+
+          reader.readAsDataURL(blob);
+        });
+      } catch (error) {
+        throw new Error('Failed to convert URL to base64: ' + error.message);
+      }
+    },
+    showImage(imageUrl) {
+      this.selectedImage = imageUrl;
+      this.$bvModal.show('image-modal');
+    },
+    closeImage() {
+      this.selectedImage = null;
+      this.$bvModal.hide('image-modal');
+    },
+    removeImage(imageId) {
+      this.newImages = this.newImages.filter(image => image.id !== imageId);
     },
   },
 };
@@ -159,6 +259,22 @@ export default {
           <b-form-textarea v-model="newDescription"></b-form-textarea>
         </b-input-group>
       </b-form-group>
+      <b-form-group label="Imágenes">
+        <div class="d-flex flex-wrap">
+          <div v-for="image in newImages" :key="image.id" class="position-relative mr-2 mb-2">
+            <img :src="image.url" class="rounded-circle" style="width: 50px; height: 50px;" @click="showImage(image.url)">
+            <button class="delete-icon" @click="removeImage(image.id)">
+              <i class="ri-close-line"></i>
+            </button>
+          </div>
+          <div v-if="newImages.length < 5" class="image-space">
+            <input type="file" accept="image/*" @change="handleImageUpload" ref="imageInput" style="display: none">
+            <button class="add-icon" @click="openFileExplorer">
+              <i class="ri-add-line"></i>
+            </button>
+          </div>
+        </div>
+      </b-form-group>
       <b-alert
         :show="internalError"
         dismissible
@@ -170,7 +286,67 @@ export default {
       </b-alert>
     </section>
     <footer class="modal-card-foot d-flex">
-      <b-button variant="outline-primary" @click="editProduct" class="ml-auto pr-3"><i class="mdi mdi-content-save mr-3"></i>Guardar</b-button>
+      <b-button v-if="startSpinner" variant="outline-primary" @click="editProduct" class="ml-auto pr-3"><i class="mdi mdi-content-save mr-3"></i>Guardar</b-button>
+      <b-spinner v-if="startSpinner" variant="primary" label="Spinning" class="ml-auto mr-4"></b-spinner>
     </footer>
+    <b-modal id="image-modal" :hide-header="true" :hide-footer="true" :centered="true" :content-class="'image-modal'">
+        <div class="image-container">
+          <img :src="selectedImage" class="modal-image" @click="closeImage">
+        </div>
+    </b-modal>
   </b-modal>
 </template>
+
+<style scoped lang="scss">
+
+  .image-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+  }
+
+  .modal-image {
+    max-width: 90vw;
+    max-height: 90vh;
+    cursor: pointer;
+  }
+
+  .delete-icon {
+    position: absolute;
+    top: -10px;
+    right: -15px;
+    background: transparent;
+    border: none;
+    outline: none;
+    cursor: pointer;
+  }
+
+  .delete-icon i {
+    font-size: 14px;
+    color: #ff0000;
+  }
+
+  .image-space {
+    width: 50px;
+    height: 50px;
+    background-color: #f1f1f1;
+    margin: 2px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 8px;
+  }
+
+  .add-icon {
+    background-color: #f1f1f1;
+    border: none;
+    outline: none;
+    cursor: pointer;
+  }
+
+  .add-icon i {
+    font-size: 24px;
+    color: #888888;
+  }
+</style>

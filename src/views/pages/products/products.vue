@@ -84,7 +84,7 @@ export default {
       return ROW_END_INDEX;
     },
     getImageSource(product) {
-      return product?.Image1[0].url;
+      return product?.Images[0].url;
     },
     handleSearchInput() {
       // Si el campo de búsqueda está vacío, no se realizará el filtrado
@@ -234,7 +234,6 @@ export default {
           <div v-for="(product, index) in filteredProducts.slice(getRowStart(index), getRowEnd(index))" :key="index" class="col-xl-4 col-sm-6">
             <div class="product-box">
               <div class="product-img">
-                <!--<div class="product-ribbon badge badge-warning">Trending</div>-->
                 <div class="">
                   <a href="/detalles-del-producto"></a>
                 </div>
@@ -250,7 +249,7 @@ export default {
                   <router-link :to="`/detalles-del-producto/${product.Description}`" class="text-dark">{{product.Description}}</router-link>
                 </h5>
                 <h5 class="mt-3 mb-0" style="color: rgba(206, 17, 17, 0.889);">{{product.Price}}</h5>
-                <router-link :to="{ path: '/detalles-del-producto', query: { Code: product.Code, Description: product.Description, Price: product.Price } }">Ver detalles</router-link>
+                <router-link :to="{ path: '/detalles-del-producto', query: { Code: product.Code} }">Ver detalles</router-link>
               </div>
             </div>
           </div>

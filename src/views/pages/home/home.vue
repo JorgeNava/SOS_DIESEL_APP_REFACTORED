@@ -21,7 +21,10 @@
     </div>
     <div class="fotosRandom d-flex align-items-center justify-content-center">
       <div class="carousel--container">
-        <Carousel /> 
+        <Carousel :slides="carouselImages" /> 
+        <div class="ver-mas-container">
+          <router-link to="/ecommerce/Products" class="ver-mas">Ver catálogo</router-link>
+        </div>
       </div> 
     </div>
     <Footer class="footersillo"/>
@@ -176,4 +179,35 @@ export default {
     width: 100%;
     background-color: #C1272D;
 }
+
+.carousel--container {
+  /* ... Otros estilos ... */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100%; /* Ajusta la altura del contenedor a la altura de los elementos internos */
+}
+
+.ver-mas-container {
+  /* Añade espacio adicional alrededor del botón */
+  margin-bottom: 20px;
+}
+.ver-mas {
+    display: inline-block;
+    font-family: 'Helvetica-SOS';
+    padding: 10px 20px;
+    background-color: #C1272D;
+    color: white;
+    text-decoration: none;
+    border-radius: 5px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    font-size: 1.2rem;
+  }
+
+  .ver-mas:hover {
+    background-color: rgb(255, 255, 255);
+    color: #C1272D;
+    border: 1px solid #C1272D;
+  }
 </style>

@@ -8,13 +8,13 @@ export const menuItems = [
 			{
 				id: 2,
 				label: "menuitems.catalog.list.products",
-				link: "/panel-de-administracion/productos",
+				link: "/panel-de-administracion/catalogo",
 				adminRequired: false
 			},
 			{
 				id: 3,
 				label: "menuitems.catalog.list.productdetail",
-				link: "/panel-de-administracion/detalles-del-producto",
+				link: "/panel-de-administracion/inventario",
 				adminRequired: false
 			},
 		],
