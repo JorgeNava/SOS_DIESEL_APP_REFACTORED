@@ -40,7 +40,86 @@ export default {
         sin: false
       },
       title: "Products",
-      products: [],
+      products: [
+        {
+          img:  require("@/assets/images/product/img-1.png"),
+          codigo: "xxx",
+          marca: "xxx",
+          descripcion: "1",
+          precio: 0
+        },
+        {
+          img:  require("@/assets/images/product/img-2.png"),
+          codigo: "xxx",
+          marca: "Jhon Deere",
+          descripcion: "2",
+          precio: 0,
+          truckModel: "xxx"
+        },
+        {
+          img:  require("@/assets/images/product/img-3.png"),
+          codigo: "xxx",
+          marca: "xxx",
+          descripcion: "3",
+          precio: 3000
+        },
+        {
+          img:  require("@/assets/images/product/img-4.png"),
+          codigo: "xxx",
+          marca: "kubota",
+          descripcion: "4",
+          precio: 6000
+        },
+        {
+          img:  require("@/assets/images/product/img-5.png"),
+          codigo: "xxx",
+          marca: "ford",
+          descripcion: "5",
+          precio: 1
+        },
+        {
+          img:  require("@/assets/images/product/img-6.png"),
+          codigo: "xxx",
+          marca: "xxx",
+          descripcion: "6",
+          precio: 0
+        },
+        {
+          img:  require("@/assets/images/product/img-3.png"),
+          codigo: "xxx",
+          marca: "Jhon Deere",
+          descripcion: "7",
+          precio: 0
+        },
+        {
+          img:  require("@/assets/images/product/img-3.png"),
+          codigo: "xxx",
+          marca: "xxx",
+          descripcion: "8",
+          precio: 3000
+        },
+        {
+          img:  require("@/assets/images/product/img-3.png"),
+          codigo: "xxx",
+          marca: "kubota",
+          descripcion: "9",
+          precio: 6000
+        },
+        {
+          img:  require("@/assets/images/product/img-3.png"),
+          codigo: "xxx",
+          marca: "ford",
+          descripcion: "10",
+          precio: 1
+        },
+        {
+          img:  require("@/assets/images/product/img-3.png"),
+          codigo: "xxx",
+          marca: "ford",
+          descripcion: "11",
+          precio: 1
+        },
+      ],
       items: [
         {
           text: "Ecommerce"
@@ -172,8 +251,8 @@ export default {
         <h1 class="Productos ">Productos</h1>
       </div>
       <div class="col search-box d-flex justify-content-end">
-        <input type="text" class="form-control rounded-pill rounded-end border-danger" placeholder="Buscar" v-model="searchMarca"
-        @change="filterProductsByMarca" />
+        <input type="text" class="form-control rounded-pill rounded-end border-danger text-capitalize" placeholder="BUSCAR" v-model="searchMarca"
+        @input="filterProductsByMarca" />
       </div>
       <div class="image-container col-md-4">
         <img src="@/assets/images/envio.png">
@@ -245,27 +324,28 @@ export default {
           <div>
             <div v-for="(item,index) in getPageRowsNumber()" :key="index" class="row no-gutters mt-5">
               <div v-for="(product, index) in filteredProducts.slice(getRowStart(index), getRowEnd(index))" :key="index" class="col-xl-4 col-sm-6">
-                <div class="product-box">
-                  <div class="product-img">
-                    <!--<div class="product-ribbon badge badge-warning">Trending</div>-->
-                    <div class="">
-                      <a href="/detalles-del-producto"></a>
+                <router-link :to="{ path: '/ecommerce/product-details', query: { codigo: product.codigo, descripcion: product.descripcion, precio: product.precio, marca: product.marca, img: product.img } }">
+
+                  <div class="product-box">
+                    <div class="product-img">
+                      <!--<div class="product-ribbon badge badge-warning">Trending</div>-->
+    
+                      <img
+                        :src="getImageSource(product.img)"
+                        :alt="product.codigo"
+                        class="img-fluid mx-auto d-block"
+                      />
                     </div>
-                    <img
-                      :src="getImageSource(product)"
-                      :alt="product.Code"
-                      class="img-fluid mx-auto d-block"
-                    />
+
+                    <div class="text-center">
+                      <p class="font-size-16 mb-1" style="color: rgba(206, 17, 17, 0.889);">{{product.codigo}}</p>
+                      <h5 class="font-size-18">
+                        <h5 class="text-dark">{{product.descripcion}}</h5>
+                      </h5>
+                      <h5 class="mt-3 mb-0" style="color: rgba(206, 17, 17, 0.889);">{{product.precio}}</h5>
+                    </div>
                   </div>
-                  <div class="text-center">
-                    <p class="font-size-16 mb-1" style="color: rgba(206, 17, 17, 0.889);">{{product.Code}}</p>
-                    <h5 class="font-size-18">
-                      <router-link :to="`/detalles-del-producto/${product.Description}`" class="text-dark">{{product.Description}}</router-link>
-                    </h5>
-                    <h5 class="mt-3 mb-0" style="color: rgba(206, 17, 17, 0.889);">{{product.Price}}</h5>
-                    <router-link :to="{ path: '/detalles-del-producto', query: { Code: product.Code, Description: product.Description, Price: product.Price } }">Ver detalles</router-link>
-                  </div>
-                </div>
+                </router-link>
               </div>
             </div>
 
@@ -381,6 +461,7 @@ h1 {
   height: 4vh;
   padding: 15px 3px 15px;
   font-family: 'Helvetica-SOS';
+  z-index: 1;
 }
 
 .search-box .border-danger {
@@ -388,12 +469,12 @@ h1 {
 }
 
 .image-container {
-
   position: absolute;
   height: 70vh;
   width:9vw;
   top: 25vh;
   left: 85%;
+  
 }
 
 .image-container img{

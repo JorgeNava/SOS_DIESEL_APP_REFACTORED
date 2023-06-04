@@ -21,13 +21,22 @@ export default [
 		component: () => import("../views/pages/utility/coming-soon"),
 	},
 	{
+		path: "/productos",
+		name: "productos",
+		meta: {
+			authRequired: false,
+			adminRequired: false,
+		},
+		component: () => import("../views/pages/products/products"),
+	},
+	{
 		path: "/detalles-del-producto",
 		name: "product details",
 		meta: {
 			authRequired: false,
 			adminRequired: false,
 		},
-		component: () => import("../views/pages/utility/coming-soon"),
+		component: () => import("../views/pages/ecommerce/product-detail"),
 	},
 	{
 		path: "/panel-de-administracion",
@@ -156,12 +165,6 @@ export default [
 			authRequired: true,
 		},
 		component: () => import("../views/pages/calendar/index"),
-	},
-	{
-		path: "/productos",
-		name: "productos",
-		meta: { authRequired: false },
-		component: () => import("../views/pages/products/products"),
 	},
 	{
 		path: "/ecommerce/product-details",

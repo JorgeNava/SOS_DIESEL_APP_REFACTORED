@@ -13,10 +13,13 @@
       <div class="Tractor col">
         <img :src="imageUrl" alt="tractor image" class="img_tractor">
       </div>
-      <div class="col d-flex flex-column justify-content-center align-self-center align-items-end">
+      <div class="col d-flex flex-column justify-content-center  align-items-end">
         <img :src="imageUrls.Kubotalogo" alt="" class="img_Kubotalogo">
         <img :src="imageUrls.yanmarlogo" alt="" class="img_yanmarlogo">
         <img :src="imageUrls.sprinterlogo" alt="" class="img_sprinterlogo">
+        <div class="widget">
+          <img src="@/assets/images/WhatsAppButtonWhiteSmall.png" class="img_whatsapp" alt="WhatsApp" @click="openWhatsApp"/>
+        </div>
       </div>
     </div>
   </div>
@@ -26,21 +29,47 @@
  import NavBar from "@/components/old-navbar.vue"; 
 
  export default {
-   name: 'HomeProduct',
-   props: {
-     msg: String,
-     imageUrl: String,
-     imageUrls:Object,
-   },
-   components: { NavBar }
- }
- </script>
- 
- <style scoped>
+  methods: {
+    openWhatsApp() {
+      const phoneNumber = "XXXXXXXXXX"; // Número de teléfono al que deseas enviar un mensaje por WhatsApp
+
+      const url = `https://api.whatsapp.com/send?phone=${phoneNumber}&text=Hola,%20¿cómo%20estás?`;
+
+      window.open(url, "_blank");
+  }
+},
+  name: 'HomeProduct',
+  props: {
+    msg: String,
+    imageUrl: String,
+    imageUrls:Object,
+  },
+  components: { NavBar }
+}
+</script>
+
+<style scoped>
+
+.widget:hover img{
+  animation: jump 0.5s infinite;
+}
+
+@keyframes jump {
+  0% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-20px);
+  }
+  100% {
+    transform: translateY(0);
+  }
+}
 
  .home-product{
   height: 100vh;
  }
+
 .linkNum {
   display: flex;
   justify-content: center;
@@ -70,7 +99,7 @@
 }
 
 .img_tractor{
-  width: 146%;
+  width: 148%;
   height: auto;
 }
 
@@ -82,9 +111,18 @@
 
 .img_Kubotalogo, .img_sprinterlogo, .img_yanmarlogo {
   flex-direction: column;
-  width: 40%;
+  width: 45%;
   height: auto;
   margin-bottom: 2rem;
   
 }
+
+.widget img{
+  position: fixed;
+  right: 3rem;
+  bottom: 12vh;
+  width: 12%;
+  cursor: pointer;
+}
+
 </style>
