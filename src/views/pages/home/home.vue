@@ -1,7 +1,7 @@
 <template>
   <div class="home ">
     <div class="HomeProduct">
-      <HomeProduct :imageUrl="imageUrls.imagenTractor" :imageUrls="imageUrls" /> 
+      <HomeProduct :imageUrl="imageUrls.imagenTractor" :imageUrls="imageUrls" style="height: 100vh;"/> 
     </div>
     <div class="mision mt-5 " id="mision">
         <div class="image w-50 d-flex justify-content-end  pr-4 ">
@@ -125,6 +125,8 @@ export default {
 <style lang="scss" scoped>
 .home{
   background-color: white;
+  display: flex;
+  flex-direction: column;
 }
 
   .mision{

@@ -252,7 +252,7 @@ export default {
       </div>
       <div class="col search-box d-flex justify-content-end">
         <input type="text" class="form-control rounded-pill rounded-end border-danger text-capitalize" placeholder="BUSCAR" v-model="searchMarca"
-        @input="filterProductsByMarca" />
+        @change="filterProductsByMarca" />
       </div>
       <div class="image-container col-md-4">
         <img src="@/assets/images/envio.png">

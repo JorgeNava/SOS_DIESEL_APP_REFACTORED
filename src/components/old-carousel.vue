@@ -17,19 +17,7 @@
           :key="i"
           :class="{'carousel-item': true, 'active': i === currentSlide}"
         >
-          <router-link
-            :to="{
-              path: '/detalles-del-producto',
-              query: {
-                codigo: item.Code,
-                descripcion: item.Description,
-                precio: item.Price,
-                marca: item.Brand,
-                img: item.Images[0].url,
-                truckModel: item.TruckModel,
-              }
-            }"
-          >
+        <router-link :to="{ path: '/detalles-del-producto', query: { Code: item.Code} }">
             <div class="d-flex align-items-center justify-content-center h-100">
               <div class="card text-center" style="max-width: 600px; ">
                 <img
@@ -166,7 +154,6 @@ export default {
 
   .carousel-indicators {
   position: absolute;
-  margin-top: 10px;
   margin-bottom: 0;
   display: flex;
   justify-content: center;

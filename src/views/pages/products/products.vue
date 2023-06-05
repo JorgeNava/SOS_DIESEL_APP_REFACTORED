@@ -10,6 +10,7 @@ export default {
   },
   data() {
     return {
+      timer: null,
       productsPerPage: 0,
       rowsPerPage: 0,
       totalPages: 0,
@@ -94,6 +95,12 @@ export default {
         this.shouldFilter = true;
         this.filterProductsByMarca();
       }
+      clearTimeout(this.timer);
+      this.timer = setTimeout(() => {
+        this.filterProductsByMarca();
+      }, 
+      300
+      ) // Establece el retardo deseado en milisegundos (por ejemplo, 300ms)
     },
     filterProductsByMarca() {
       if (this.searchMarca) {
@@ -170,8 +177,7 @@ export default {
         <h1 class="Productos ">Productos</h1>
       </div>
       <div class="col search-box d-flex justify-content-end">
-        <input type="text" class="form-control rounded-pill rounded-end border-danger" placeholder="Buscar" v-model="searchMarca"
-        @change="filterProductsByMarca" />
+        <input type="text" class="form-control rounded-pill rounded-end border-danger" placeholder="Buscar" v-model="searchMarca" @beforeinput="filterProductsByMarca" />
       </div>
     </div>
     <div class="row">
@@ -233,6 +239,7 @@ export default {
         <div v-for="(item,index) in getPageRowsNumber()" :key="index" class="row no-gutters mt-5">
           <div v-for="(product, index) in filteredProducts.slice(getRowStart(index), getRowEnd(index))" :key="index" class="col-xl-4 col-sm-6">
             <div class="product-box">
+              <router-link :to="{ path: '/detalles-del-producto', query: { Code: product.Code} }">
               <div class="product-img">
                 <div class="">
                   <a href="/detalles-del-producto"></a>
@@ -249,8 +256,8 @@ export default {
                   <router-link :to="`/detalles-del-producto/${product.Description}`" class="text-dark">{{product.Description}}</router-link>
                 </h5>
                 <h5 class="mt-3 mb-0" style="color: rgba(206, 17, 17, 0.889);">{{product.Price}}</h5>
-                <router-link :to="{ path: '/detalles-del-producto', query: { Code: product.Code} }">Ver detalles</router-link>
               </div>
+            </router-link>
             </div>
           </div>
         </div>
@@ -292,8 +299,8 @@ export default {
 <style scoped>
 
 .custom-control-input:checked~.custom-control-label::before {
-  background-color: #17a2b8 !important;
-  border-color: #17a2b8 !important;
+  background-color: #bd0b0b !important;
+  border-color: #f8f8f8 !important;
 }
 
 .custom-control-input:focus:not(:checked)~.custom-control-label::before {
@@ -301,20 +308,8 @@ export default {
 }
 
 .custom-checkbox .custom-control-input:checked~.custom-control-label::after {
-  background-color: #17a2b8 !important;
-  border-color: #17a2b8 !important;
-}
-
-.custom-checkbox .custom-control-input:focus:not(:checked)~.custom-control-label::after {
-  border-color: #17a2b8 !important;
-}
-
-.custom-checkbox .custom-control-input:disabled:checked~.custom-control-label::before {
-  background-color: rgba(23, 162, 184, 0.5) !important;
-}
-
-.custom-checkbox .custom-control-input:disabled:indeterminate~.custom-control-label::before {
-  background-color: rgba(23, 162, 184, 0.5) !important;
+  background-color: #990909 !important;
+  border-color: #130808 !important;
 }
 
 .custom-checkbox .custom-control-input:disabled:checked~.custom-control-label::after {
@@ -361,9 +356,6 @@ h1 {
 
 .search-box .border-danger {
   border-color: red;
-}
-
-.image-container {
 }
  .Productos{
   font-family: 'Helvetica-SOS';

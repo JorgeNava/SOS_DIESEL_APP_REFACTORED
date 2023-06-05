@@ -82,14 +82,6 @@ export default {
                 </h5>
                 <p class="mt-3">{{ product.Brand }}</p>
                 <div class="d-inline-flex">
-                  <div class="text-muted mr-3">
-                    <span class="mdi mdi-star text-warning"></span>
-                    <span class="mdi mdi-star text-warning"></span>
-                    <span class="mdi mdi-star text-warning"></span>
-                    <span class="mdi mdi-star text-warning"></span>
-                    <span class="mdi mdi-star"></span>
-                  </div>
-                  <div class="text-muted">(1,320)</div>
                 </div>
                 <hr class="my-4" />
                 <div class="row">
@@ -100,8 +92,8 @@ export default {
                 <div class="row">
                   <div class="col-md-12">
                     <div class="mt-4">
-                      <div class="product-desc">
-                        <b-tabs class="nav-tabs-custom" content-class="border border-top-0 p-4">
+                      <div class="product-desc fixed-height">
+                        <b-tabs class="nav-tabs-custom" content-class="border border-top-0 p-4" keep-alive>
                           <b-tab title="Descripción">
                             <div>
                               <p>{{ product.Description }}</p>
@@ -112,7 +104,7 @@ export default {
                               <table class="table table-nowrap mb-0">
                                 <tbody>
                                   <tr>
-                                    <th scope="row" style="width: 400px;">Código</th>
+                                    <th scope="row" >Código</th>
                                     <td>{{ product.Code }}</td>
                                   </tr>
                                   <tr>
@@ -165,10 +157,13 @@ export default {
   justify-content: center;
 }
 
-.Detalles {
-  background-color: white;
+.product-img img {
+  height: 100%; /* Establecer una altura fija para la imagen */
   width: 100%;
-  height: 100%;
+}
+.fixed-height {
+  width: auto;
+  height: 10vh;
 }
 
 .nav-link {
