@@ -48,17 +48,8 @@ export default {
                     <div class="row">
                       <div class="col-lg-4 d-flex align-items-center justify-content-center">
                         <div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
-                          <a class="nav-link" id="product-1-tab" data-toggle="pill" @click="imageShow($event)" role="tab">
-                            <img src="@/assets/images/product/img-1.png" alt class="img-fluid mx-auto d-block tab-img rounded" />
-                          </a>
-                          <a class="nav-link" id="product-2-tab" data-toggle="pill" @click="imageShow($event)" role="tab">
-                            <img src="@/assets/images/product/img-5.png" alt class="img-fluid mx-auto d-block tab-img rounded" />
-                          </a>
-                          <a class="nav-link" id="product-3-tab" data-toggle="pill" @click="imageShow($event)" role="tab">
-                            <img src="@/assets/images/product/img-3.png" alt class="img-fluid mx-auto d-block tab-img rounded" />
-                          </a>
-                          <a class="nav-link" id="product-4-tab" data-toggle="pill" @click="imageShow($event)" role="tab">
-                            <img src="@/assets/images/product/img-4.png" alt class="img-fluid mx-auto d-block tab-img rounded" />
+                          <a v-for="(image, index) in product?.Images" :key="index" class="nav-link" :id="'product-' + (index + 1) + '-tab'" data-toggle="pill" @click="imageShow($event)" role="tab">
+                            <img :src="image.url" alt class="img-fluid mx-auto d-block tab-img rounded" /> <!-- itera en el arreglo de la imagen para obtener cada imagen y su indice correspondiente -->
                           </a>
                         </div>
                       </div>
@@ -76,30 +67,32 @@ export default {
                 </div>
               </div>
               <div class="col-xl-7 mt-4 mt-xl-3">
-                <h5 class="mt-1 mb-3">{{ product.Description }}</h5>
-                <h5 class="mt-2">
-                  <h4 class="text-muted mr-2">${{ product.Price }}</h4>
-                </h5>
-                <p class="mt-3">{{ product.Brand }}</p>
-                <div class="d-inline-flex">
-                </div>
-                <hr class="my-4" />
-                <div class="row">
-                  <div class="col-md-6">
-                    <div class="product-color mt-3"></div>
+                <div class="alinear d-flex flex-column align-items-center justify-content-center">
+                  <h5 class="mt-1 mb-3">{{ product.Description }}</h5>
+                  <h5 class="mt-2">
+                    <h4 class="text-muted mr-2">${{ product.Price }}</h4>
+                  </h5>
+                  <p class="mt-3">{{ product.Brand }}</p>
+                  <div class="d-inline-flex">
+                  </div>
+                  <hr class="my-4" />
+                  <div class="row">
+                    <div class="col-md-6">
+                      <div class="product-color mt-3"></div>
+                    </div>
                   </div>
                 </div>
                 <div class="row">
                   <div class="col-md-12">
                     <div class="mt-4">
                       <div class="product-desc fixed-height">
-                        <b-tabs class="nav-tabs-custom" content-class="border border-top-0 p-4" keep-alive>
-                          <b-tab title="Descripción">
+                        <b-tabs class="nav-tabs-custom colorsito" content-class="border border-top-0 p-4" keep-alive>
+                          <b-tab title="Descripción" active>
                             <div>
                               <p>{{ product.Description }}</p>
                             </div>
                           </b-tab>
-                          <b-tab title="Especificaciones">
+                          <b-tab title="Especificaciones" class="color">
                             <div class="table-responsive">
                               <table class="table table-nowrap mb-0">
                                 <tbody>
@@ -148,13 +141,21 @@ export default {
   justify-content: center;
 }
 
+.colorsito {
+  background-color: rgb(255, 255, 255) !important;
+}
+
 .holi {
   width: 100%;
   height: 90%;
-  background-color: aliceblue;
+  background-color: rgb(255, 255, 255);
   display: flex;
   align-items: center;
   justify-content: center;
+}
+
+.product-img {
+  background-color: rgb(255, 255, 255); 
 }
 
 .product-img img {
@@ -169,6 +170,7 @@ export default {
 .nav-link {
   right: 50vw;
 }
+
 
 .footersillo {
   background-color: #c1272d;

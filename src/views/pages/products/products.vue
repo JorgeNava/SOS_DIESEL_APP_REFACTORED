@@ -241,9 +241,6 @@ export default {
             <div class="product-box">
               <router-link :to="{ path: '/detalles-del-producto', query: { Code: product.Code} }">
               <div class="product-img">
-                <div class="">
-                  <a href="/detalles-del-producto"></a>
-                </div>
                 <img
                   :src="getImageSource(product)"
                   :alt="product.Code"
@@ -275,9 +272,7 @@ export default {
       <div class="float-sm-right">
         <ul class="pagination pagination-rounded mb-sm-0">
           <li class="page-item disabled">
-            <a href="#" class="page-link">
               <i class="mdi mdi-chevron-left"></i>
-            </a>
           </li>
           <div class="dataTables_paginate paging_simple_numbers float-right">
             <ul class="pagination pagination-rounded mb-0">
@@ -285,9 +280,7 @@ export default {
             </ul>
           </div>
           <li class="page-item">
-            <a href="#" class="page-link">
               <i class="mdi mdi-chevron-right"></i>
-            </a>
           </li>
         </ul>
       </div>
