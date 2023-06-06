@@ -1,4 +1,3 @@
-import { getFirebaseBackend } from '../../helpers/firebase/authUtils'
 const { getApiClient } = require('@/helpers/sos-diesel-api-client');
 import LocalStorageService from '@/helpers/local-storage-service';
 const api = getApiClient();
@@ -71,7 +70,7 @@ export const actions = {
     },
 
     // register the user
-    register({ commit, dispatch, getters }, { email, password } = {}) {
+/*     register({ commit, dispatch, getters }, { email, password } = {}) {
         if (getters.loggedIn) return dispatch('validate')
 
         return getFirebaseBackend().registerUser(email, password).then((response) => {
@@ -79,18 +78,18 @@ export const actions = {
             commit('SET_CURRENT_USER', user)
             return user
         });
-    },
+    }, */
 
     // register the user
     // eslint-disable-next-line no-unused-vars
-    resetPassword({ commit, dispatch, getters }, { email } = {}) {
+/*     resetPassword({ commit, dispatch, getters }, { email } = {}) {
         if (getters.loggedIn) return dispatch('validate')
 
         return getFirebaseBackend().forgetPassword(email).then((response) => {
             const message = response.data
             return message
         });
-    },
+    }, */
 
     setUser({ commit }, user ) {
         commit('SET_CURRENT_USER', user);

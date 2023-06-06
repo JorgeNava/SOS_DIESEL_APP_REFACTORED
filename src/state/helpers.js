@@ -21,6 +21,4 @@ export const authMethods = mapActions('auth', ['logIn', 'logOut', 'register', 's
 
 export const layoutMethods = mapActions('layout', ['changeLayoutType', 'changeLayoutWidth', 'changeLeftSidebarType', 'changeTopbar', 'changeLoaderValue'])
 
-export const authFackMethods = mapActions('authfack', ['login', 'registeruser', 'logout'])
-
 export const notificationMethods = mapActions('notification', ['success', 'error', 'clear'])
