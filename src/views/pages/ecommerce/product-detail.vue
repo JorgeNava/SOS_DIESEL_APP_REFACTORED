@@ -129,11 +129,11 @@ export default {
 
 <style scoped>
 .contenedor {
-  background-color: aliceblue;
+  background-color: white;
 }
 
 .carrito {
-  background-color: aliceblue;
+  background-color: white;
   width: 99%;
   min-height: 88vh;
   display: flex;
@@ -142,20 +142,20 @@ export default {
 }
 
 .colorsito {
-  background-color: rgb(255, 255, 255) !important;
+  background-color: white !important;
 }
 
 .holi {
-  width: 100%;
-  height: 90%;
-  background-color: rgb(255, 255, 255);
+  width: 100vw;
+  height: 80vh;
+  background-color: white;
   display: flex;
   align-items: center;
   justify-content: center;
 }
 
 .product-img {
-  background-color: rgb(255, 255, 255); 
+  background-color: white; 
 }
 
 .product-img img {

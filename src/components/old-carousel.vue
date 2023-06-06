@@ -91,88 +91,109 @@ export default {
 </script>
 
 <style scoped>
-  #v {
-    max-width: 600px;
-    margin: 0 auto;
+.carousel-wrapper {
+  max-height: 90vh;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
 
-  }
+#v {
+  max-width: 600px;
+  width: 100%;
+  margin: 0 auto;
+  height: 100%;
+}
 
-  .carousel-wrapper{
-    height: 90vh;
-    overflow: hidden;
-  }
-  .carousel-inner {
-    width: 100%;
-    display: flex;
-    border-radius: 15px;
-    overflow: hidden;
-    font-family: 'Helvetica';
-  }
-  .carousel-item {
-    height: 630px;
-    width: 100%;
-    background-size: cover;
-    background-position: center;
-    font-family: 'Helvetica';
-  }
+.carousel-inner {
+  height: 100%;
+  display: flex;
+  border-radius: 15px;
+  overflow: hidden;
+  font-family: 'Helvetica';
+}
 
-  .card {
-    background-color: #d2caca8d;
-    border-radius: 12px;
-    box-shadow: 10px 5px 50px rgba(90, 86, 86, 0.1);
-    overflow: hidden;
-    transition: all 0.3s ease-in-out;
-    max-width: 90%;
-  }
+.carousel-item {
+  flex: 0 0 100%;
+  max-width: 100%;
+  background-size: cover;
+  background-position: center;
+  font-family: 'Helvetica';
+}
 
-  .card:hover {
-    transform: scale(1.05);
-  }
+.card {
+  background-color: #d2caca8d;
+  border-radius: 12px;
+  box-shadow: 10px 5px 50px rgba(90, 86, 86, 0.1);
+  overflow: hidden;
+  transition: all 0.3s ease-in-out;
+  max-width: 90%;
+  height: 100%;
+}
 
-  .card-img-top {
-    object-fit: cover;
-    width: 100vw;
-    height: 38vh;
-    max-width: 600px; 
-    max-height: 600px;
-  }
+.card:hover {
+  transform: scale(1.05);
+}
 
-  .card-title {
-    font-size: 1.4rem;
-    text-align: center;
-    margin: 1rem 0;
-    font-family: 'Helvetica-SOS';
-  }
+.card-img-top {
+  object-fit: cover;
+  width: 100%;
+  height: 41vh;
+  max-width: 600px;
+  max-height: 600px;
+}
 
-  .card-text {
-    font-family: 'Helvetica-SOS';
-    color: #584646;
-    text-align: center;
-    max-width: 100%;
-    max-height: 100%;
-  }
+.card-title {
+  font-size: 1.4rem;
+  text-align: center;
+  margin: 1rem 0;
+  font-family: 'Helvetica-SOS';
+}
 
-  .carousel-indicators {
+.card-text {
+  font-family: 'Helvetica-SOS';
+  color: #584646;
+  text-align: center;
+  max-width: 100%;
+  max-height: 100%;
+}
+
+.carousel-indicators-wrapper {
   position: absolute;
-  margin-bottom: 0;
+  bottom: 1rem;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 10;
+}
+
+.carousel-indicators {
+  margin: 0;
+  padding: 0;
+  list-style: none;
   display: flex;
   justify-content: center;
 }
 
 .carousel-indicators li {
-  margin: 0 4px;
+  display: inline-block;
   width: 10px;
   height: 10px;
+  margin: 0 5px;
+  background-color: rgba(255, 255, 255, 0.5);
   border-radius: 50%;
-  background-color: #888;
   cursor: pointer;
+  transition: background-color 0.3s ease;
 }
 
 .carousel-indicators li.active {
-  background-color: #000;
+  background-color: rgba(255, 255, 255, 0.9);
 }
-    .carousel-control-prev-icon, .carousel-control-next-icon {
-      position: relative;
-      bottom: 8vh;
-    }
-</style>;
+
+.carousel-control-prev-icon,
+.carousel-control-next-icon {
+  position: relative;
+  bottom: 8vh;
+}
+
+</style>

@@ -19,7 +19,7 @@
               <input v-model="telefono" type="tel" id="telefono" name="telefono" placeholder="Tu teléfono aquí">
               <label for="mensaje">Mensaje:</label>
               <textarea v-model="mensaje" id="mensaje" name="mensaje" placeholder="Tu mensaje aquí" required></textarea>
-              <button type="submit" :class="{ 'animate-button': mostrarAnimacion }"><span v-if="!mostrarAnimacion">Enviar</span>
+              <button type="submit" :class="{ 'animate-button': mostrarAnimacion }" @click="cerrarFormulario"><span v-if="!mostrarAnimacion">Enviar</span>
                 <span v-else>
                   <i class="fas fa-check"></i>
                 </span>
@@ -68,6 +68,7 @@ export default {
         this.mostrarAnimacion = true;
         setTimeout(() => {
           this.mostrarAnimacion = false;
+          this.cerrarModal();
         }, 
       1000);
     },
@@ -84,6 +85,21 @@ export default {
         this.mostrarVentana = false;
         ventana.style.display = 'none';
       }
+    },
+    cerrarModal() {
+      const ventana = document.getElementById('ventanaEmergente');
+      ventana.classList.add('ventana-cerrada');
+      this.mostrarVentana = false;
+
+      setTimeout(() => {
+        ventana.style.display = 'none';
+        ventana.classList.remove('ventana-cerrada');
+        this.nombre = '';
+        this.email = '';
+        this.telefono = '';
+        this.mensaje = '';
+        this.mostrarAnimacion = false;
+      }, 500); // Espera 500ms antes de ocultar el modal y restablecer los valores
     },
     scrollToMissionSection() {
       const missionSection = document.querySelector('#mision');
