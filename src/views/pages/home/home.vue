@@ -1,7 +1,7 @@
 <template>
   <div class="home ">
     <div class="HomeProduct">
-      <HomeProduct :imageUrl="imageUrls.imagenTractor" :imageUrls="imageUrls" /> 
+      <HomeProduct :imageUrl="imageUrls.imagenTractor" :imageUrls="imageUrls" style="height: 100vh;"/> 
     </div>
     <div class="mision mt-5 " id="mision">
         <div class="image w-50 d-flex justify-content-end  pr-4 ">
@@ -19,11 +19,11 @@
           </div>
         </div>
     </div>
-    <div class="fotosRandom d-flex align-items-center justify-content-center">
+    <div class="fotosRandom d-flex align-items-center justify-content-center" style="height: 80vh;">
       <div class="carousel--container">
         <Carousel :slides="carouselImages" /> 
         <div class="ver-mas-container">
-          <router-link to="/ecommerce/Products" class="ver-mas">Ver catálogo</router-link>
+          <router-link to="/productos" class="ver-mas">Ver catálogo</router-link>
         </div>
       </div> 
     </div>
@@ -123,28 +123,31 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.home{
+.home {
+  background-color: white;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh; /* Asegura que el contenido no se superponga al hacer scroll */
+}
+
+.mision {
+  display: flex;
+  max-width: 75%; /* Permite que la sección se reduzca si el espacio disponible es menor */
+  padding: 1% 5%;
+  height: fit-content;
+  margin: auto;
   background-color: white;
 }
 
-  .mision{
-    display: flex;
-    width: 75%;
-    min-height: 85vh;
-    padding: 1% 5%;
-    height: fit-content;
-    margin: auto;
-    background-color: white;
+.image {
+  width: 50%;
+  margin: 0;
+  flex-shrink: 0; /* Evita que la imagen se reduzca más de lo necesario */
+  img {
+    width: 90%;
+    height: 98%;
   }
-
-  .image {
-    width: 50%;
-    margin: 0;
-    img{
-      width: 90%;
-      height: 98%;
-    }
-  }
+}
 
   //! TO-DO: CSS REPETIDO
 
@@ -192,11 +195,12 @@ export default {
 .ver-mas-container {
   /* Añade espacio adicional alrededor del botón */
   margin-bottom: 20px;
+  margin-top: 13px;
 }
 .ver-mas {
     display: inline-block;
     font-family: 'Helvetica-SOS';
-    padding: 10px 20px;
+    padding: 12px 20px;
     background-color: #C1272D;
     color: white;
     text-decoration: none;
