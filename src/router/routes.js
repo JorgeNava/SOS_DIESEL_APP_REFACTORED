@@ -1,5 +1,5 @@
 import store from "@/state/store";
-import router from './index.js'
+import router from "./index.js";
 
 export default [
 	{
@@ -63,7 +63,8 @@ export default [
 			authRequired: true,
 			adminRequired: false,
 		},
-		component: () => import("../views/pages/dashboard/shop/products-management"),
+		component: () =>
+			import("../views/pages/dashboard/shop/products-management"),
 	},
 	{
 		path: "/panel-de-administracion/perfil",
@@ -101,9 +102,10 @@ export default [
 				store.dispatch("auth/logOut");
 				const authRequiredOnPreviousRoute = routeFrom.matched.some((route) => {
 					return route.meta.authRequired || false;
-				}
+				});
+				router.replace(
+					authRequiredOnPreviousRoute ? { name: "login" } : { ...routeFrom }
 				);
-				router.replace(authRequiredOnPreviousRoute ? { name: "login" } : { ...routeFrom });
 			},
 		},
 	},
