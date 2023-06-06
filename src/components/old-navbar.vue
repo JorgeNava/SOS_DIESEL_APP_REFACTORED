@@ -19,7 +19,11 @@
               <input v-model="telefono" type="tel" id="telefono" name="telefono" placeholder="Tu teléfono aquí">
               <label for="mensaje">Mensaje:</label>
               <textarea v-model="mensaje" id="mensaje" name="mensaje" placeholder="Tu mensaje aquí" required></textarea>
-              <button type="submit">Enviar</button>
+              <button type="submit" :class="{ 'animate-button': mostrarAnimacion }" @click="cerrarFormulario"><span v-if="!mostrarAnimacion">Enviar</span>
+                <span v-else>
+                  <i class="fas fa-check"></i>
+                </span>
+              </button>
             </form>
           </div>
         </div>
@@ -44,6 +48,7 @@ export default {
       telefono: '',
       mensaje: '',
       mostrarVentana: false,
+      mostrarAnimacion: false
     };
   },
   mounted() {
@@ -60,6 +65,12 @@ export default {
         }, (error) => {
             console.log('FAILED...', error.text);
         });
+        this.mostrarAnimacion = true;
+        setTimeout(() => {
+          this.mostrarAnimacion = false;
+          this.cerrarModal();
+        }, 
+      1000);
     },
     mostrarFormulario() {
       var ventana = document.getElementById('ventanaEmergente');
@@ -74,6 +85,21 @@ export default {
         this.mostrarVentana = false;
         ventana.style.display = 'none';
       }
+    },
+    cerrarModal() {
+      const ventana = document.getElementById('ventanaEmergente');
+      ventana.classList.add('ventana-cerrada');
+      this.mostrarVentana = false;
+
+      setTimeout(() => {
+        ventana.style.display = 'none';
+        ventana.classList.remove('ventana-cerrada');
+        this.nombre = '';
+        this.email = '';
+        this.telefono = '';
+        this.mensaje = '';
+        this.mostrarAnimacion = false;
+      }, 500); // Espera 500ms antes de ocultar el modal y restablecer los valores
     },
     scrollToMissionSection() {
       const missionSection = document.querySelector('#mision');
@@ -237,6 +263,23 @@ export default {
       transform: scale(1);
     }
   }
+
+  .animate-button {
+  animation-name: button-click-animation;
+  animation-duration: 1s;
+}
+
+@keyframes button-click-animation {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.2);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
   
   h2 {
     color: white;

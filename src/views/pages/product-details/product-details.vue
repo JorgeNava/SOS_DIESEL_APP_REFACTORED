@@ -47,6 +47,9 @@ export default {
                     <div class="row">
                       <div class="col-lg-4 d-flex align-items-center justify-content-center">
                         <div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
+                          <a v-for="(image, index) in product?.Images" :key="index" class="nav-link" :id="'product-' + (index + 1) + '-tab'" data-toggle="pill" @click="imageShow($event)" role="tab">
+                            <img :src="image.url" alt class="img-fluid mx-auto d-block tab-img rounded" /> <!-- itera en el arreglo de la imagen para obtener cada imagen y su indice correspondiente -->
+                          </a>
                         </div>
                       </div>
                       <div class="col-lg-8 d-flex align-items-center">
@@ -63,43 +66,28 @@ export default {
                 </div>
               </div>
               <div class="col-xl-7 mt-4 mt-xl-3">
-                <h5 class="mt-1 mb-3">{{ product.Description }}</h5>
-                <h5 class="mt-2">
-                  <h4 class="text-muted mr-2">${{ product.Price }}</h4>
-                </h5>
-                <p class="mt-3">{{ product.Brand }}</p>
-                <div class="d-inline-flex">
-                  <div class="text-muted mr-3">
-                    <span class="mdi mdi-star text-warning"></span>
-                    <span class="mdi mdi-star text-warning"></span>
-                    <span class="mdi mdi-star text-warning"></span>
-                    <span class="mdi mdi-star text-warning"></span>
-                    <span class="mdi mdi-star"></span>
-                  </div>
-                  <div class="text-muted">(1,320)</div>
-                </div>
-                <hr class="my-4" />
-                <div class="row">
-                  <div class="col-md-6">
-                    <div class="product-color mt-3"></div>
-                  </div>
-                </div>
+                  <h5 class="mt-1 mb-3">{{ product.Description }}</h5>
+                  <h5 class="mt-2">
+                    <h4 class="text-muted mr-2">${{ product.Price }}</h4>
+                  </h5>
+                  <p class="mt-3">{{ product.Brand }}</p>
+                  <hr class="my-3" style="margin-right: 20%;"/>
                 <div class="row">
                   <div class="col-md-12">
                     <div class="mt-4">
-                      <div class="product-desc">
-                        <b-tabs class="nav-tabs-custom" content-class="border border-top-0 p-4">
-                          <b-tab title="Descripción">
+                      <div class="product-desc fixed-height">
+                        <b-tabs class="nav-tabs-custom colorsito" content-class="border border-top-0 p-4" keep-alive>
+                          <b-tab title="Descripción" active>
                             <div>
                               <p>{{ product.Description }}</p>
                             </div>
                           </b-tab>
-                          <b-tab title="Especificaciones">
+                          <b-tab title="Especificaciones" class="color">
                             <div class="table-responsive">
                               <table class="table table-nowrap mb-0">
                                 <tbody>
                                   <tr>
-                                    <th scope="row" style="width: 400px;">Código</th>
+                                    <th scope="row" >Código</th>
                                     <td>{{ product.Code }}</td>
                                   </tr>
                                   <tr>
@@ -131,11 +119,11 @@ export default {
 
 <style scoped>
 .contenedor {
-  background-color: aliceblue;
+  background-color: white;
 }
 
 .carrito {
-  background-color: aliceblue;
+  background-color: white;
   width: 99%;
   min-height: 88vh;
   display: flex;
@@ -143,24 +131,37 @@ export default {
   justify-content: center;
 }
 
+.colorsito {
+  background-color: white !important;
+  width: 60%;
+}
+
 .holi {
-  width: 100%;
-  height: 90%;
-  background-color: aliceblue;
+  width: 100vw;
+  height: 80vh;
+  background-color: white;
   display: flex;
   align-items: center;
   justify-content: center;
 }
 
-.Detalles {
-  background-color: white;
+.product-img {
+  background-color: white; 
+}
+
+.product-img img {
+  height: 100%; /* Establecer una altura fija para la imagen */
   width: 100%;
-  height: 100%;
+}
+.fixed-height {
+  width: auto;
+  height: 10vh;
 }
 
 .nav-link {
   right: 50vw;
 }
+
 
 .footersillo {
   background-color: #c1272d;

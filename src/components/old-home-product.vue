@@ -99,7 +99,7 @@
 }
 
 .img_tractor{
-  width: 148%;
+  max-width: 110%;
   height: auto;
 }
 

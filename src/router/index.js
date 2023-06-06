@@ -71,13 +71,11 @@ router.beforeEach((routeTo, routeFrom, next) => {
   } else {
     const publicPages = [
       '/',
-      'productos',
-      'detalles-del-producto',
-      'contacto',
+      '/productos',
+      '/detalles-del-producto',
       '/login', '/register', '/forgot-password'];
     const authpage = !publicPages.includes(routeTo.path);
     const loggeduser = localStorage.getItem('user');
-
     if (authpage && !loggeduser) {
       return next('/login');
     }
