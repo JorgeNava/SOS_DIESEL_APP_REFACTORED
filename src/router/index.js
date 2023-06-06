@@ -75,7 +75,10 @@ router.beforeEach((routeTo, routeFrom, next) => {
       '/detalles-del-producto',
       '/login', '/register', '/forgot-password'];
     const authpage = !publicPages.includes(routeTo.path);
+    console.log('[NAVA] authpage:', authpage);
+    console.log('[NAVA] routeTo.path:', routeTo.path);
     const loggeduser = localStorage.getItem('user');
+    console.log('[NAVA] loggeduser:', loggeduser);
     if (authpage && !loggeduser) {
       return next('/login');
     }
