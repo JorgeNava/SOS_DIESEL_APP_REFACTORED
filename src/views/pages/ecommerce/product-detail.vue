@@ -67,21 +67,12 @@ export default {
                 </div>
               </div>
               <div class="col-xl-7 mt-4 mt-xl-3">
-                <div class="alinear d-flex flex-column align-items-center justify-content-center">
                   <h5 class="mt-1 mb-3">{{ product.Description }}</h5>
                   <h5 class="mt-2">
                     <h4 class="text-muted mr-2">${{ product.Price }}</h4>
                   </h5>
                   <p class="mt-3">{{ product.Brand }}</p>
-                  <div class="d-inline-flex">
-                  </div>
-                  <hr class="my-4" />
-                  <div class="row">
-                    <div class="col-md-6">
-                      <div class="product-color mt-3"></div>
-                    </div>
-                  </div>
-                </div>
+                  <hr class="my-3" style="margin-right: 20%;"/>
                 <div class="row">
                   <div class="col-md-12">
                     <div class="mt-4">
@@ -143,6 +134,7 @@ export default {
 
 .colorsito {
   background-color: white !important;
+  width: 60%;
 }
 
 .holi {
