@@ -36,75 +36,71 @@ export default {
 
 <template>
   <div class="contenedor">
-    <div class="row">
-      <div class="col d-flex justify-content-center">
-        <div class="carrito card">
-          <div class="card-body">
-            <div class="holi row">
-              <div class="col">
-                <div class="product-detail">
-                  <div class="container-fluid">
-                    <div class="row">
-                      <div class="col-lg-4 d-flex align-items-center justify-content-center">
-                        <div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
-                          <a v-for="(image, index) in product?.Images" :key="index" class="nav-link" :id="'product-' + (index + 1) + '-tab'" data-toggle="pill" @click="imageShow($event)" role="tab">
-                            <img :src="image.url" alt class="img-fluid mx-auto d-block tab-img rounded" /> <!-- itera en el arreglo de la imagen para obtener cada imagen y su indice correspondiente -->
-                          </a>
-                        </div>
-                      </div>
-                      <div class="col-lg-8 d-flex align-items-center">
-                        <div class="tab-content" id="v-pills-tabContent">
-                          <div class="tab-pane fade show active" id="product-1" role="tabpanel">
-                            <div class="product-img">
-                              <img id="expandedImg" :src="selectedImage" alt class="img-fluid mx-auto d-block img-lg" />
-                            </div>
-                          </div>
+    <div class="carrito card">
+      <div class="card-body">
+        <div class="holi row">
+          <div class="col">
+            <div class="product-detail">
+              <div class="container-fluid">
+                <div class="row">
+                  <div class="col-lg-4 d-flex align-items-center justify-content-center">
+                    <div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
+                      <a v-for="(image, index) in product?.Images" :key="index" class="nav-link" :id="'product-' + (index + 1) + '-tab'" data-toggle="pill" @click="imageShow($event)" role="tab">
+                        <img :src="image.url" alt class="img-fluid mx-auto d-block tab-img rounded" />
+                      </a>
+                    </div>
+                  </div>
+                  <div class="col-lg-8 d-flex align-items-center">
+                    <div class="tab-content" id="v-pills-tabContent">
+                      <div class="tab-pane fade show active" id="product-1" role="tabpanel">
+                        <div class="product-img">
+                          <img id="expandedImg" :src="selectedImage" alt class="img-fluid mx-auto d-block img-lg" />
                         </div>
                       </div>
                     </div>
                   </div>
                 </div>
               </div>
-              <div class="col-xl-7 mt-4 mt-xl-3">
-                  <h5 class="mt-1 mb-3">{{ product.Description }}</h5>
-                  <h5 class="mt-2">
-                    <h4 class="text-muted mr-2">${{ product.Price }}</h4>
-                  </h5>
-                  <p class="mt-3">{{ product.Brand }}</p>
-                  <hr class="my-3" style="margin-right: 20%;"/>
-                <div class="row">
-                  <div class="col-md-12">
-                    <div class="mt-4">
-                      <div class="product-desc fixed-height">
-                        <b-tabs class="nav-tabs-custom colorsito" content-class="border border-top-0 p-4" keep-alive>
-                          <b-tab title="Descripción" active>
-                            <div>
-                              <p>{{ product.Description }}</p>
-                            </div>
-                          </b-tab>
-                          <b-tab title="Especificaciones" class="color">
-                            <div class="table-responsive">
-                              <table class="table table-nowrap mb-0">
-                                <tbody>
-                                  <tr>
-                                    <th scope="row" >Código</th>
-                                    <td>{{ product.Code }}</td>
-                                  </tr>
-                                  <tr>
-                                    <th scope="row">Marca</th>
-                                    <td>{{ product.Brand }}</td>
-                                  </tr>
-                                  <tr>
-                                    <th scope="row">Modelo de motor</th>
-                                    <td>{{ product.TruckModle }}</td>
-                                  </tr>
-                                </tbody>
-                              </table>
-                            </div>
-                          </b-tab>
-                        </b-tabs>
-                      </div>
-                    </div>
+            </div>
+          </div>
+          <div class="cucuru col-xl-7 mt-4 mt-xl-3">
+            <h5 class="mt-1 mb-3">{{ product.Description }}</h5>
+            <h5 class="mt-2">
+              <h4 class="text-muted mr-2">${{ product.Price }}</h4>
+            </h5>
+            <p class="mt-3">{{ product.Brand }}</p>
+            <hr class="my-3" style="margin-right: 20%;" />
+            <div class="row">
+              <div class="col-md-12">
+                <div class="mt-4">
+                  <div class="product-desc">
+                    <b-tabs class="nav-tabs-custom colorsito" content-class="border border-top-0 p-4" keep-alive>
+                      <b-tab title="Descripción" active>
+                        <div>
+                          <p>{{ product.Description }}</p>
+                        </div>
+                      </b-tab>
+                      <b-tab title="Especificaciones" class="color">
+                        <div class="table-responsive">
+                          <table class="table table-nowrap mb-0">
+                            <tbody>
+                              <tr>
+                                <th scope="row">Código</th>
+                                <td>{{ product.Code }}</td>
+                              </tr>
+                              <tr>
+                                <th scope="row">Marca</th>
+                                <td>{{ product.Brand }}</td>
+                              </tr>
+                              <tr>
+                                <th scope="row">Modelo de motor</th>
+                                <td>{{ product.TruckModle }}</td>
+                              </tr>
+                            </tbody>
+                          </table>
+                        </div>
+                      </b-tab>
+                    </b-tabs>
                   </div>
                 </div>
               </div>
@@ -120,6 +116,7 @@ export default {
 <style scoped>
 .contenedor {
   background-color: white;
+
 }
 
 .carrito {
@@ -133,37 +130,47 @@ export default {
 
 .colorsito {
   background-color: white !important;
-  width: 60%;
+  width: 100%;
 }
 
 .holi {
   width: 100vw;
-  height: 80vh;
+  min-height: 80vh;
   background-color: white;
   display: flex;
   align-items: center;
   justify-content: center;
+  flex-wrap: wrap;
+}
+
+.product-detail {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 2rem;
 }
 
 .product-img {
-  background-color: white; 
+  background-color: white;
 }
 
 .product-img img {
-  height: 100%; /* Establecer una altura fija para la imagen */
   width: 100%;
+  max-height: 400px;
 }
-.fixed-height {
-  width: auto;
-  height: 10vh;
+
+.cucuru{
+  height: 40vh;
 }
+
 
 .nav-link {
   right: 50vw;
 }
 
-
 .footersillo {
   background-color: #c1272d;
+  padding-bottom: 1rem;
 }
 </style>
