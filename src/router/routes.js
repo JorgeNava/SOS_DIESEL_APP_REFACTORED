@@ -39,15 +39,6 @@ export default [
 		component: () => import("../views/pages/dashboard/shop/products"),
 	},
 	{
-		path: "/panel-de-administracion/usuarios",
-		name: "usuarios",
-		meta: {
-			authRequired: true,
-			adminRequired: true,
-		},
-		component: () => import("../views/pages/dashboard/users/users-management"),
-	},
-	{
 		path: "/panel-de-administracion/catalogo",
 		name: "panel-de-administracion-productos",
 		meta: {
@@ -64,6 +55,15 @@ export default [
 			adminRequired: false,
 		},
 		component: () => import("../views/pages/dashboard/shop/products-management"),
+	},
+	{
+		path: "/panel-de-administracion/usuarios",
+		name: "usuarios",
+		meta: {
+			authRequired: true,
+			adminRequired: true,
+		},
+		component: () => import("../views/pages/dashboard/users/users-management"),
 	},
 	{
 		path: "/panel-de-administracion/perfil",

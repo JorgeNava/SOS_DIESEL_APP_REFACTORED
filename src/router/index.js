@@ -35,6 +35,9 @@ router.beforeEach((routeTo, routeFrom, next) => {
   // (including nested routes).
   const authRequired = routeTo.matched.some((route) => route.meta.authRequired)
   const adminRequired = routeTo.matched.some((route) => route.meta.adminRequired)
+  console.log('[NAVA] routeTo.path:', routeTo.path);
+  console.log('[NAVA] authRequired:', authRequired);
+  console.log('[NAVA] adminRequired:', adminRequired);
 
     // If auth isn't required for the route, just continue.
     //if (!authRequired) return next()
@@ -53,11 +56,13 @@ router.beforeEach((routeTo, routeFrom, next) => {
         } else if (validUser && adminRequired && validUser.Role !== 'Admin') {
           next({ name: 'panel-de-administracion' })
         } else {
+          console.log('[NAVA] else case:');
           redirectToLogin()
         }
       })
     }
-
+    
+    console.log('[NAVA] Not logged in:');
     // If auth is required and the user is NOT currently logged in,
     // redirect to login.
     redirectToLogin()
@@ -75,9 +80,8 @@ router.beforeEach((routeTo, routeFrom, next) => {
       '/detalles-del-producto',
       '/login', '/register', '/forgot-password'];
     const authpage = !publicPages.includes(routeTo.path);
-    console.log('[NAVA] authpage:', authpage);
-    console.log('[NAVA] routeTo.path:', routeTo.path);
     const loggeduser = localStorage.getItem('user');
+    console.log('[NAVA] authpage:', authpage);
     console.log('[NAVA] loggeduser:', loggeduser);
     if (authpage && !loggeduser) {
       return next('/login');
