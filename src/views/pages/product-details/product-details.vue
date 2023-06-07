@@ -25,12 +25,16 @@ export default {
     imageShow(event) {
       this.selectedImage = event.target.src;
       const target = event.target;
-
-      // Verificar si el evento se originó desde un enlace de navegación
+      this.$bvModal.show('image-modal');
+  /*     // Verificar si el evento se originó desde un enlace de navegación
       if (target.classList.contains('nav-link')) {
         this.selectedImage = target.querySelector('img').src; // Actualizar la imagen seleccionada con la URL de la imagen en la que se hizo clic
-      }
-    }
+      } */
+    },
+    closeImage() {
+      this.selectedImage = null;
+      this.$bvModal.hide('image-modal');
+    },
   }
 };
 </script>
@@ -111,8 +115,10 @@ export default {
       </div>
     </div>
     <Footer class="footersillo" />
-    <b-modal v-model="showModal" hide-footer>
-      <b-img :src="selectedImage" alt class="img-fluid mx-auto d-block modal-img" />
+    <b-modal id="image-modal" :hide-header="true" :hide-footer="true" :centered="true" :content-class="'image-modal'">
+      <div class="image-container">
+        <b-img :src="selectedImage" class="modal-image" @click="closeImage"/>
+      </div>
     </b-modal>
   </div>
 </template>
@@ -183,14 +189,26 @@ export default {
   padding-bottom: 1rem;
 }
 
-/* Estilos para el modal */
-.modal-img {
-  width: 100%;
-  max-height: 90vh;
-}
+  .image-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+  }
 
-/* Efecto de superposición oscura */
-.modal-backdrop {
-  background-color: rgba(0, 0, 0, 0.8) !important;
-}
+  .modal-image {
+    max-width: 90vw;
+    max-height: 90vh;
+    cursor: pointer;
+  }
+
+  .delete-icon {
+    position: absolute;
+    top: -10px;
+    right: -15px;
+    background: transparent;
+    border: none;
+    outline: none;
+    cursor: pointer;
+  }
 </style>
