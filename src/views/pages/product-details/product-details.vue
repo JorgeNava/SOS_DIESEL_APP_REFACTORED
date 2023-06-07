@@ -24,12 +24,7 @@ export default {
     },
     imageShow(event) {
       this.selectedImage = event.target.src;
-      const target = event.target;
       this.$bvModal.show('image-modal');
-  /*     // Verificar si el evento se originó desde un enlace de navegación
-      if (target.classList.contains('nav-link')) {
-        this.selectedImage = target.querySelector('img').src; // Actualizar la imagen seleccionada con la URL de la imagen en la que se hizo clic
-      } */
     },
     closeImage() {
       this.selectedImage = null;
@@ -99,7 +94,7 @@ export default {
                               </tr>
                               <tr>
                                 <th scope="row">Modelo de Tractor</th>
-                                <td>{{ product.TruckModle }}</td>
+                                <td>{{ product.TruckModel }}</td>
                               </tr>
                             </tbody>
                           </table>
