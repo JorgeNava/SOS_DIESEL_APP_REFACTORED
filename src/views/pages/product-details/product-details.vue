@@ -24,7 +24,11 @@ export default {
     },
     imageShow(event) {
       this.selectedImage = event.target.src;
-      this.$bvModal.show('image-modal');
+      const target = event.target;
+      // Verificar si el evento se originó desde un enlace de navegación
+      if (target.classList.contains('nav-link')) {
+        this.selectedImage = target.querySelector('img').src; // Actualizar la imagen seleccionada con la URL de la imagen en la que se hizo clic
+      }
     },
     closeImage() {
       this.selectedImage = null;
@@ -110,9 +114,9 @@ export default {
       </div>
     </div>
     <Footer class="footersillo" />
-    <b-modal id="image-modal" :hide-header="true" :hide-footer="true" :centered="true" :content-class="'image-modal'">
+    <b-modal v-model="showModal" hide-footer hide-header centered>
       <div class="image-container">
-        <b-img :src="selectedImage" class="modal-image" @click="closeImage"/>
+        <b-img :src="selectedImage" alt class="img-fluid mx-auto d-block modal-img" />
       </div>
     </b-modal>
   </div>
