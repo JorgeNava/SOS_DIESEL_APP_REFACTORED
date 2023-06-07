@@ -57,7 +57,7 @@ router.beforeEach((routeTo, routeFrom, next) => {
         }
       })
     }
-
+    
     // If auth is required and the user is NOT currently logged in,
     // redirect to login.
     redirectToLogin()
@@ -75,10 +75,7 @@ router.beforeEach((routeTo, routeFrom, next) => {
       '/detalles-del-producto',
       '/login', '/register', '/forgot-password'];
     const authpage = !publicPages.includes(routeTo.path);
-    console.log('[NAVA] authpage:', authpage);
-    console.log('[NAVA] routeTo.path:', routeTo.path);
     const loggeduser = localStorage.getItem('user');
-    console.log('[NAVA] loggeduser:', loggeduser);
     if (authpage && !loggeduser) {
       return next('/login');
     }
