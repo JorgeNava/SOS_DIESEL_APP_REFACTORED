@@ -1,5 +1,6 @@
 import axios from 'axios';
 import LocalStorageService from '@/helpers/local-storage-service';
+import eventBus from '@/helpers/event-bus';
 
 const BASE_URL = process.env.VUE_APP_SOS_DIESEL_API_BASE_URL;
 
@@ -32,6 +33,9 @@ class ApiClient {
         if (error.response && error.response.status === 401) {
           LocalStorageService.removeToken();
           window.location.replace('/login');
+        }
+        if (error.response && error.response.status === 403) {
+          eventBus.$emit('sessionExpired');
         }
 
         return Promise.reject(error);

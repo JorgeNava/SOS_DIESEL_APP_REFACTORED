@@ -2,7 +2,6 @@
 import { required, email } from "vuelidate/lib/validators";
 import {
   authMethods,
-  authFackMethods,
   notificationMethods
 } from "@/state/helpers";
 export default {
@@ -33,7 +32,6 @@ export default {
   },
   methods: {
     ...authMethods,
-    ...authFackMethods,
     ...notificationMethods,
     // Try to register the user in with the email, username
     // and password they provided.
@@ -215,7 +213,7 @@ export default {
                         </p>
                         <p>
                           © 2023 SOS Diesel. Crafted with
-                          <i class="mdi mdi-heart text-danger"></i> by Themesdesign
+                          <i class="mdi mdi-heart text-danger"></i> by DigitalTransformation
                         </p>
                       </div>
                     </div>

@@ -3,7 +3,7 @@
     <div class="container-fluid d-flex ">
       <div class="row">
         <div class="col-md-3 mb-2 d-flex justify-content-center align-self-center">
-          <img src="@/assets/images/logo-light.png" alt="2020" class="mr-2">
+          <img src="@/assets/images/logo-light.png" alt="2020" class="logo--image">
         </div>
         <div class="col-md-6 text-center d-flex justify-content-center align-items-center">
           <div class="medio">Río Nilo 1067 B Col, Quinta Velarde, 44430 Guadalajara, Jal.</div>
@@ -17,7 +17,10 @@
 </template>
 
 <style scoped>
-  .mr-2 {
+.footersillo{
+  padding: 1vh;
+}
+  .logo--image {
     height: 70%;
     margin-top: 4%;
     margin-left: 60%;

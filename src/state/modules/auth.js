@@ -1,4 +1,3 @@
-import { getFirebaseBackend } from '../../helpers/firebase/authUtils'
 const { getApiClient } = require('@/helpers/sos-diesel-api-client');
 import LocalStorageService from '@/helpers/local-storage-service';
 const api = getApiClient();
@@ -22,9 +21,6 @@ export const getters = {
         return !!state.user
     },
     loggedInUser(state) {
-        console.log('[NAVA] state.user:', state.user);
-        console.log('[NAVA] sessionStorage.getItem(user);:', sessionStorage.getItem('user'));
-        console.log('[NAVA] LocalStorageService.getUser():', LocalStorageService.getUser());
         return state.user
     },
 }
@@ -52,11 +48,6 @@ export const actions = {
             .then(user => { 
                 const USER = user?.fields;
                 commit('SET_CURRENT_USER', USER);
-                // TO-DO: UPDATE getFirebaseBackend class, pass to a class/service
-/*                 setLoggeedInUser = (user) => {
-                    console.log('[NAVA] setLoggeedInUser user:', user);
-                    sessionStorage.setItem("user", JSON.stringify(user));
-                } */
                 return user;
             }).catch(err => {
                 dispatch('notification/error', err?.response?.data?.error, { root: true });
@@ -79,7 +70,7 @@ export const actions = {
     },
 
     // register the user
-    register({ commit, dispatch, getters }, { email, password } = {}) {
+/*     register({ commit, dispatch, getters }, { email, password } = {}) {
         if (getters.loggedIn) return dispatch('validate')
 
         return getFirebaseBackend().registerUser(email, password).then((response) => {
@@ -87,21 +78,20 @@ export const actions = {
             commit('SET_CURRENT_USER', user)
             return user
         });
-    },
+    }, */
 
     // register the user
     // eslint-disable-next-line no-unused-vars
-    resetPassword({ commit, dispatch, getters }, { email } = {}) {
+/*     resetPassword({ commit, dispatch, getters }, { email } = {}) {
         if (getters.loggedIn) return dispatch('validate')
 
         return getFirebaseBackend().forgetPassword(email).then((response) => {
             const message = response.data
             return message
         });
-    },
+    }, */
 
     setUser({ commit }, user ) {
-        console.log('[NAVA] setUser user:', user);
         commit('SET_CURRENT_USER', user);
         return user;
     },

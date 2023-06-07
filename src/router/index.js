@@ -51,13 +51,13 @@ router.beforeEach((routeTo, routeFrom, next) => {
         } else if (validUser && adminRequired && validUser.Role === 'Admin') {
           next()
         } else if (validUser && adminRequired && validUser.Role !== 'Admin') {
-          next({ name: 'dashboard' })
+          next({ name: 'panel-de-administracion' })
         } else {
           redirectToLogin()
         }
       })
     }
-
+    
     // If auth is required and the user is NOT currently logged in,
     // redirect to login.
     redirectToLogin()
@@ -71,15 +71,11 @@ router.beforeEach((routeTo, routeFrom, next) => {
   } else {
     const publicPages = [
       '/',
-      'productos',
-      'detalles-del-producto',
-      'contacto',
-      '/ecommerce/products',
-      '/ecommerce/product-details',
+      '/productos',
+      '/detalles-del-producto',
       '/login', '/register', '/forgot-password'];
     const authpage = !publicPages.includes(routeTo.path);
     const loggeduser = localStorage.getItem('user');
-
     if (authpage && !loggeduser) {
       return next('/login');
     }

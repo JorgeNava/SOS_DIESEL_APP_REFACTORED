@@ -8,13 +8,13 @@ export const menuItems = [
 			{
 				id: 2,
 				label: "menuitems.catalog.list.products",
-				link: "/dashboard/products",
+				link: "/panel-de-administracion/catalogo",
 				adminRequired: false
 			},
 			{
 				id: 3,
 				label: "menuitems.catalog.list.productdetail",
-				link: "/dashboard/product-details",
+				link: "/panel-de-administracion/inventario",
 				adminRequired: false
 			},
 		],
@@ -23,7 +23,7 @@ export const menuItems = [
 		id: 2,
 		label: "menuitems.users.text",
 		icon: "ri-user-line",
-		link: "/dashboard/users",
+		link: "/panel-de-administracion/usuarios",
 		adminRequired: true
 	},
 ];

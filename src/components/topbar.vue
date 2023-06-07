@@ -6,6 +6,7 @@ export default {
   data() {
     return {
       username: '',
+      profileImage: '',
       languages: [
         {
           flag: require("@/assets/images/flags/spain.jpg"),
@@ -63,6 +64,7 @@ export default {
   },
   mounted() {
     this.username = store.getters['auth/loggedInUser']?.Username;
+    this.profileImage = store.getters['auth/loggedInUser']?.ProfileImage[0].url;
   }
 };
 </script>
@@ -175,12 +177,13 @@ export default {
           class="d-inline-block user-dropdown"
         >
           <template v-slot:button-content>
-            <i class="ri-user-line rounded-circle header-profile-user user--icon"></i>
+            <img v-if="profileImage" class="ri-user-line rounded-circle header-profile-user" :src="profileImage">
+            <i v-if="!profileImage" class="ri-user-line rounded-circle header-profile-user user--icon"></i>
             <span class="d-none d-xl-inline-block ml-1">{{ username }}</span>
             <i class="mdi mdi-chevron-down d-none d-xl-inline-block"></i>
           </template>
           <!-- item-->
-          <router-link class="dropdown-item" to="/dashboard/profile">
+          <router-link class="dropdown-item" to="/panel-de-administracion/perfil">
             <i class="ri-user-line align-middle mr-1"></i>
             {{ $t('navbar.dropdown.kevin.list.profile') }}
           </router-link>

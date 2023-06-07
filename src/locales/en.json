@@ -1,7 +1,7 @@
 {
   "navbar": {
     "search": {
-      "text": "Search..."
+      "text": "Buscar..."
     },
     "dropdown": {
       "megamenu": {
@@ -84,37 +84,37 @@
       "kevin": {
         "text": "Kevin",
         "list": {
-          "profile": "Profile",
+          "profile": "Perfil",
           "mywallet": "My Wallet",
-          "settings": "Settings",
+          "settings": "Configuración",
           "lockscreen": "Lock screen",
-          "logout": "Logout"
+          "logout": "Cerrar sesión"
         }
       }
     }
   },
   "menuitems": {
     "catalog": {
-      "text": "Catalog",
+      "text": "Tienda",
       "list": {
-        "products": "Products",
-        "productdetail": "Product Detail",
-        "orders": "Orders",
-        "customers": "Customers",
-        "cart": "Cart",
-        "checkout": "Checkout",
-        "shops": "Shops",
-        "addproduct": "Add Product"
+        "products": "Catálogo",
+        "productdetail": "Inventario",
+        "orders": "Pedidos",
+        "customers": "Clientes",
+        "cart": "Carrito",
+        "checkout": "Revisión",
+        "shops": "tiendas",
+        "addproduct": "Añadir productos"
       }
     },
     "users": {
-      "text": "Users"
+      "text": "Usuarios"
     },
     "menu": {
       "text": "Menu"
     },
     "dashboard": {
-      "text": "Dashboard",
+      "text": "Panel de administración",
       "badge": "3"
     },
     "layouts": {
