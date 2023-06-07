@@ -6,6 +6,7 @@ const api = getApiClient();
 export default {
   data() {
     return {
+      showModal: false,
       product: {},
       selectedImage: ''
     };
@@ -54,7 +55,7 @@ export default {
                     <div class="tab-content" id="v-pills-tabContent">
                       <div class="tab-pane fade show active" id="product-1" role="tabpanel">
                         <div class="product-img">
-                          <img id="expandedImg" :src="selectedImage" alt class="img-fluid mx-auto d-block img-lg" />
+                          <img id="expandedImg" :src="selectedImage" alt class="img-fluid mx-auto d-block img-lg" @click="showModal = true"/>
                         </div>
                       </div>
                     </div>
@@ -93,7 +94,7 @@ export default {
                                 <td>{{ product.Brand }}</td>
                               </tr>
                               <tr>
-                                <th scope="row">Modelo de motor</th>
+                                <th scope="row">Modelo de Tractor</th>
                                 <td>{{ product.TruckModle }}</td>
                               </tr>
                             </tbody>
@@ -110,37 +111,44 @@ export default {
       </div>
     </div>
     <Footer class="footersillo" />
+    <b-modal v-model="showModal" hide-footer>
+      <b-img :src="selectedImage" alt class="img-fluid mx-auto d-block modal-img" />
+    </b-modal>
   </div>
 </template>
 
 <style scoped>
 .contenedor {
   background-color: white;
-
+  min-height: 100vh;
+  padding-bottom: 70px; /* Añade un espacio para el footer */
+}
+#v-pills-tab {
+  cursor: pointer;
 }
 
 .carrito {
   background-color: white;
   width: 99%;
-  min-height: 88vh;
+  min-height: calc(100vh - 70px); /* Ajusta la altura para excluir el espacio del footer */
   display: flex;
   align-items: center;
   justify-content: center;
 }
 
-.colorsito {
-  background-color: white !important;
-  width: 100%;
-}
-
 .holi {
-  width: 100vw;
-  min-height: 80vh;
+  min-height: 70vh;
   background-color: white;
   display: flex;
   align-items: center;
   justify-content: center;
   flex-wrap: wrap;
+}
+
+.colorsito {
+  background-color: white !important;
+  width: 100%;
+  margin-bottom: 70px; /* Añade espacio para evitar la superposición con el footer */
 }
 
 .product-detail {
@@ -156,21 +164,33 @@ export default {
 }
 
 .product-img img {
+  cursor: pointer;
   width: 100%;
-  max-height: 400px;
+  max-height: 1000px;
 }
 
-.cucuru{
+.cucuru {
   height: 40vh;
+  width: 40vw;
 }
 
-
-.nav-link {
-  right: 50vw;
-}
-
+/* Estilos del footer */
 .footersillo {
   background-color: #c1272d;
+  position: fixed;
+  bottom: 0;
+  width: 100%;
   padding-bottom: 1rem;
+}
+
+/* Estilos para el modal */
+.modal-img {
+  width: 100%;
+  max-height: 90vh;
+}
+
+/* Efecto de superposición oscura */
+.modal-backdrop {
+  background-color: rgba(0, 0, 0, 0.8) !important;
 }
 </style>
