@@ -5,9 +5,6 @@ import appConfig from "@/app.config";
 const { getApiClient } = require('@/helpers/sos-diesel-api-client');
 const api = getApiClient();
 
-/**
- * Products Component
- */
 export default {
   page: {
     title: "Catálogo",
@@ -90,7 +87,7 @@ export default {
       return ROW_END_INDEX;
     },
     getImageSource(product) {
-      return product?.Image1[0].url;
+      return product?.Images[0].url;
     },
     handleSearchInput() {
       // Si el campo de búsqueda está vacío, no se realizará el filtrado
@@ -178,8 +175,7 @@ export default {
         <h1 class="Productos ">Productos</h1>
       </div>
       <div class="col search-box d-flex justify-content-end">
-        <input type="text" class="form-control rounded-pill rounded-end border-danger" placeholder="Buscar" v-model="searchMarca"
-        @change="filterProductsByMarca" />
+        <input type="text" class="form-control rounded-pill rounded-end border-danger" placeholder="Buscar" v-model="searchMarca" @beforeinput="filterProductsByMarca" />
       </div>
     </div>
     <div class="row">
@@ -241,11 +237,8 @@ export default {
         <div v-for="(item,index) in getPageRowsNumber()" :key="index" class="row no-gutters mt-5">
           <div v-for="(product, index) in filteredProducts.slice(getRowStart(index), getRowEnd(index))" :key="index" class="col-xl-4 col-sm-6">
             <div class="product-box">
+              <router-link :to="{ path: '/detalles-del-producto', query: { Code: product.Code} }">
               <div class="product-img">
-                <!--<div class="product-ribbon badge badge-warning">Trending</div>-->
-                <div class="">
-                  <a href="/detalles-del-producto"></a>
-                </div>
                 <img
                   :src="getImageSource(product)"
                   :alt="product.Code"
@@ -258,8 +251,8 @@ export default {
                   <router-link :to="`/detalles-del-producto/${product.Description}`" class="text-dark">{{product.Description}}</router-link>
                 </h5>
                 <h5 class="mt-3 mb-0" style="color: rgba(206, 17, 17, 0.889);">{{product.Price}}</h5>
-                <router-link :to="{ path: '/detalles-del-producto', query: { Code: product.Code, Description: product.Description, Price: product.Price } }">Ver detalles</router-link>
               </div>
+            </router-link>
             </div>
           </div>
         </div>
@@ -277,9 +270,7 @@ export default {
       <div class="float-sm-right">
         <ul class="pagination pagination-rounded mb-sm-0">
           <li class="page-item disabled">
-            <a href="#" class="page-link">
               <i class="mdi mdi-chevron-left"></i>
-            </a>
           </li>
           <div class="dataTables_paginate paging_simple_numbers float-right">
             <ul class="pagination pagination-rounded mb-0">
@@ -287,9 +278,7 @@ export default {
             </ul>
           </div>
           <li class="page-item">
-            <a href="#" class="page-link">
               <i class="mdi mdi-chevron-right"></i>
-            </a>
           </li>
         </ul>
       </div>
@@ -302,8 +291,8 @@ export default {
 <style scoped>
 
 .custom-control-input:checked~.custom-control-label::before {
-  background-color: #17a2b8 !important;
-  border-color: #17a2b8 !important;
+  background-color: #bd0b0b !important;
+  border-color: #f8f8f8 !important;
 }
 
 .custom-control-input:focus:not(:checked)~.custom-control-label::before {
@@ -311,20 +300,8 @@ export default {
 }
 
 .custom-checkbox .custom-control-input:checked~.custom-control-label::after {
-  background-color: #17a2b8 !important;
-  border-color: #17a2b8 !important;
-}
-
-.custom-checkbox .custom-control-input:focus:not(:checked)~.custom-control-label::after {
-  border-color: #17a2b8 !important;
-}
-
-.custom-checkbox .custom-control-input:disabled:checked~.custom-control-label::before {
-  background-color: rgba(23, 162, 184, 0.5) !important;
-}
-
-.custom-checkbox .custom-control-input:disabled:indeterminate~.custom-control-label::before {
-  background-color: rgba(23, 162, 184, 0.5) !important;
+  background-color: #990909 !important;
+  border-color: #130808 !important;
 }
 
 .custom-checkbox .custom-control-input:disabled:checked~.custom-control-label::after {
@@ -337,8 +314,9 @@ export default {
 
 
 .pagina{
-  background-color: white;
+  padding: 5vh 2vw;
   min-height: 75vh;
+  background-color: white
 }
 
 h1 {
@@ -372,9 +350,7 @@ h1 {
   border-color: red;
 }
 
-.image-container {
-}
- .Productos{
+.Productos{
   font-family: 'Helvetica-SOS';
   letter-spacing: 3px;
   margin-left: 6%;

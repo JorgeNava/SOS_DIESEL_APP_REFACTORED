@@ -5,7 +5,7 @@ const api = getApiClient();
 
 export default {
   page: {
-    title: "Productos",
+    title: "Catálogo",
     meta: [{ name: "description", content: appConfig.description }]
   },
   data() {
@@ -37,14 +37,14 @@ export default {
         con: false,
         sin: false
       },
-      title: "Productos",
+      title: "Catálogo",
       products: [],
       items: [
         {
-          text: "Catálogo"
+          text: "Tienda"
         },
         {
-          text: "Productos",
+          text: "Catálogo",
           active: true
         }
       ],
