@@ -98,9 +98,7 @@ export default {
       clearTimeout(this.timer);
       this.timer = setTimeout(() => {
         this.filterProductsByMarca();
-      }, 
-      300
-      ) // Establece el retardo deseado en milisegundos (por ejemplo, 300ms)
+      }, 300) // Establece el retardo deseado en milisegundos (por ejemplo, 300ms)
     },
     filterProductsByMarca() {
       if (this.searchMarca) {
