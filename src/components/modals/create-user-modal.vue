@@ -6,12 +6,12 @@ const api = getApiClient();
 
 export default {
   page: {
-    title: "Create User",
+    title: "Crear Usuario",
     meta: [{ name: "description", content: appConfig.description }]
   },
   data() {
     return {
-      title: "Create User",
+      title: "Crear Usuario",
       items: [
         {
           text: "UI Elements",

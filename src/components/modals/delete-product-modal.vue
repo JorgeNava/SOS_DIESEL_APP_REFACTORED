@@ -16,7 +16,6 @@ export default {
         Price: '',
         Quantity: 0,
         Description: '',
-        startSpinner: false,
         Images: []
       }),
     },
@@ -47,7 +46,8 @@ export default {
       newDescription: '',
       newImages: [],
       isImageOpen: {},
-      selectedImage: null
+      selectedImage: null,
+      startSpinner: false,
     };
   },
   watch: {

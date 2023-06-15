@@ -29,27 +29,6 @@ export default {
 
       if (this.$v.$invalid) {
         return;
-      } else {
-        if (process.env.VUE_APP_DEFAULT_AUTH === "firebase") {
-          this.tryingToReset = true;
-          // Reset the authError if it existed.
-          this.error = null;
-          return (
-            this.resetPassword({
-              email: this.email
-            })
-              // eslint-disable-next-line no-unused-vars
-              .then(token => {
-                this.tryingToReset = false;
-                this.isResetError = false;
-              })
-              .catch(error => {
-                this.tryingToReset = false;
-                this.error = error ? error : "";
-                this.isResetError = true;
-              })
-          );
-        }
       }
     }
   }
