@@ -1,13 +1,13 @@
 <template>
-  <div class="home ">
-    <div class="HomeProduct">
-      <HomeProduct :imageUrl="imageUrls.imagenTractor" :imageUrls="imageUrls" style="height: 100vh;"/> 
-    </div>
-    <div class="mision mt-5 " id="mision">
-        <div class="image w-50 d-flex justify-content-end  pr-4 ">
+    <b-container fluid>
+      <b-row class="home p-3">
+        <HomeProduct :imageUrl="imageUrls.imagenTractor" :imageUrls="imageUrls"/> 
+      </b-row>
+      <b-row class="mision mt-5  mb-5 mb-lg-0" id="mision">
+        <b-col cols="12" lg="6" order="2" order-lg="1" class="image w-50 d-flex justify-content-end  pr-4 mb-3 mb-lg-0">
           <img src="@/assets/images/old_repo/img_panel_testimonials.jpg" alt="" >
-        </div>
-        <div class="content w-50 d-flex flex-column justify-content-start p-3">
+        </b-col>
+        <b-col  order="1" order-lg="2"  class="content w-50 d-flex flex-column justify-content-start p-3">
           <h1 class="mision-y-vision--title m-0 ">SOS DIESEL PARTS</h1>
           <p class="mision-y-vision--subtitle mb-3 ">MISION Y VISIÓN</p>
           <div class="mision-y-vision--text" >
@@ -17,18 +17,18 @@
             <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed ut tellus vitae nibh tristique vestibulum. Sed facilisis ipsum nec metus placerat, eget aliquet lectus blandit.</p>
             <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed ut tellus vitae nibh tristique vestibulum. Sed facilisis ipsum nec metus placerat, eget aliquet lectus blandit.</p>
           </div>
-        </div>
-    </div>
-    <div class="fotosRandom d-flex align-items-center justify-content-center" style="height: 80vh;">
-      <div class="carousel--container">
+        </b-col>
+      </b-row>
+      <b-row class="d-flex justify-content-center align-items-center mb-5 mt-5">
         <Carousel :slides="carouselImages" /> 
-        <div class="ver-mas-container">
-          <router-link to="/productos" class="ver-mas">Ver catálogo</router-link>
-        </div>
-      </div> 
-    </div>
-    <Footer class="footersillo"/>
-  </div>
+      </b-row>
+      <b-row class="d-flex justify-content-center align-items-center mb-5">
+        <router-link to="/productos" class="ver-mas">Ver catálogo</router-link>
+      </b-row>
+      <b-row>
+        <Footer class="footersillo"></Footer>
+      </b-row>
+    </b-container>
 </template>
 
 <script>
@@ -175,27 +175,22 @@ export default {
   }
 
  
-  .carousel--container{
-    background: linear-gradient(to bottom, white, gray);
-    width: 100vw;
-  }
-
   .footersillo {
     width: 100%;
     background-color: #C1272D;
 }
 
 .carousel--container {
-  /* ... Otros estilos ... */
+  background: linear-gradient(to bottom, white, gray);
+  width: 100vw;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  height: 100%; /* Ajusta la altura del contenedor a la altura de los elementos internos */
+  height: 100%;
 }
 
 .ver-mas-container {
-  /* Añade espacio adicional alrededor del botón */
   margin-bottom: 20px;
   margin-top: 13px;
 }

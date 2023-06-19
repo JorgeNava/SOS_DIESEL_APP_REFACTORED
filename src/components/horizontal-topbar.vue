@@ -137,23 +137,23 @@ export default {
       <div class="d-flex">
         <!-- LOGO -->
         <div class="navbar-brand-box">
-          <a href="index.html" class="logo logo-dark">
+          <router-link class="logo logo-dark" to="/panel-de-administracion">
             <span class="logo-sm">
               <img src="@/assets/images/logo-sm-dark.png" alt height="22" />
             </span>
             <span class="logo-lg">
               <img src="@/assets/images/logo-dark.png" alt height="30" />
             </span>
-          </a>
+          </router-link>
 
-          <a href="index.html" class="logo logo-light">
+          <router-link class="logo logo-light" to="/panel-de-administracion">
             <span class="logo-sm">
               <img src="@/assets/images/logo-sm-light.png" alt height="22" />
             </span>
             <span class="logo-lg">
               <img src="@/assets/images/logo-dark.png" alt height="30" />
             </span>
-          </a>
+          </router-link>
         </div>
 
         <button
