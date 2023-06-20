@@ -198,17 +198,18 @@ export default {
     display: inline-block;
     font-family: 'Helvetica-SOS';
     padding: 12px 20px;
+    border: 1px solid transparent;
     background-color: #C1272D;
     color: white;
     text-decoration: none;
     border-radius: 5px;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
     font-size: 1.2rem;
-  }
 
-  .ver-mas:hover {
-    background-color: rgb(255, 255, 255);
-    color: #C1272D;
-    border: 1px solid #C1272D;
+    &:hover{
+      background-color: rgb(255, 255, 255);
+      color: #C1272D;
+      border: 1px solid #C1272D;
+    }
   }
 </style>

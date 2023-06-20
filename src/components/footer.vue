@@ -1,44 +1,25 @@
 <template>
-  <footer class="footersillo">
-    <div class="container-fluid d-flex ">
-      <div class="row">
-        <div class="col-md-3 mb-2 d-flex justify-content-center align-self-center">
-          <img src="@/assets/images/logo-light.png" alt="2020" class="logo--image">
-        </div>
-        <div class="col-md-6 text-center d-flex justify-content-center align-items-center">
-          <div class="medio">Río Nilo 1067 B Col, Quinta Velarde, 44430 Guadalajara, Jal.</div>
-        </div>
-        <div class="col-md-3 text-right d-flex justify-content-center align-items-start">
-          <div class="derecha">(33) 3635 7004</div>
-        </div>
-      </div>
-    </div>
-  </footer>
+  <b-container fluid>
+    <b-row class="p-3">
+      <b-col cols="12" lg="3" class="d-flex justify-content-center align-self-center pb-4 pb-lg-0">
+        <img src="@/assets/images/logo-light.png" alt="SOS Diesel" class="w-50">
+      </b-col>
+      <b-col cols="12" lg="6" class="text-center d-flex justify-content-center align-items-center">
+        <p>Río Nilo 1067 B Col, Quinta Velarde, 44430 Guadalajara, Jal.</p>
+      </b-col>
+      <b-col cols="12" lg="3" class="text-center d-flex justify-content-center align-items-center align-items-lg-right">
+        <p>(33) 3635 7004</p>
+      </b-col>
+    </b-row>
+  </b-container>
 </template>
 
-<style scoped>
-.footersillo{
-  padding: 1vh;
-}
-  .logo--image {
-    height: 70%;
-    margin-top: 4%;
-    margin-left: 60%;
-    width: 25%;
-  }
-
-  .medio {
-    color: white;
+<style lang="scss" scoped>
+  p {
     font-family: 'Helvetica-SOS';
     font-size: 1.2rem;
-    margin-top: 2%;
-  }
-
-  .derecha{
     color: white;
-    font-family: 'Helvetica-SOS';
-    font-size: 1.2rem;
-    margin-top: 4%;
-    margin-right: 45%;
+    padding: 0;
+    margin: 0;
   }
 </style>

@@ -1,41 +1,45 @@
 <template> 
-  <b-container class="d-flex flex-column align-items-center p-0">
-    <b-row no-gutters>
-      <b-col class="d-flex justify-content-center">
-        <img :src="imageUrls.logosos" alt="" class="nav--bar--logo">
-      </b-col>
-    </b-row>
-    <b-row no-gutters>
-      <b-col id="nav--bar--items" class="d-flex flex-column align-items-center">
-        <router-link to="/productos">Productos</router-link>
-        <a href="#mision" @click.prevent="scrollToMissionSection">Quienes Somos</a>
-        <button @click="mostrarFormulario">Contacto</button>
-      </b-col>
-    </b-row>
-    <div id="ventanaEmergente" class="ventana-emergente">
-      <div class="contenido-ventana">
-        <div class="close-button" @click="cerrarFormulario">X</div>
-        <div class="formContainer" :class="{ 'show-form': mostrarVentana }">
-          <form ref="form" @submit.prevent="sendEmail">
-            <h2>Contacto</h2>
-            <label for="nombre">Nombre:</label>
-            <input v-model="nombre" type="text" id="nombre" name="nombre" placeholder="Tu nombre aquí" required>
-            <label for="email">Email:</label>
-            <input v-model="email" type="email" id="email" name="email" placeholder="Tu email aquí" required>
-            <label for="telefono">Teléfono:</label>
-            <input v-model="telefono" type="tel" id="telefono" name="telefono" placeholder="Tu teléfono aquí">
-            <label for="mensaje">Mensaje:</label>
-            <textarea v-model="mensaje" id="mensaje" name="mensaje" placeholder="Tu mensaje aquí" required></textarea>
-            <button type="submit" :class="{ 'animate-button': mostrarAnimacion }" @click="cerrarFormulario"><span v-if="!mostrarAnimacion">Enviar</span>
-              <span v-else>
-                <i class="fas fa-check"></i>
-              </span>
-            </button>
-          </form>
-        </div>
-      </div>
-    </div>
-  </b-container>
+  <div>
+    <b-container class="d-flex flex-column align-items-center p-0">
+      <b-row no-gutters>
+        <b-col class="d-flex justify-content-center">
+          <img :src="imageUrls.logosos" alt="" class="nav--bar--logo">
+        </b-col>
+      </b-row>
+      <b-row no-gutters>
+        <b-col id="nav--bar--items" class="d-flex flex-column align-items-center">
+          <router-link to="/productos">Productos</router-link>
+          <a href="#mision" @click.prevent="scrollToMissionSection">Quienes Somos</a>
+          <button @click="mostrarFormulario">Contacto</button>
+        </b-col>
+      </b-row>
+    </b-container>
+    <b-container fluid id="contact--modal--id" class="contact--modal">
+      <b-row>
+        <b-col cols="10" lg="4" class="modal--body">
+          <div class="close-button" @click="cerrarFormulario">X</div>
+          <div class="formContainer" :class="{ 'show-form': mostrarVentana }">
+            <form ref="form" @submit.prevent="sendEmail">
+              <h2>Contacto</h2>
+              <label for="nombre">Nombre:</label>
+              <input v-model="nombre" type="text" id="nombre" name="nombre" placeholder="Tu nombre aquí" required>
+              <label for="email">Email:</label>
+              <input v-model="email" type="email" id="email" name="email" placeholder="Tu email aquí" required>
+              <label for="telefono">Teléfono:</label>
+              <input v-model="telefono" type="tel" id="telefono" name="telefono" placeholder="Tu teléfono aquí">
+              <label for="mensaje">Mensaje:</label>
+              <textarea v-model="mensaje" id="mensaje" name="mensaje" placeholder="Tu mensaje aquí" required></textarea>
+              <button type="submit" :class="{ 'animate-button': mostrarAnimacion }" @click="cerrarFormulario"><span v-if="!mostrarAnimacion">Enviar</span>
+                <span v-else>
+                  <i class="fas fa-check"></i>
+                </span>
+              </button>
+            </form>
+          </div>
+        </b-col>
+      </b-row>
+    </b-container>
+  </div>
 </template>
 
 <script>
@@ -79,12 +83,12 @@ export default {
       1000);
     },
     mostrarFormulario() {
-      var ventana = document.getElementById('ventanaEmergente');
+      var ventana = document.getElementById('contact--modal--id');
       ventana.style.display = 'block';
       this.mostrarVentana = true;
     },
     cerrarFormulario(event) {
-      var ventana = document.getElementById('ventanaEmergente');
+      var ventana = document.getElementById('contact--modal--id');
       var formulario = document.querySelector('.formContainer');
       if (!formulario.contains(event.target) && ventana.contains(event.target)) {
         ventana.classList.add('ventana-cerrada');
@@ -93,7 +97,7 @@ export default {
       }
     },
     cerrarModal() {
-      const ventana = document.getElementById('ventanaEmergente');
+      const ventana = document.getElementById('contact--modal--id');
       ventana.classList.add('ventana-cerrada');
       this.mostrarVentana = false;
 
@@ -150,15 +154,7 @@ export default {
     }
   }
 
-  .nav--bar--row{
-    width: 50%;
-  }
-
-  .img_logosos{
-    height: 23vh; 
-  }
-
-  .ventana-emergente {
+  .contact--modal {
     display: none;
     position: fixed;
     top: 0;
@@ -169,23 +165,18 @@ export default {
     z-index: 999;
   }
 
-  .contenido-ventana {
+  .modal--body {
     position: absolute;
+    top: 50%;
+    left: 50%;
     display: flex;
     justify-content: center;
     align-items: center;
-    top: 50%;
-    left: 50%;
+    height: 75%;
+    overflow-y: auto;
+    opacity: 1;
     transform: translate(-50%, -50%) scale(1);
     background-color: rgba(100, 9, 9, 0.8);
-    padding: 20px;
-    width: 25vw;
-    height: 75%;
-    opacity: 1;
-    padding: 20px;
-    max-width: 600px;
-    max-height: 100%;
-    overflow-y: auto;
   }
 
   .iframe-animation {
@@ -204,21 +195,21 @@ export default {
   }
 
   .animate-button {
-  animation-name: button-click-animation;
-  animation-duration: 1s;
-}
+    animation-name: button-click-animation;
+    animation-duration: 1s;
+  }
 
-@keyframes button-click-animation {
-  0% {
-    transform: scale(1);
+  @keyframes button-click-animation {
+    0% {
+      transform: scale(1);
+    }
+    50% {
+      transform: scale(1.2);
+    }
+    100% {
+      transform: scale(1);
+    }
   }
-  50% {
-    transform: scale(1.2);
-  }
-  100% {
-    transform: scale(1);
-  }
-}
   
   h2 {
     color: white;
@@ -265,12 +256,12 @@ export default {
     background-color: #3d8d40; /* Cambia el color de fondo cuando se hace hover */
   }
 
-.close-button {
-  position: absolute;
-  color: rgb(148, 108, 108);
-  top: 10px;
-  right: 25px;
-  font-size: 1.2em;
-  cursor: pointer;
-}
+  .close-button {
+    position: absolute;
+    color: rgb(148, 108, 108);
+    top: 10px;
+    right: 25px;
+    font-size: 1.2em;
+    cursor: pointer;
+  }
 </style>
