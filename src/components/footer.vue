@@ -1,5 +1,5 @@
 <template>
-  <b-container fluid>
+  <b-container fluid class="footersillo">
     <b-row class="p-3">
       <b-col cols="12" lg="3" class="d-flex justify-content-center align-self-center pb-4 pb-lg-0">
         <img src="@/assets/images/logo-light.png" alt="SOS Diesel" class="w-50">
@@ -21,5 +21,11 @@
     color: white;
     padding: 0;
     margin: 0;
+  }
+  /* Estilos del footer */
+  .footersillo {
+    background-color: #c1272d;
+    width: 100%;
+    padding-bottom: 1rem;
   }
 </style>

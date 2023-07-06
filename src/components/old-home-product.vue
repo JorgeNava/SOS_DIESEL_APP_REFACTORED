@@ -23,7 +23,7 @@
           <img :src="imageUrls.yanmarlogo" alt="" class="img_yanmarlogo">
           <img :src="imageUrls.sprinterlogo" alt="" class="img_sprinterlogo">
           <div class="widget">
-            <img src="@/assets/images/WhatsAppButtonWhiteSmall.png" class="img_whatsapp" alt="WhatsApp" @click="openWhatsApp"/>
+            <img src="@/assets/images/WhatsAppButtonWhiteSmall.png" :class="getImageSizeClass" alt="WhatsApp" @click="openWhatsApp"/>
           </div>
         </div>
       </b-col>
@@ -50,14 +50,35 @@
       window.open(url, "_blank");
     },
   },
+  computed: {
+    getImageSizeClass() {
+      if (window.innerWidth < 576) {
+        return 'w-50';
+      } else {
+        return 'w-25';
+      }
+    },
+  },
   components: { NavBar }
 }
 </script>
 
 <style lang="scss" scoped>
-  .widget:hover img{
-    animation: jump 0.5s infinite;
-  }
+  .widget {
+    img{
+      position: fixed;
+      right: 3rem;
+      bottom: 12vh;
+      cursor: pointer;
+      border-radius: 30px;
+      z-index: 1;
+    }
+    &:hover{
+      img {
+        animation: jump 0.5s infinite;
+      }
+    }
+    }
 
   @keyframes jump {
     0% {
@@ -103,14 +124,6 @@
     height: auto;
     margin-bottom: 2rem;
     
-}
-
-.widget img{
-  position: fixed;
-  right: 3rem;
-  bottom: 12vh;
-  width: 12%;
-  cursor: pointer;
 }
 
 </style>

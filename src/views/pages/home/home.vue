@@ -19,7 +19,7 @@
           </div>
         </b-col>
       </b-row>
-      <b-row class="d-flex justify-content-center align-items-center mb-5 mt-5">
+      <b-row class="d-flex justify-content-center align-items-center my-5">
         <Carousel :slides="carouselImages" /> 
       </b-row>
       <b-row class="d-flex justify-content-center align-items-center mb-5">
