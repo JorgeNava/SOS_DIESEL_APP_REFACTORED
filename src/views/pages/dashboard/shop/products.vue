@@ -13,6 +13,7 @@ export default {
     components: { Layout, PageHeader},
   data() {
     return {
+      timer: null,
       productsPerPage: 0,
       rowsPerPage: 0,
       totalPages: 0,
@@ -97,6 +98,10 @@ export default {
         this.shouldFilter = true;
         this.filterProductsByMarca();
       }
+      clearTimeout(this.timer);
+      this.timer = setTimeout(() => {
+        this.filterProductsByMarca();
+      }, 300) // Establece el retardo deseado en milisegundos (por ejemplo, 300ms)
     },
     filterProductsByMarca() {
       if (this.searchMarca) {
@@ -167,20 +172,19 @@ export default {
 </script>
 
 <template>
-    <Layout>
+  <Layout>
     <PageHeader :title="title" :items="items" />
-    <div class="pagina"> 
-    <div class="row  d-flex align-items-center ">
-      <div class="col d-flex align-items-start ">
-        <h1 class="Productos ">Productos</h1>
-      </div>
-      <div class="col search-box d-flex justify-content-end">
-        <input type="text" class="form-control rounded-pill rounded-end border-danger" placeholder="Buscar" v-model="searchMarca" @beforeinput="filterProductsByMarca" />
-      </div>
-    </div>
-    <div class="row">
-      <div class="filtros col-2">
-        <div class="mt-5 border-top">
+    <b-container fluid class="pagina">
+      <b-row class="d-flex align-items-center">
+        <b-col sm="12" lg="9">
+          <p class="products--title">Productos</p>
+        </b-col>
+        <b-col sm="12" lg="3" class="search-box d-flex justify-content-end">
+          <input type="text" class="w-100 form-control rounded-pill rounded-end border-danger" placeholder="Buscar" v-model="searchMarca" @beforeinput="filterProductsByMarca" />
+        </b-col>
+      </b-row>
+      <b-row class="mt-4 mt-lg-5">
+        <b-col sm="12" lg="2" class="ml-4 ml-lg-0">
           <h5 class="font-size-22 mb-4 mt-3 ml-2" style="font-family: 'Helvetica-SOS';">Filtros:</h5>
           <div>
             <h5 class="font-size-20 mb-1 ml-2" style="font-family: 'Helvetica-SOS'; color: rgba(206, 17, 17, 0.889);">Precio</h5>
@@ -197,94 +201,80 @@ export default {
               <label class="custom-control-label" for="alto">Más de 5000</label>
             </div>
           </div>
-        </div>
-        <div>
-          <h5 class="font-size-20 mt-3 ml-2" style="font-family: 'Helvetica-SOS'; color: rgba(206, 17, 17, 0.889);">
-              Marca
-          </h5>
-            <div class="mt-2">
-              <div class="custom-control custom-checkbox">
-                <input type="checkbox" class="custom-control-input" id="kubota" v-model="marcas.kubota" @change="filterProductsByMarca">
-                <label class="custom-control-label" for="kubota">Kubota</label>
+          <div>
+            <h5 class="font-size-20 mt-3 ml-2" style="font-family: 'Helvetica-SOS'; color: rgba(206, 17, 17, 0.889);">
+                Marca
+            </h5>
+              <div class="mt-2">
+                <div class="custom-control custom-checkbox">
+                  <input type="checkbox" class="custom-control-input" id="kubota" v-model="marcas.kubota" @change="filterProductsByMarca">
+                  <label class="custom-control-label" for="kubota">Kubota</label>
+                </div>
+                <div class="custom-control custom-checkbox">
+                  <input type="checkbox" class="custom-control-input" id="johndeere" v-model="marcas.johndeere" @change="filterProductsByMarca">
+                  <label class="custom-control-label" for="johndeere">Jhon Deere</label>
+                </div>
+                <div class="custom-control custom-checkbox">
+                  <input type="checkbox" class="custom-control-input" id="ford" v-model="marcas.ford" @change="filterProductsByMarca">
+                  <label class="custom-control-label" for="ford">Ford</label>
+                </div>
               </div>
-              <div class="custom-control custom-checkbox">
-                <input type="checkbox" class="custom-control-input" id="johndeere" v-model="marcas.johndeere" @change="filterProductsByMarca">
-                <label class="custom-control-label" for="johndeere">Jhon Deere</label>
+          </div>
+          <div>
+            <h5 class="font-size-20 mt-3 ml-2" style="font-family: 'Helvetica-SOS'; color: rgba(206, 17, 17, 0.889);">
+                Existencia
+            </h5>
+              <div class="mt-2">
+                <div class="custom-control custom-checkbox">
+                  <input type="checkbox" class="custom-control-input" id="con" v-model="existencias.con" @change="filterProductsByMarca">
+                  <label class="custom-control-label" for="con">Con existencia</label>
+                </div>
+                <div class="custom-control custom-checkbox">
+                  <input type="checkbox" class="custom-control-input" id="sin" v-model="existencias.sin" @change="filterProductsByMarca">
+                  <label class="custom-control-label" for="sin">Sin existencia</label>
+                </div>
               </div>
-              <div class="custom-control custom-checkbox">
-                <input type="checkbox" class="custom-control-input" id="ford" v-model="marcas.ford" @change="filterProductsByMarca">
-                <label class="custom-control-label" for="ford">Ford</label>
+          </div>
+        </b-col>
+        <b-col sm="12" lg="8" class="mt-3 mt-lg-0">
+          <div v-for="(item,index) in getPageRowsNumber()" :key="index" class="row no-gutters">
+            <div v-for="(product, index) in filteredProducts.slice(getRowStart(index), getRowEnd(index))" :key="index" class="col-xl-4 col-sm-6">
+              <div class="product-box">
+                <router-link :to="{ path: '/detalles-del-producto', query: { Code: product.Code} }">
+                <div class="product-img">
+                  <img
+                    :src="getImageSource(product)"
+                    :alt="product.Code"
+                    class="img-fluid mx-auto d-block"
+                  />
+                </div>
+                <div class="text-center">
+                  <p class="font-size-16 mb-1" style="color: rgba(206, 17, 17, 0.889);">{{product.Code}}</p>
+                  <h5 class="font-size-18">
+                    <router-link :to="`/detalles-del-producto/${product.Description}`" class="text-dark">{{product.Description}}</router-link>
+                  </h5>
+                  <h5 class="mt-3 mb-0" style="color: rgba(206, 17, 17, 0.889);">{{product.Price}}</h5>
+                </div>
+              </router-link>
               </div>
-            </div>
-        </div>
-        <div>
-          <h5 class="font-size-20 mt-3 ml-2" style="font-family: 'Helvetica-SOS'; color: rgba(206, 17, 17, 0.889);">
-              Existencia
-          </h5>
-            <div class="mt-2">
-              <div class="custom-control custom-checkbox">
-                <input type="checkbox" class="custom-control-input" id="con" v-model="existencias.con" @change="filterProductsByMarca">
-                <label class="custom-control-label" for="con">Con existencia</label>
-              </div>
-              <div class="custom-control custom-checkbox">
-                <input type="checkbox" class="custom-control-input" id="sin" v-model="existencias.sin" @change="filterProductsByMarca">
-                <label class="custom-control-label" for="sin">Sin existencia</label>
-              </div>
-            </div>
-        </div>
-      </div>
-      <div class="col-8">
-        <div v-for="(item,index) in getPageRowsNumber()" :key="index" class="row no-gutters mt-5">
-          <div v-for="(product, index) in filteredProducts.slice(getRowStart(index), getRowEnd(index))" :key="index" class="col-xl-4 col-sm-6">
-            <div class="product-box">
-              <router-link :to="{ path: '/detalles-del-producto', query: { Code: product.Code} }">
-              <div class="product-img">
-                <img
-                  :src="getImageSource(product)"
-                  :alt="product.Code"
-                  class="img-fluid mx-auto d-block"
-                />
-              </div>
-              <div class="text-center">
-                <p class="font-size-16 mb-1" style="color: rgba(206, 17, 17, 0.889);">{{product.Code}}</p>
-                <h5 class="font-size-18">
-                  <router-link :to="`/detalles-del-producto/${product.Description}`" class="text-dark">{{product.Description}}</router-link>
-                </h5>
-                <h5 class="mt-3 mb-0" style="color: rgba(206, 17, 17, 0.889);">{{product.Price}}</h5>
-              </div>
-            </router-link>
             </div>
           </div>
+        </b-col>
+      </b-row>
+      <b-row class="d-flex justify-content-around mt-4">
+        <p class="mb-sm-0 mt-lg-2">
+          Página
+          <span class="font-weight-bold">1</span> de
+          <span class="font-weight-bold">{{Math.ceil(filteredProducts.length / limitProductsPerPage)}}</span>
+        </p>
+        <div class="float-sm-right">
+          <ul class="pagination pagination-rounded mb-0">
+            <b-pagination v-model="currentPage" :total-rows="filteredProducts.length" :per-page="limitProductsPerPage"></b-pagination>
+          </ul>
         </div>
-      </div>
-      <div class="col-2">
-        <img src="@/assets/images/envio.png">
-      </div>
-    </div>
-    <div class="d-flex justify-content-around mt-4">
-      <p class="mb-sm-0 mt-2">
-        Página
-        <span class="font-weight-bold">1</span> de
-        <span class="font-weight-bold">{{Math.ceil(filteredProducts.length / limitProductsPerPage)}}</span>
-      </p>
-      <div class="float-sm-right">
-        <ul class="pagination pagination-rounded mb-sm-0">
-          <li class="page-item disabled">
-              <i class="mdi mdi-chevron-left"></i>
-          </li>
-          <div class="dataTables_paginate paging_simple_numbers float-right">
-            <ul class="pagination pagination-rounded mb-0">
-              <b-pagination v-model="currentPage" :total-rows="filteredProducts.length" :per-page="limitProductsPerPage"></b-pagination>
-            </ul>
-          </div>
-          <li class="page-item">
-              <i class="mdi mdi-chevron-right"></i>
-          </li>
-        </ul>
-      </div>
-    </div> 
-  </div> 
-</Layout>
+      </b-row>
+    </b-container>
+  </Layout>
 </template>
 
 
@@ -366,5 +356,7 @@ h1 {
   font-family: 'Helvetica-SOS';
 }
 
-
+.page-item.active .page-link{
+  background-color: #bd0b0b !important; 
+}
 </style>

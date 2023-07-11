@@ -193,44 +193,48 @@ export default {
 <template>
   <Layout>
     <PageHeader :title="title" :items="items" />
-    <div class="profile-card">
-      <b-card class="card" :bg-variant="'light'" :border-variant="'light'" :shadow="4">
-        <div class="d-flex">
-          <div class="d-flex w-50 flex-column justify-content-center align-items-center">
-            <img :src="profileUserProfileImage"  class="profile-image" />
-            <b-form class="w-100 d-flex justify-content-center align-items-center text-center center-cursor">
+    <b-card class="card" :bg-variant="'light'" :border-variant="'light'" :shadow="4">
+      <b-container fluid>
+        <b-row class="profile-card">
+          <b-col sm="12" lg="6">
+            <b-form class="d-flex flex-column justify-content-center align-items-center text-center center-cursor">
+              <img :src="profileUserProfileImage"  class="profile-image" />
               <b-form-group label="Nombre de usuario">
                 <b-form-input v-model="profileUserUsername" :readonly="!editing"></b-form-input>
               </b-form-group>
             </b-form>
-          </div>
-          <b-form class="pl-3 pr-5 py-3 w-50">
-            <b-form-group label="Correo">
-              <b-form-input v-model="profileUserEmail" :readonly="true"></b-form-input>
-            </b-form-group>
-            <b-form-group label="Rol">
-              <b-form-input v-model="profileUserRole" :readonly="true"></b-form-input>
-            </b-form-group>
-            <b-form-group label="Notas">
-              <b-form-textarea v-model="profileUserNotes" :readonly="!editing"></b-form-textarea>
-            </b-form-group>
-            <b-form-group label="Estatus">
-              <b-form-select v-model="profileUserStatus" :options="editing ? statusOptions : [profileUserStatus]" :readonly="true"></b-form-select>
-            </b-form-group>
-            <div class="text-center mt-4">
-              <b-button variant="primary" @click="toggleEditing">
-                <i name="action" icon="pencil-fill"></i> {{ editing ? 'Guardar' : 'Editar' }}
-              </b-button>
-            </div>
-          </b-form>
-        </div>
-
-      </b-card>
-    </div>
+          </b-col>
+          <b-col sm="12" lg="4">
+            <b-form class="pl-lg-3 pr-lg-5 py-lg-3">
+              <b-form-group label="Correo">
+                <b-form-input v-model="profileUserEmail" :readonly="true"></b-form-input>
+              </b-form-group>
+              <b-form-group label="Rol">
+                <b-form-input v-model="profileUserRole" :readonly="true"></b-form-input>
+              </b-form-group>
+              <b-form-group label="Notas">
+                <b-form-textarea v-model="profileUserNotes" :readonly="!editing"></b-form-textarea>
+              </b-form-group>
+              <b-form-group label="Estatus">
+                <b-form-select v-model="profileUserStatus" :options="editing ? statusOptions : [profileUserStatus]" :readonly="true"></b-form-select>
+              </b-form-group>
+              <div class="text-center mt-4">
+                <b-button variant="primary" @click="toggleEditing" class="btn-lg px-5">
+                  <i class="ri-pencil-fill mr-2"></i> {{ editing ? 'Guardar' : 'Editar' }}
+                </b-button>
+              </div>
+            </b-form>
+          </b-col>
+        </b-row>
+      </b-container>
+    </b-card>
   </Layout>
 </template>
 
-<style scoped>
+<style lang="scss" scoped>
+
+  
+
   .profile-card{
     font-size: 1.5rem;
   }
@@ -239,7 +243,8 @@ export default {
   }
 
   .profile-image {
-    width: 10vw;
+    width: 100%;
+    max-width: 325px;
     border-radius: 50%;
     margin-bottom: 20px;
   }

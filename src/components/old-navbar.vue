@@ -1,12 +1,22 @@
 <template> 
-  <div class="d-flex justify-center flex-column">
-    <img :src="imageUrls.logosos" alt="" class="img_logosos">
-    <div>
-      <router-link to="/productos" class="button-top">Productos</router-link>
-      <a href="#mision" class="button" @click.prevent="scrollToMissionSection">Quienes Somos</a>
-      <button class="button-bottom" @click="mostrarFormulario">Contacto</button>
-      <div id="ventanaEmergente" class="ventana-emergente">
-        <div class="contenido-ventana">
+  <div>
+    <b-container class="d-flex flex-column align-items-center p-0">
+      <b-row no-gutters>
+        <b-col class="d-flex justify-content-center">
+          <img :src="imageUrls.logosos" alt="" class="nav--bar--logo">
+        </b-col>
+      </b-row>
+      <b-row no-gutters>
+        <b-col id="nav--bar--items" class="d-flex flex-column align-items-center">
+          <router-link to="/productos">Productos</router-link>
+          <a href="#mision" @click.prevent="scrollToMissionSection">Quienes Somos</a>
+          <button @click="mostrarFormulario">Contacto</button>
+        </b-col>
+      </b-row>
+    </b-container>
+    <b-container fluid id="contact--modal--id" class="contact--modal">
+      <b-row>
+        <b-col cols="10" lg="4" class="modal--body">
           <div class="close-button" @click="cerrarFormulario">X</div>
           <div class="formContainer" :class="{ 'show-form': mostrarVentana }">
             <form ref="form" @submit.prevent="sendEmail">
@@ -26,9 +36,9 @@
               </button>
             </form>
           </div>
-        </div>
-      </div>
-    </div>
+        </b-col>
+      </b-row>
+    </b-container>
   </div>
 </template>
 
@@ -73,12 +83,12 @@ export default {
       1000);
     },
     mostrarFormulario() {
-      var ventana = document.getElementById('ventanaEmergente');
+      var ventana = document.getElementById('contact--modal--id');
       ventana.style.display = 'block';
       this.mostrarVentana = true;
     },
     cerrarFormulario(event) {
-      var ventana = document.getElementById('ventanaEmergente');
+      var ventana = document.getElementById('contact--modal--id');
       var formulario = document.querySelector('.formContainer');
       if (!formulario.contains(event.target) && ventana.contains(event.target)) {
         ventana.classList.add('ventana-cerrada');
@@ -87,7 +97,7 @@ export default {
       }
     },
     cerrarModal() {
-      const ventana = document.getElementById('ventanaEmergente');
+      const ventana = document.getElementById('contact--modal--id');
       ventana.classList.add('ventana-cerrada');
       this.mostrarVentana = false;
 
@@ -113,101 +123,38 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-  .img_logosos{
-    width: 54%; 
-    height: auto; 
+  .container {
+    width: 67%;
   }
-  .button {
-    font-family:'Helvetica-SOS';
-    font-weight: bold;
-    font-size: 1.8vw;
-    text-align: center;
-    width: 55%;
-    display: inline-block;
-    background-color: transparent;
-    color: rgb(215, 37, 37);
-    text-decoration: none;
-    transition: background-color 0.3s ease, color 0.3s ease;
+  .row {
+    width: 100%;
   }
-  .button-top {
-    //! TO-DO: CLASES CSS COMUNES
-    font-family:'Helvetica-SOS';
-    width: 55%;
-    font-weight: bold;
-    font-size: 1.8vw;
-    text-align: center;
-    display: inline-block;
-    background-color: transparent;
-    color: rgb(215, 37, 37);
-    text-decoration: none;
-    transition: background-color 0.3s ease, color 0.3s ease;
+  .nav--bar--logo{
+    width: inherit;
   }
 
-  .button-bottom {
+  #nav--bar--items{
     font-family:'Helvetica-SOS';
-    width: 55%;
-    font-weight: bold;
-    text-align: center;
-    font-size: 1.8vw;
-    display: inline-block;
-    background-color: transparent;
-    color: rgb(215, 37, 37);
-    text-decoration: none;
-    transition: background-color 0.3s ease, color 0.3s ease;
-    background-color: transparent;
-    border: none;
-    cursor: pointer;
-  }
-
-  .button, .button-top, .button-bottom {
-    margin-top: 1%;
-
-  }
     
-    /* Estilo para cuando el mouse pasa sobre el botón */
-  .button:hover {
-    background-color: rgb(186, 48, 48);
-    color: white;
-  }
-
-  /* Estilo para el margen rojo */
-  .button:hover {
-    border-color: white;
-  }
-
-  /* Estilo para cuando el mouse pasa sobre el botón */
-  .button-top:hover {
-    background-color: rgb(186, 48, 48);
-    color: white;
-  }
-
-  /* Estilo para el margen rojo */
-  .button-top:hover {
-    border-color: white;
-  }
-
-  /* Estilo para cuando el mouse pasa sobre el botón */
-  .button-bottom:hover {
-    background-color: rgb(186, 48, 48);
-    color: white;
-  }
-
-  /* Estilo para el margen rojo */
-  .button-bottom:hover {
-    border-color: white;
-
-  }
-
-  /*.formContainer {
-      display: flex;
-      justify-content: center;
-      align-items: center;
+    & > * {
       width: 100%;
-      height: 100%;
-    }*/
+      border: none;
+      margin-top: 1%;
+      cursor: pointer;
+      font-size: 1.2rem;
+      text-align: center;
+      color: rgb(215, 37, 37);
+      background-color: transparent;
 
+      &:hover {
+        background-color: rgb(186, 48, 48);
+        border-color: white;
+        color: white;
+      }
+    }
+  }
 
-  .ventana-emergente {
+  .contact--modal {
     display: none;
     position: fixed;
     top: 0;
@@ -218,40 +165,23 @@ export default {
     z-index: 999;
   }
 
-
-  .contenido-ventana {
+  .modal--body {
     position: absolute;
+    top: 50%;
+    left: 50%;
     display: flex;
     justify-content: center;
     align-items: center;
-    top: 50%;
-    left: 50%;
+    height: 75%;
+    overflow-y: auto;
+    opacity: 1;
     transform: translate(-50%, -50%) scale(1);
     background-color: rgba(100, 9, 9, 0.8);
-    padding: 20px;
-    width: 25vw;
-    height: 75%;
-    opacity: 1;
-    padding: 20px;
-    max-width: 600px;
-    max-height: 100%;
-    overflow-y: auto;
   }
 
   .iframe-animation {
     animation: openIframe 0.5s ease-in-out forwards;
   }
-
-  /*@keyframes openIframe {
-    0% {
-      opacity: 0;
-      transform: translateY(100%);
-    }
-    100% {
-      opacity: 1;
-      transform: translateY(0%);
-    }
-  }*/
 
   @keyframes openIframe {
     0% {
@@ -265,31 +195,29 @@ export default {
   }
 
   .animate-button {
-  animation-name: button-click-animation;
-  animation-duration: 1s;
-}
+    animation-name: button-click-animation;
+    animation-duration: 1s;
+  }
 
-@keyframes button-click-animation {
-  0% {
-    transform: scale(1);
+  @keyframes button-click-animation {
+    0% {
+      transform: scale(1);
+    }
+    50% {
+      transform: scale(1.2);
+    }
+    100% {
+      transform: scale(1);
+    }
   }
-  50% {
-    transform: scale(1.2);
-  }
-  100% {
-    transform: scale(1);
-  }
-}
   
   h2 {
     color: white;
-    font-family: Helvetica-SOS;
     font-size: 55px;
     text-align: center;
   }
   
   label {
-    font-family: Helvetica-SOS;
     text-align: center;
     display: block;
     margin-bottom: .5em;
@@ -299,7 +227,6 @@ export default {
   
   input,
   textarea {
-    font-family: Helvetica-SOS;
     width: 100%;
     padding: 9.8px;
     border: none;
@@ -329,13 +256,12 @@ export default {
     background-color: #3d8d40; /* Cambia el color de fondo cuando se hace hover */
   }
 
-.close-button {
-  position: absolute;
-  color: rgb(148, 108, 108);
-  font-family: Helvetica-SOS;
-  top: 10px;
-  right: 25px;
-  font-size: 1.2em;
-  cursor: pointer;
-}
+  .close-button {
+    position: absolute;
+    color: rgb(148, 108, 108);
+    top: 10px;
+    right: 25px;
+    font-size: 1.2em;
+    cursor: pointer;
+  }
 </style>

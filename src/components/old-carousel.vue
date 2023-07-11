@@ -1,59 +1,62 @@
 <template>
-  <div class="carousel-wrapper d-flex flex-column align-items-center justify-content-center">
-    <div id="v" class="carousel slide" data-bs-ride="carousel">
-      <div class="carousel-indicators d-flex mb-2">
-        <li
-          data-bs-target="#v"
-          :data-bs-slide-to="i"
-          :class="{'active': i === currentSlide}"
-          v-for="(item, i) in items"
-          :key="i"
-          @click="currentSlide = i"
-        ></li>
-      </div>
-      <div class="carousel-inner" data-bs-target="#v">
-        <div
-          v-for="(item, i) in items"
-          :key="i"
-          :class="{'carousel-item': true, 'active': i === currentSlide}"
-        >
-        <router-link :to="{ path: '/detalles-del-producto', query: { Code: item.Code} }">
-            <div class="d-flex align-items-center justify-content-center h-100">
-              <div class="card text-center" style="max-width: 600px; ">
-                <img
-                  :src="item.Images[0].url"
-                  class="card-img-top"
-                  style="max-width: 600px; max-height: 600px;"
-                  :alt="item.Code"
-                />
-                <div class="card-body">
-                  <h5 class="card-title">{{ item.Brand }}</h5>
-                  <p class="card-text">{{ item.Description }}</p>
-                  <p class="card-text">${{ item.Price }}</p>
+  <b-container fluid>
+    <b-row align-h="center" align-v="center" class="w-100">
+      <b-col cols="11" lg="4" class="carousel-wrapper d-flex flex-column align-items-center justify-content-center w-100">
+        <div id="v" class="carousel slide" data-bs-ride="carousel">
+          <div class="carousel-indicators d-flex mb-2">
+            <li
+              data-bs-target="#v"
+              :data-bs-slide-to="i"
+              :class="{'active': i === currentSlide}"
+              v-for="(item, i) in items"
+              :key="i"
+              @click="currentSlide = i"
+            ></li>
+          </div>
+          <div class="carousel-inner" data-bs-target="#v">
+            <div
+              v-for="(item, i) in items"
+              :key="i"
+              :class="{'carousel-item': true, 'active': i === currentSlide}"
+            >
+            <router-link :to="{ path: '/detalles-del-producto', query: { Code: item.Code} }">
+                <div class="d-flex align-items-center justify-content-center h-100">
+                  <div class="card text-center">
+                    <img
+                      :src="item.Images[0].url"
+                      class="card-img-top"
+                      :alt="item.Code"
+                    />
+                    <div class="card-body">
+                      <h5 class="card-title">{{ item.Brand }}</h5>
+                      <p class="card-text">{{ item.Description }}</p>
+                      <p class="card-text">${{ item.Price }}</p>
+                    </div>
+                  </div>
                 </div>
-              </div>
+              </router-link>
             </div>
-          </router-link>
+            <button
+              class="carousel-control-prev"
+              role="button"
+              data-bs-slide="prev"
+              @click="prevSlide"
+            >
+              <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            </button>
+            <button
+              class="carousel-control-next"
+              role="button"
+              data-bs-slide="next"
+              @click="nextSlide"
+            >
+              <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            </button>
+          </div>
         </div>
-        <button
-          class="carousel-control-prev"
-          role="button"
-          data-bs-slide="prev"
-          @click="prevSlide"
-        >
-          <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-        </button>
-        <button
-          class="carousel-control-next"
-          role="button"
-          data-bs-slide="next"
-          @click="nextSlide"
-        >
-          <span class="carousel-control-next-icon" aria-hidden="true"></span>
-        </button>
-      </div>
-    </div>
-  </div>
+      </b-col>
+    </b-row>
+  </b-container>
 </template>
 
 <script>
@@ -81,11 +84,6 @@ export default {
     prevSlide() {
       this.currentSlide = (this.currentSlide - 1 + this.items.length) % this.items.length;
     },
-    goToProductDetail(item) {
-      // Aquí redirecciona a la página de detalles del producto utilizando el objeto 'item'
-      // Puedes usar el enrutador o el método de redirección adecuado para tu aplicación
-      console.log('Redireccionando a la página de detalles del producto:', item);
-    },
   },
 }
 </script>
@@ -98,9 +96,10 @@ export default {
   align-items: center;
   justify-content: center;
 }
+.card-body{
+}
 
 #v {
-  max-width: 600px;
   width: 100%;
   margin: 0 auto;
   height: 100%;
@@ -116,7 +115,6 @@ export default {
 
 .carousel-item {
   flex: 0 0 100%;
-  max-width: 100%;
   background-size: cover;
   background-position: center;
   font-family: 'Helvetica';
@@ -128,8 +126,8 @@ export default {
   box-shadow: 10px 5px 50px rgba(90, 86, 86, 0.1);
   overflow: hidden;
   transition: all 0.3s ease-in-out;
-  max-width: 90%;
   height: 100%;
+  width: 100%;
 }
 
 .card:hover {
@@ -140,8 +138,6 @@ export default {
   object-fit: cover;
   width: 100%;
   height: 41vh;
-  max-width: 600px;
-  max-height: 600px;
 }
 
 .card-title {
@@ -155,8 +151,6 @@ export default {
   font-family: 'Helvetica-SOS';
   color: #584646;
   text-align: center;
-  max-width: 100%;
-  max-height: 100%;
 }
 
 .carousel-indicators-wrapper {

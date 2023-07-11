@@ -19,6 +19,7 @@ export default {
     async fetchProductDetails() {
       const codigo = this.$route.query.Code;
       const RESPONSE = await api.get('/catalog/get-one-product', { code: codigo });
+      console.log('[NAVA] RESPONSE:', RESPONSE);
       this.product = RESPONSE?.fields;
       this.selectedImage = this.product?.Images[0].url; // Establecer la imagen seleccionada inicialmente como la imagen principal
     },
@@ -39,120 +40,118 @@ export default {
 </script>
 
 <template>
-  <div class="contenedor">
-    <div class="carrito card">
-      <div class="card-body">
-        <div class="holi row">
-          <div class="col">
-            <div class="product-detail">
-              <div class="container-fluid">
-                <div class="row">
-                  <div class="col-lg-4 d-flex align-items-center justify-content-center">
-                    <div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
-                      <a v-for="(image, index) in product?.Images" :key="index" class="nav-link" :id="'product-' + (index + 1) + '-tab'" data-toggle="pill" @click="imageShow($event)" role="tab">
-                        <img :src="image.url" alt class="img-fluid mx-auto d-block tab-img rounded" />
-                      </a>
-                    </div>
-                  </div>
-                  <div class="col-lg-8 d-flex align-items-center">
-                    <div class="tab-content" id="v-pills-tabContent">
-                      <div class="tab-pane fade show active" id="product-1" role="tabpanel">
-                        <div class="product-img">
-                          <img id="expandedImg" :src="selectedImage" alt class="img-fluid mx-auto d-block img-lg" @click="showModal = true"/>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="cucuru col-xl-7 mt-4 mt-xl-3">
-            <h5 class="mt-1 mb-3">{{ product.Description }}</h5>
-            <h5 class="mt-2">
-              <h4 class="text-muted mr-2">${{ product.Price }}</h4>
-            </h5>
-            <p class="mt-3">{{ product.Brand }}</p>
-            <hr class="my-3" style="margin-right: 20%;" />
-            <div class="row">
-              <div class="col-md-12">
-                <div class="mt-4">
-                  <div class="product-desc">
-                    <b-tabs class="nav-tabs-custom colorsito" content-class="border border-top-0 p-4" keep-alive>
-                      <b-tab title="Descripción" active>
-                        <div>
-                          <p>{{ product.Description }}</p>
-                        </div>
-                      </b-tab>
-                      <b-tab title="Especificaciones" class="color">
-                        <div class="table-responsive">
-                          <table class="table table-nowrap mb-0">
-                            <tbody>
-                              <tr>
-                                <th scope="row">Código</th>
-                                <td>{{ product.Code }}</td>
-                              </tr>
-                              <tr>
-                                <th scope="row">Marca</th>
-                                <td>{{ product.Brand }}</td>
-                              </tr>
-                              <tr>
-                                <th scope="row">Modelo de Tractor</th>
-                                <td>{{ product.TruckModel }}</td>
-                              </tr>
-                            </tbody>
-                          </table>
-                        </div>
-                      </b-tab>
-                    </b-tabs>
-                  </div>
-                </div>
-              </div>
+  <b-container fluid class="contenedor">    
+    <b-row class="product--details--container">
+      <b-col sm="12" lg="2" order="2" order-lg="1" class="d-flex align-items-center justify-content-end max-60">
+        <div class="d-flex flex-lg-column align-items-center product--variants--images--container nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
+          <a v-for="(image, index) in product?.Images" :key="index" class="nav-link" :id="'product-' + (index + 1) + '-tab'" data-toggle="pill" @click="imageShow($event)" role="tab">
+            <img :src="image.url" alt class="img-fluid mx-auto d-block tab-img rounded" />
+          </a>
+        </div>
+      </b-col>
+      <b-col sm="12" lg="4" order="1" order-lg="2" class="d-flex align-items-center max-60 selected--product--image--container">
+        <div class="tab-content w-100" id="v-pills-tabContent">
+          <div class="tab-pane fade show active" id="product-1" role="tabpanel">
+            <div class="product-img">
+              <img id="expandedImg" :src="selectedImage" alt class="img-fluid mx-auto d-block img-lg" @click="showModal = true"/>
             </div>
           </div>
         </div>
-      </div>
-    </div>
-    <Footer class="footersillo" />
+      </b-col>
+      <b-col sm="12" lg="4" order="3" order-lg="3" class="product--details--data--container max-60 d-flex flex-column justify-content-center align-items-start justify-content-lg-start pt-4 pl-lg-5">
+        <h5 class="mt-1 mb-3">{{ product.Description }}</h5>
+        <h4 class="text-muted mt-2 mr-2">${{ product.Price }}</h4>
+        <p class="mt-3">{{ product.Brand }}</p>
+        <div class="mt-lg-4 w-100">
+          <b-tabs class="nav-tabs-custom colorsito" content-class="border border-top-0 p-4 " keep-alive>
+            <b-tab title="Descripción" active>
+              <div>
+                <p>{{ product.Description }}</p>
+              </div>
+            </b-tab>
+            <b-tab title="Especificaciones" class="color">
+              <div class="table-responsive">
+                <table class="table table-nowrap mb-0">
+                  <tbody>
+                    <tr>
+                      <th scope="row">Código</th>
+                      <td>{{ product.Code }}</td>
+                    </tr>
+                    <tr>
+                      <th scope="row">Marca</th>
+                      <td>{{ product.Brand }}</td>
+                    </tr>
+                    <tr>
+                      <th scope="row">Modelo de Tractor</th>
+                      <td>{{ product.TruckModel }}</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </b-tab>
+          </b-tabs>
+        </div>
+      </b-col>
+    </b-row>
+    <b-row></b-row>
+    <b-row>
+      <Footer></Footer>
+    </b-row>
     <b-modal v-model="showModal" hide-footer hide-header centered>
       <div class="image-container">
         <b-img :src="selectedImage" alt class="img-fluid mx-auto d-block modal-img" />
       </div>
     </b-modal>
-  </div>
+  </b-container>
 </template>
 
-<style scoped>
+<style lang="scss" scoped>
+.product--details--container {
+  height: fit-content;
+}
+
+.nav-tabs-custom .nav-item .nav-link::after {
+  background-color: red !important;
+}
+
+@media (min-width: 420px) {
+  .product--variants--images--container{
+    width: 100%;
+  }
+  .selected--product--image--container{
+    height: 40vh;
+  }
+  .product--details--data--container {
+    padding-left: 10vw;
+    width: 100%;
+    max-width: 95vw;
+  }
+}
+
+@media (min-width: 992px) {
+  .product--variants--images--container{
+    width: 50%;
+  }
+  .max-60{
+    height: 60vh;
+  }
+}
+
 .contenedor {
   background-color: white;
+  display: grid;
+  grid-template-rows: auto 1fr auto;
   min-height: 100vh;
-  padding-bottom: 70px; /* Añade un espacio para el footer */
+  padding-top: 10vh;
 }
 #v-pills-tab {
   cursor: pointer;
 }
 
-.carrito {
-  background-color: white;
-  width: 99%;
-  min-height: calc(100vh - 70px); /* Ajusta la altura para excluir el espacio del footer */
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.holi {
-  min-height: 70vh;
-  background-color: white;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-wrap: wrap;
-}
-
 .colorsito {
   background-color: white !important;
   width: 100%;
+  min-height: 26vh;
   margin-bottom: 70px; /* Añade espacio para evitar la superposición con el footer */
 }
 
@@ -172,20 +171,6 @@ export default {
   cursor: pointer;
   width: 100%;
   max-height: 1000px;
-}
-
-.cucuru {
-  height: 40vh;
-  width: 40vw;
-}
-
-/* Estilos del footer */
-.footersillo {
-  background-color: #c1272d;
-  position: fixed;
-  bottom: 0;
-  width: 100%;
-  padding-bottom: 1rem;
 }
 
   .image-container {
