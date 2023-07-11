@@ -2,13 +2,3 @@
   from = "/*"
   to = "/index.html"
   status = 200
-
-[dev]
-  functions = "netlify"
-  functionsPort = 8080
-  targetPort = 8080
-
-[build]
-  command = 'npm run build'
-  functions = 'functions'
-  publish = 'build'
