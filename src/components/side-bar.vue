@@ -98,7 +98,7 @@ export default {
     onRoutechange() {
       setTimeout(() => {
         const currentPosition = document.getElementsByClassName("mm-active")[0]
-          .offsetTop;
+          ?.offsetTop;
         if (currentPosition > 400)
           this.$refs.currentMenu.SimpleBar.getScrollElement().scrollTop =
             currentPosition + 200;

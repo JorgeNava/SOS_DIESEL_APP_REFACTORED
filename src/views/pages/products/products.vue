@@ -303,8 +303,8 @@ export default {
 
 
 .pagina{
-  padding: 5vh 5vw;
-  min-height: 100vh;
+  padding: 5vh 2vw;
+  min-height: 75vh;
   background-color: white
 }
 
@@ -312,6 +312,10 @@ h1 {
   font-size: 70px; /* tamaño de la letra */
   font-weight: bold; /* negrita */
   margin: 0; /* eliminamos el margen por defecto del h1 */
+}
+.filtros{
+  padding-left: 4%;
+  font-family: 'Helvetica-SOS';
 }
 
 .form-control::placeholder {
@@ -334,10 +338,11 @@ h1 {
 .search-box .border-danger {
   border-color: red;
 }
-.products--title{
+
+.Productos{
   font-family: 'Helvetica-SOS';
   letter-spacing: 3px;
-  font-size: 3rem;
+  margin-left: 6%;
 }
 
 .product-box{
@@ -349,8 +354,7 @@ h1 {
   font-weight: bold;
   font-family: 'Helvetica-SOS';
 }
-</style>
-<style>
+
 .page-item.active .page-link{
   background-color: #bd0b0b !important; 
 }

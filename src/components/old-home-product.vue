@@ -55,7 +55,7 @@
       if (window.innerWidth < 576) {
         return 'w-50';
       } else {
-        return 'w-25';
+        return '';
       }
     },
   },
