@@ -318,7 +318,11 @@ h1 {
   padding-left: 4%;
   font-family: 'Helvetica-SOS';
 }
-
+.products--title{
+  font-family: 'Helvetica-SOS';
+  letter-spacing: 3px;
+  font-size: 3rem;
+}
 .form-control::placeholder {
     font-weight:bolder;
     font-size: 1.4rem;

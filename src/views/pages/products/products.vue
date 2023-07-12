@@ -179,7 +179,7 @@ export default {
         </b-col>
       </b-row>
       <b-row class="mt-4 mt-lg-5">
-        <b-col sm="12" lg="2" class="ml-4 ml-lg-0">
+        <b-col sm="12" lg="2" class="pl-5">
           <h5 class="font-size-22 mb-4 mt-3 ml-2" style="font-family: 'Helvetica-SOS';">Filtros:</h5>
           <div>
             <h5 class="font-size-20 mb-1 ml-2" style="font-family: 'Helvetica-SOS'; color: rgba(206, 17, 17, 0.889);">Precio</h5>
@@ -338,7 +338,11 @@ h1 {
 .search-box .border-danger {
   border-color: red;
 }
-
+.products--title{
+  font-family: 'Helvetica-SOS';
+  letter-spacing: 3px;
+  font-size: 3rem;
+}
 .Productos{
   font-family: 'Helvetica-SOS';
   letter-spacing: 3px;
