@@ -19,7 +19,6 @@ export default {
     async fetchProductDetails() {
       const codigo = this.$route.query.Code;
       const RESPONSE = await api.get('/catalog/get-one-product', { code: codigo });
-      console.log('[NAVA] RESPONSE:', RESPONSE);
       this.product = RESPONSE?.fields;
       this.selectedImage = this.product?.Images[0].url; // Establecer la imagen seleccionada inicialmente como la imagen principal
     },
@@ -58,7 +57,7 @@ export default {
           </div>
         </div>
       </b-col>
-      <b-col sm="12" lg="4" order="3" order-lg="3" class="product--details--data--container max-60 d-flex flex-column justify-content-center align-items-start justify-content-lg-start pt-4 pl-lg-5">
+      <b-col sm="12" lg="4" order="3" order-lg="3" class="product--details--data--container max-60 d-flex flex-column justify-content-center align-items-start justify-content-lg-start pl-lg-3 pt-lg-5">
         <h5 class="mt-1 mb-3">{{ product.Description }}</h5>
         <h4 class="text-muted mt-2 mr-2">${{ product.Price }}</h4>
         <p class="mt-3">{{ product.Brand }}</p>
@@ -107,6 +106,7 @@ export default {
 
 <style lang="scss" scoped>
 .product--details--container {
+  min-height: 550px;
   height: fit-content;
 }
 
@@ -114,17 +114,17 @@ export default {
   background-color: red !important;
 }
 
+.selected--product--image--container{
+    height: 40vh;
+}
+.product--details--data--container {
+    padding: 5vh;
+    max-width: 100vw;
+}
+
 @media (min-width: 420px) {
   .product--variants--images--container{
     width: 100%;
-  }
-  .selected--product--image--container{
-    height: 40vh;
-  }
-  .product--details--data--container {
-    padding-left: 10vw;
-    width: 100%;
-    max-width: 95vw;
   }
 }
 

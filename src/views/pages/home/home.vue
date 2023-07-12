@@ -3,22 +3,26 @@
       <b-row class="home p-3">
         <HomeProduct :imageUrl="imageUrls.imagenTractor" :imageUrls="imageUrls"/> 
       </b-row>
-      <b-row class="mision mt-5  mb-5 mb-lg-0" id="mision">
-        <b-col cols="12" lg="6" order="2" order-lg="1" class="image w-50 d-flex justify-content-end  pr-4 mb-3 mb-lg-0">
-          <img src="@/assets/images/old_repo/img_panel_testimonials.jpg" alt="" >
-        </b-col>
-        <b-col  order="1" order-lg="2"  class="content w-50 d-flex flex-column justify-content-start p-3">
-          <h1 class="mision-y-vision--title m-0 ">SOS DIESEL PARTS</h1>
-          <p class="mision-y-vision--subtitle mb-3 ">MISION Y VISIÓN</p>
-          <div class="mision-y-vision--text" >
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed ut tellus vitae nibh tristique vestibulum. Sed facilisis ipsum nec metus placerat, eget aliquet lectus blandit.</p>
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed ut tellus vitae nibh tristique vestibulum. Sed facilisis ipsum nec metus placerat, eget aliquet lectus blandit.</p>
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed ut tellus vitae nibh tristique vestibulum. Sed facilisis ipsum nec metus placerat, eget aliquet lectus blandit.</p>
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed ut tellus vitae nibh tristique vestibulum. Sed facilisis ipsum nec metus placerat, eget aliquet lectus blandit.</p>
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed ut tellus vitae nibh tristique vestibulum. Sed facilisis ipsum nec metus placerat, eget aliquet lectus blandit.</p>
-          </div>
-        </b-col>
-      </b-row>
+      <div class="mision--container d-flex mt-5 mb-5 mb-lg-0 mt-lg-0">
+        <b-row class="mision" id="mision">
+          <b-col cols="12" lg="6" order="2" order-lg="1" class="image d-flex justify-content-end pr-4 mb-3 mb-lg-0">
+            <img src="@/assets/images/old_repo/img_panel_testimonials.jpg" alt="" >
+          </b-col>
+          <b-col  order="1" order-lg="2">
+            <div class="content d-flex flex-column justify-content-start p-3">
+              <h1 class="mision-y-vision--title m-0 ">SOS DIESEL PARTS</h1>
+              <p class="mision-y-vision--subtitle mb-3 ">MISION Y VISIÓN</p>
+              <div class="mision-y-vision--text" >
+                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed ut tellus vitae nibh tristique vestibulum. Sed facilisis ipsum nec metus placerat, eget aliquet lectus blandit.</p>
+                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed ut tellus vitae nibh tristique vestibulum. Sed facilisis ipsum nec metus placerat, eget aliquet lectus blandit.</p>
+                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed ut tellus vitae nibh tristique vestibulum. Sed facilisis ipsum nec metus placerat, eget aliquet lectus blandit.</p>
+                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed ut tellus vitae nibh tristique vestibulum. Sed facilisis ipsum nec metus placerat, eget aliquet lectus blandit.</p>
+                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed ut tellus vitae nibh tristique vestibulum. Sed facilisis ipsum nec metus placerat, eget aliquet lectus blandit.</p>
+              </div>
+            </div>
+          </b-col>
+        </b-row>
+      </div>
       <b-row class="d-flex justify-content-center align-items-center my-5">
         <Carousel :slides="carouselImages" /> 
       </b-row>
@@ -129,7 +133,9 @@ export default {
   flex-direction: column;
   min-height: 100vh; /* Asegura que el contenido no se superponga al hacer scroll */
 }
-
+.mision--container{
+  min-height: 100vh;
+}
 .mision {
   display: flex;
   max-width: 75%; /* Permite que la sección se reduzca si el espacio disponible es menor */
@@ -171,10 +177,14 @@ export default {
     &--text{
       word-wrap: break-word;
       font-size: .9rem;
+      @media (min-width: 420px) {
+        & {
+          font-size: 1.1rem;
+        }
+      }
     }
   }
 
- 
   .footersillo {
     width: 100%;
     background-color: #C1272D;

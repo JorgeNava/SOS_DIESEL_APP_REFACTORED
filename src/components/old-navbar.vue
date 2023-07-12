@@ -16,7 +16,7 @@
     </b-container>
     <b-container fluid id="contact--modal--id" class="contact--modal">
       <b-row>
-        <b-col cols="10" lg="4" class="modal--body">
+        <b-col cols="10" lg="3" class="modal--body">
           <div class="close-button" @click="cerrarFormulario">X</div>
           <div class="formContainer" :class="{ 'show-form': mostrarVentana }">
             <form ref="form" @submit.prevent="sendEmail">
@@ -151,6 +151,12 @@ export default {
         border-color: white;
         color: white;
       }
+
+      @media (min-width: 420px) {
+        & {
+          font-size: 1.6rem;
+        }
+      }
     }
   }
 
@@ -169,12 +175,11 @@ export default {
     position: absolute;
     top: 50%;
     left: 50%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
     height: 75%;
     overflow-y: auto;
     opacity: 1;
+    display: inline-block;
+    padding: 1% 3%;
     transform: translate(-50%, -50%) scale(1);
     background-color: rgba(100, 9, 9, 0.8);
   }

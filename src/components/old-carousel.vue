@@ -1,7 +1,7 @@
 <template>
   <b-container fluid>
-    <b-row align-h="center" align-v="center" class="w-100">
-      <b-col cols="11" lg="4" class="carousel-wrapper d-flex flex-column align-items-center justify-content-center w-100">
+    <b-row align-h="center" align-v="center" class="w-100 mx-0">
+      <b-col cols="10" lg="3" class="carousel-wrapper d-flex flex-column align-items-center justify-content-center w-100">
         <div id="v" class="carousel slide" data-bs-ride="carousel">
           <div class="carousel-indicators d-flex mb-2">
             <li
@@ -88,7 +88,7 @@ export default {
 }
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
 .carousel-wrapper {
   max-height: 90vh;
   overflow: hidden;
@@ -137,7 +137,7 @@ export default {
 .card-img-top {
   object-fit: cover;
   width: 100%;
-  height: 41vh;
+  max-height: 430px;
 }
 
 .card-title {
